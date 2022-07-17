@@ -18,9 +18,11 @@ namespace Signals
         public UnityAction onRestartLevel = delegate { };
         public UnityAction onPlay = delegate { };
         public UnityAction onReset = delegate { };
-        
+
         public UnityAction onSetCameraTarget = delegate { };
-        
+        public UnityAction onStageAreaReached = delegate { };
+        public UnityAction onStageSuccessful = delegate { };
+
         public Func<int> onGetLevelID = delegate { return 0; };
     }
 }
