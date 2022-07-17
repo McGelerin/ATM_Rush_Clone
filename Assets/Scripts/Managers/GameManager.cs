@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     #region Public Variables
 
-    public GameStates States;
+   
 
     #endregion
 
@@ -31,13 +31,13 @@ public class GameManager : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        CoreGameSignals.Instance.onChangeGameState += OnChangeGameState;
+       
         CoreGameSignals.Instance.onSaveGameData += OnSaveGame;
     }
 
     private void UnsubscribeEvents()
     {
-        CoreGameSignals.Instance.onChangeGameState -= OnChangeGameState;
+     
         CoreGameSignals.Instance.onSaveGameData -= OnSaveGame;
     }
 
@@ -46,10 +46,7 @@ public class GameManager : MonoBehaviour
         UnsubscribeEvents();
     }
 
-    private void OnChangeGameState(GameStates newState)
-    {
-        States = newState;
-    }
+    
 
     private void OnSaveGame(SaveGameDataParams saveDataParams)
     {
