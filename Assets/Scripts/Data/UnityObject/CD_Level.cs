@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Data.UnityObject
 {
-    [CreateAssetMenu(fileName = "CD_Level", menuName = "Picker3D/CD_Level", order = 0)]
+    [CreateAssetMenu(fileName = "CD_Level", menuName = "ATM_Rush/CD_Level", order = 0)]
     public class CD_Level : ScriptableObject
     {
-        public List<LevelData> Levels = new List<LevelData>();
+        public List<int> Levels = new List<int>();
     }
 }
