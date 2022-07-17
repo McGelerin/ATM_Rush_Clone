@@ -29,7 +29,6 @@ namespace Managers
         {
             UISignals.Instance.onOpenPanel += OnOpenPanel;
             UISignals.Instance.onClosePanel += OnClosePanel;
-            UISignals.Instance.onUpdateStageData += OnUpdateStageData;
             UISignals.Instance.onSetLevelText += OnSetLevelText;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
@@ -40,7 +39,6 @@ namespace Managers
         {
             UISignals.Instance.onOpenPanel -= OnOpenPanel;
             UISignals.Instance.onClosePanel -= OnClosePanel;
-            UISignals.Instance.onUpdateStageData -= OnUpdateStageData;
             UISignals.Instance.onSetLevelText -= OnSetLevelText;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
@@ -53,7 +51,6 @@ namespace Managers
         }
 
         #endregion
-
         private void OnOpenPanel(UIPanels panelParam)
         {
             uiPanelController.OpenPanel(panelParam);
@@ -63,12 +60,7 @@ namespace Managers
         {
             uiPanelController.ClosePanel(panelParam);
         }
-
-        private void OnUpdateStageData(int value)
-        {
-            levelPanelController.UpdateStageData(value);
-        }
-
+        
         private void OnSetLevelText(int value)
         {
             levelPanelController.SetLevelText(value);

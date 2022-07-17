@@ -30,5 +30,6 @@ namespace Controllers
         {
             stageImages[value].DOColor(Color.green, .5f).SetEase(Ease.Linear);
         }
+        
     }
 }
