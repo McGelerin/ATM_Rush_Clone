@@ -16,7 +16,7 @@ namespace Managers
 
         #region Public Variables
 
-        [Header("Data")] public int Data;
+        [Header("Data")] public LevelData Data;
 
         #endregion
 
@@ -48,9 +48,9 @@ namespace Managers
             return ES3.KeyExists("Level") ? ES3.Load<int>("Level") : 0;
         }
 
-        private int GetLevelData()
+        private LevelData GetLevelData()
         {
-            int newLevelData = _levelID % Resources.Load<CD_Level>("Data/CD_Level").Levels.Count;
+            var newLevelData = _levelID % Resources.Load<CD_Level>("Data/CD_Level").Levels.Count;
             return Resources.Load<CD_Level>("Data/CD_Level").Levels[newLevelData];
         }
 

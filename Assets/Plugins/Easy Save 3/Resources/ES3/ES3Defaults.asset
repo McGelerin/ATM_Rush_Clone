@@ -31,8 +31,8 @@ MonoBehaviour:
     assemblyNames:
     - Assembly-CSharp-firstpass
     - Cinemachine
-    - Assembly-CSharp
     - Sirenix.OdinInspector.CompatibilityLayer
+    - Assembly-CSharp
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 1
