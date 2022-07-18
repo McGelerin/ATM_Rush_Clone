@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 093b6b4699fa6494bbd96e8998949fe2, type: 3}
-  m_Name: CD_CollectableData 1
+  m_Name: CD_CollectableData
   m_EditorClassIdentifier: 
-  CollectableType: 2
+  CollectableType: 1
   CollectableMeshData:
     meshdatas:
     - {fileID: -2929563531361107545, guid: 5cfe293773e94ec4390b42f3350b7b56, type: 3}
