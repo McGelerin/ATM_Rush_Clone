@@ -24,24 +24,24 @@ namespace Controllers
         {
          
 
-            if (other.CompareTag("Obstacle"))
-            {
-              
-            }
-
-            if (other.CompareTag("WinZone"))
-            {
-
-            }
-
-            if (other.CompareTag("ATM"))
-            {
-                
-            }  
-            if (other.CompareTag("Collectable"))
-            {
-                
-            }
+            // if (other.CompareTag("Obstacle"))
+            // {
+            //   
+            // }
+            //
+            // if (other.CompareTag("WinZone"))
+            // {
+            //
+            // }
+            //
+            // if (other.CompareTag("ATM"))
+            // {
+            //     
+            // }  
+            // if (other.CompareTag("Collectable"))
+            // {
+            //     
+            // }
         }
         
     }

@@ -5,10 +5,9 @@ namespace Enums
     [Serializable]
     public enum UIPanels
     {
+        StartPanel,
+        LevelPanel,
         WinPanel,
         FailPanel,
-        LevelPanel,
-        MiniGamePanel,
-        StartPanel
     }
 }

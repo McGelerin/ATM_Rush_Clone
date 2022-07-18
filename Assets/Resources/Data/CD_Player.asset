@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71aab38df7c54b30945e758e02ba2f5e, type: 3}
-  m_Name: CD_Level
+  m_Script: {fileID: 11500000, guid: 9c404a63fb6ac584cb735e01c9d656bb, type: 3}
+  m_Name: CD_Player
   m_EditorClassIdentifier: 
-  Levels: 0a000000
+  Data:
+    MovementData:
+      ForwardSpeed: 5
+      SidewaysSpeed: 1.5
