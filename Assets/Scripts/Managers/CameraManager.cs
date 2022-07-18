@@ -77,7 +77,9 @@ namespace Managers
         private void OnSetCameraTarget()
         {
             var playerManager = FindObjectOfType<PlayerManager>().transform;
+           
             virtualCamera.Follow = playerManager;
+            
          
         }
 
