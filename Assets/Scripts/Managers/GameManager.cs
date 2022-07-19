@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     #region Public Variables
 
-    public GameStates States;
+   
 
     #endregion
 
@@ -31,14 +31,14 @@ public class GameManager : MonoBehaviour
 
     private void SubscribeEvents()
     {
-        CoreGameSignals.Instance.onChangeGameState += OnChangeGameState;
-        CoreGameSignals.Instance.onSaveGameData += OnSaveGame;
+       
+        CoreGameSignals.Instance.onSaveGameData += onSaveGame;
     }
 
     private void UnsubscribeEvents()
     {
-        CoreGameSignals.Instance.onChangeGameState -= OnChangeGameState;
-        CoreGameSignals.Instance.onSaveGameData -= OnSaveGame;
+     
+        CoreGameSignals.Instance.onSaveGameData -= onSaveGame;
     }
 
     private void OnDisable()
@@ -46,18 +46,11 @@ public class GameManager : MonoBehaviour
         UnsubscribeEvents();
     }
 
-    private void OnChangeGameState(GameStates newState)
-    {
-        States = newState;
-    }
+    
 
-    private void OnSaveGame(SaveGameDataParams saveDataParams)
+    private void onSaveGame(SaveGameDataParams saveDataParams)
     {
-        if (saveDataParams.Level != null)
-        {
-            ES3.Save("Level", saveDataParams.Level);
-        }
-
+        if (saveDataParams.Level != null) ES3.Save("Level", saveDataParams.Level);
         if (saveDataParams.Coin != null) ES3.Save("Coin", saveDataParams.Coin);
         if (saveDataParams.SFX != null) ES3.Save("SFX", saveDataParams.SFX);
         if (saveDataParams.VFX != null) ES3.Save("VFX", saveDataParams.VFX);

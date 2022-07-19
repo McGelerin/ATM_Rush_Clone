@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 093b6b4699fa6494bbd96e8998949fe2, type: 3}
   m_Name: CD_CollectableData 1
   m_EditorClassIdentifier: 
-  Meshs:
-  - meshdatas:
+  CollectableType: 2
+  CollectableMeshData:
+    meshdatas:
     - {fileID: -2929563531361107545, guid: 5cfe293773e94ec4390b42f3350b7b56, type: 3}
     - {fileID: 4306747591942989996, guid: 5cfe293773e94ec4390b42f3350b7b56, type: 3}
     - {fileID: 6090316629543274135, guid: 5cfe293773e94ec4390b42f3350b7b56, type: 3}

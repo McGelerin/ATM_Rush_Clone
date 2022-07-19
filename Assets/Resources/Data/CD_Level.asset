@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71aab38df7c54b30945e758e02ba2f5e, type: 3}
   m_Name: CD_Level
   m_EditorClassIdentifier: 
-  Levels: 00000000
+  Levels: 0a000000

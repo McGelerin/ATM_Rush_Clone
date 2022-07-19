@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Extentions;
+using UnityEngine.Events;
 
-public class ScoreSignals : MonoBehaviour
+namespace Signals
 {
-    // Start is called before the first frame update
-    void Start()
+    public class ScoreSignals : MonoSingleton<ScoreSignals>
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public UnityAction<int> onScoreUp = delegate {  };
+        public UnityAction<int> onScoreDown = delegate {  };
+        public UnityAction<int> onSetScore = delegate {  };
     }
 }
