@@ -1,18 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using Extentions;
 
-public class StackSignals : MonoBehaviour
+namespace Signals
 {
-    // Start is called before the first frame update
-    void Start()
+    public class StackSignals : MonoSingleton<StackSignals>
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public UnityAction<GameObject> onInteractionATM = delegate { };
+        public UnityAction<GameObject> onIteractionObstacle = delegate { };
+        public UnityAction<GameObject> onInteractionCollectable = delegate { };
     }
 }

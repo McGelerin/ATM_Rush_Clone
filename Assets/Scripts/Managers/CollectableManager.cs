@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Controllers;
+using Signals;
 using Enums;
 using Data.UnityObject;
 using Data.ValueObject;
@@ -13,6 +14,9 @@ public class CollectableManager : MonoBehaviour
     #region Public Variables
     [Header("Data")] public CollectableMeshData MeshData;
 
+    [Space]
+    public bool IsCollectable;
+    
     //Type deðime durumu
     public CollectableType CollectableMeshType {
         get=> _collectableType;
@@ -22,7 +26,6 @@ public class CollectableManager : MonoBehaviour
             SendCollectableMeshDataToControllers();
         }
             }
-
     #endregion
     #region SerializeField Variables
     [SerializeField] private CollactableMeshController collactableMeshController;
@@ -34,38 +37,67 @@ public class CollectableManager : MonoBehaviour
 
     private void Awake()
     {
+        IsCollectable = true;
         MeshData = GetMeshData();
         CollectableMeshType = CollectableType.Money;
     }
-
     private CollectableMeshData GetMeshData() => Resources.Load<CD_CollectableData>("Data/CD_CollectableData").CollectableMeshData;
-
     private void SendCollectableMeshDataToControllers()
     {
         collactableMeshController.SetMeshData(MeshData,CollectableMeshType);
     }
 
+    //#region Event Subscription
+    //private void OnEnable()
+    //{
+    //    SubscribeEvent();
 
-    //Test
-    private void Update()
+    //}
+    //private void SubscribeEvent()
+    //{
+    //    StackSignals.Instance.onInteractionCollectable += OnIteractionWithCollectable;
+    //    StackSignals.Instance.onIteractionObstacle += OnIteractionWithObstacle;
+    //    StackSignals.Instance.onInteractionATM += OnIteractionWithATM;
+        
+    //}    
+    
+    //private void UnSubscribeEvent()
+    //{
+    //    StackSignals.Instance.onInteractionCollectable -= OnIteractionWithCollectable;
+    //    StackSignals.Instance.onIteractionObstacle -= OnIteractionWithObstacle;
+    //    StackSignals.Instance.onInteractionATM -= OnIteractionWithATM;
+    //}
+
+    //private void OnDisable()
+    //{
+    //    UnSubscribeEvent();
+    //}
+    //#endregion
+
+    public void OnIteractionWithCollectable(GameObject gameObject)
     {
-        if (Input.GetMouseButton(0))
-        {
-            CollectableMeshType = CollectableType.Diamond;
-        }
+        IsCollectable = false;
+        StackSignals.Instance.onInteractionCollectable?.Invoke(gameObject);
+        Debug.Log("Topladý");
     }
 
-    public void onIteractionWithATM()
+    public void OnIteractionWithATM(GameObject gameObject)
     {
-        
+        StackSignals.Instance.onInteractionATM?.Invoke(gameObject);
     }
-    public void onIteractionWithCollectable()
+
+    public void OnIteractionWithObstacle(GameObject gameObject)
     {
-        
+        IsCollectable = true;
+        StackSignals.Instance.onIteractionObstacle?.Invoke(gameObject);
+        Debug.Log("Daðýldý");
     }
 
     public void CollectableMeshUpdater()
     {
-        
+        if ((int)CollectableMeshType < 2)
+        {
+            CollectableMeshType++;
+        }
     }
 }
