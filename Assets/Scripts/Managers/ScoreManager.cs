@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Signals;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public abstract class ScoreManager : MonoBehaviour
 {
@@ -26,33 +28,49 @@ public abstract class ScoreManager : MonoBehaviour
 
     #endregion
 
+    #region EventSubscribtion
+
+    private void OnEnable()
+    {
+        SubscriptionEvent();
+    }
+
+    private void SubscriptionEvent()
+    {
+        ScoreSignals.Instance.onScoreUp += OnScoreUp;
+        ScoreSignals.Instance.onScoreDown += OnScoreUp;
+        ScoreSignals.Instance.onSetScore += OnSetScore;
+    }
+
+    private void UnSubscriptionEvent()
+    {
+        ScoreSignals.Instance.onScoreUp -= OnScoreUp;
+        ScoreSignals.Instance.onScoreDown -= OnScoreUp;
+        ScoreSignals.Instance.onSetScore -= OnSetScore;
+    }
     
-    public int onSetScore()
+    private void OnDisable()
     {
-        return 0;
-    }
-    public void onScoreUp()
-    {
-        
-    }
-    public void onScoreDown()
-    {
-        
-    }
-    public void Reset()
-    {
-        
+        UnSubscriptionEvent();
     }
 
+    #endregion
 
-    // Start is called before the first frame update
-    void Start()
+    public void OnSetScore(int setScore)
     {
+        Score += setScore;
         
     }
-
-    // Update is called once per frame
-    void Update()
+    public void OnScoreUp(int scoreValue)
+    {
+        _scoreCache += scoreValue;
+        
+    }
+    public void OnScoreDown(int scoreValue)
+    {
+        _scoreCache -= scoreValue;
+    }
+    public void OnReset()
     {
         
     }
