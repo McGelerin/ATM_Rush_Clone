@@ -98,7 +98,9 @@ namespace Managers
             CoreGameSignals.Instance.onReset?.Invoke();
             CoreGameSignals.Instance.onSaveGameData?.Invoke(new SaveGameDataParams()
             {
-                Level = _levelID
+                Level = _levelID,
+
+
             });
             CoreGameSignals.Instance.onLevelInitialize?.Invoke();
         }
