@@ -18,7 +18,7 @@ public class CollectableManager : MonoBehaviour
     public bool IsCollectable;
     
     //Type deðime durumu
-    public CollectableType CollectableMeshType {
+    public CollectableType CollectableTypeValue {
         get=> _collectableType;
         private set
         {
@@ -39,12 +39,12 @@ public class CollectableManager : MonoBehaviour
     {
         IsCollectable = true;
         MeshData = GetMeshData();
-        CollectableMeshType = CollectableType.Money;
+        CollectableTypeValue = CollectableType.Money;
     }
     private CollectableMeshData GetMeshData() => Resources.Load<CD_CollectableData>("Data/CD_CollectableData").CollectableMeshData;
     private void SendCollectableMeshDataToControllers()
     {
-        collactableMeshController.SetMeshData(MeshData,CollectableMeshType);
+        collactableMeshController.SetMeshData(MeshData,CollectableTypeValue);
     }
 
     //#region Event Subscription
@@ -95,9 +95,9 @@ public class CollectableManager : MonoBehaviour
 
     public void CollectableMeshUpdater()
     {
-        if ((int)CollectableMeshType < 2)
+        if ((int)CollectableTypeValue < 2)
         {
-            CollectableMeshType++;
+            CollectableTypeValue++;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Controllers {
     {
         #region Self Variables
         #region Serializefield Variables
-        [SerializeField] private MeshFilter meshFilter;
+        [SerializeField] private MeshFilter collectableMeshFilter;
         #endregion
 
         #region Private Variables
@@ -23,7 +23,7 @@ namespace Controllers {
         {
             _collectabletype = type;
             _collectableMeshData = dataMeshData;
-            meshFilter.mesh = _collectableMeshData.meshdatas[(int)_collectabletype];
+            collectableMeshFilter.mesh = _collectableMeshData.meshdatas[(int)_collectabletype];
         }
     }
 }

@@ -8,7 +8,7 @@ public class CollectablePhysicController : MonoBehaviour
 {
     #region Self Variables
     #region Public Variables
-    public bool Collectableinstack = false;
+    public bool CollectableInStack = false;
     #endregion
     #region Serializefield Variables
     [SerializeField] private CollectableManager collectableManager;
@@ -21,9 +21,9 @@ public class CollectablePhysicController : MonoBehaviour
     {
         if (other.CompareTag("Collectable"))
         {
-            if (!collectableManager.IsCollectable && Collectableinstack)
+            if (!collectableManager.IsCollectable && CollectableInStack)
             {
-                Collectableinstack = true;
+                CollectableInStack = true;
                 collectableManager.OnIteractionWithCollectable(this.transform.parent.gameObject);
             }
         }
@@ -32,8 +32,8 @@ public class CollectablePhysicController : MonoBehaviour
         {
             if (collectableManager.IsCollectable)
             {
-                Collectableinstack = true;
-                Debug.Log(Collectableinstack);
+                CollectableInStack = true;
+                Debug.Log(CollectableInStack);
                 collectableManager.OnIteractionWithCollectable(this.transform.parent.gameObject);
             }
         }
@@ -50,7 +50,7 @@ public class CollectablePhysicController : MonoBehaviour
 
         else if (other.CompareTag("Obstacle"))
         {
-            Collectableinstack = false;
+            CollectableInStack = false;
             collectableManager.OnIteractionWithObstacle(this.transform.parent.gameObject);
         }
     }
