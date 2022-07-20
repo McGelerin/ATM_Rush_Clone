@@ -4,7 +4,7 @@ namespace Extentions
 {
     public class MonoSingleton<T> : MonoBehaviour where T : Component
     {
-        private static  T _instance;
+        private static volatile T _instance;
 
         public static T Instance
         {

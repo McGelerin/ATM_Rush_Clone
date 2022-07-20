@@ -59,14 +59,17 @@ namespace Controllers
         {
             if (_isReadyToPlay)
             {
+                
                 if (_isReadyToMove)
                 {
                     Move();
+                    
                 }
                 else
                 {
                     StopSideways();
                 }
+                manager.OnSetStackPosition();
             }
             else
                 Stop();
