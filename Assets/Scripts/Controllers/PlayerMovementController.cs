@@ -62,6 +62,7 @@ namespace Controllers
                 if (_isReadyToMove)
                 {
                     Move();
+                    manager.OnSetStackPosition();
                 }
                 else
                 {

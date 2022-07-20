@@ -117,8 +117,12 @@ namespace Managers
             movementController.IsReadyToPlay(false);
         }
 
+        public void OnSetStackPosition()
+        {
+            Vector2 pos = new Vector2(transform.position.x,transform.position.z);
+            StackSignals.Instance.onStackFollowPlayer?.Invoke(pos);
+        }
  
-
         private void OnReset()
         {
             movementController.OnReset();

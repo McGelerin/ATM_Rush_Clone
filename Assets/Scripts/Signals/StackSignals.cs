@@ -12,5 +12,6 @@ namespace Signals
         public UnityAction<GameObject> onInteractionATM = delegate { };
         public UnityAction<GameObject> onIteractionObstacle = delegate { };
         public UnityAction<GameObject> onInteractionCollectable = delegate { };
+        public UnityAction<Vector2> onStackFollowPlayer = delegate { };
     }
 }
