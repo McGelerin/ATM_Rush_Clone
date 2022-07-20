@@ -28,20 +28,20 @@ namespace Controllers
         {
             if (other.CompareTag("Collectable") && this.CompareTag("Collected"))
             {
-                Debug.Log("topladý");
+                
                 other.tag = "Collected";
                 collectableManager.OnIteractionWithCollectable(other.transform.parent.gameObject);
             }
 
-            if (other.CompareTag("Player"))
-            {
-                if (!CollectableInStack)
-                {
-                    Debug.Log("Player topladý");
-                    this.tag = "Collected";
-                    collectableManager.OnIteractionWithCollectable(this.transform.parent.gameObject);
-                }
-            }
+            // if (other.CompareTag("Player"))
+            // {
+            //     if (!CollectableInStack)
+            //     {
+            //         CollectableInStack = true;
+            //         this.tag = "Collected";
+            //         collectableManager.OnIteractionWithCollectable(this.transform.parent.gameObject);
+            //     }
+            // }
 
             if (other.CompareTag("CollectableUpdater"))
             {

@@ -17,7 +17,7 @@ public class CollectableManager : MonoBehaviour
     [Space]
     public bool IsCollectable;
     
-    //Type deðime durumu
+    //Type deï¿½ime durumu
     public CollectableType CollectableTypeValue {
         get=> _collectableType;
         private set
@@ -88,7 +88,7 @@ public class CollectableManager : MonoBehaviour
     public void OnIteractionWithObstacle(GameObject collectableGameObject)
     {
         StackSignals.Instance.onIteractionObstacle?.Invoke(collectableGameObject);
-        Debug.Log("Daðýldý");
+    
     }
 
     public void CollectableMeshUpdater()
