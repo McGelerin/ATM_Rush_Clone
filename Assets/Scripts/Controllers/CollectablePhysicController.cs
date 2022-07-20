@@ -4,54 +4,61 @@ using UnityEngine;
 using Managers;
 using Sirenix.OdinInspector;
 
-public class CollectablePhysicController : MonoBehaviour
+namespace Controllers
 {
-    #region Self Variables
-    #region Public Variables
-    public bool CollectableInStack = false;
-    #endregion
-    #region Serializefield Variables
-    [SerializeField] private CollectableManager collectableManager;
-    #endregion
-    #region Private Variables
-    #endregion
-    #endregion
-
-    private void OnTriggerEnter(Collider other)
+    public class CollectablePhysicController : MonoBehaviour
     {
-        if (other.CompareTag("Collectable"))
-        {
-            if (!collectableManager.IsCollectable && CollectableInStack)
-            {
-                CollectableInStack = true;
-                collectableManager.OnIteractionWithCollectable(this.transform.parent.gameObject);
-            }
-        }
-
-        else if (other.CompareTag("Player"))
-        {
-            if (collectableManager.IsCollectable)
-            {
-                CollectableInStack = true;
-                Debug.Log(CollectableInStack);
-                collectableManager.OnIteractionWithCollectable(this.transform.parent.gameObject);
-            }
-        }
-
-        else if (other.CompareTag("CollectableUpdater"))
-        {
-            collectableManager.CollectableMeshUpdater();
-        }
-
-        else if (other.CompareTag("ATM"))
-        {
-            collectableManager.OnIteractionWithATM(this.transform.parent.gameObject);
-        }
-
-        else if (other.CompareTag("Obstacle"))
+        #region Self Variables
+        #region Public Variables
+        public bool CollectableInStack;
+        #endregion
+        #region Serializefield Variables
+        [SerializeField] private CollectableManager collectableManager;
+        #endregion
+        #region Private Variables
+        #endregion
+        #endregion
+        private void Awake()
         {
             CollectableInStack = false;
-            collectableManager.OnIteractionWithObstacle(this.transform.parent.gameObject);
+        }
+
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Collectable") && this.CompareTag("Collected"))
+            {
+                Debug.Log("topladý");
+                other.tag = "Collected";
+                collectableManager.OnIteractionWithCollectable(other.transform.parent.gameObject);
+            }
+
+            if (other.CompareTag("Player"))
+            {
+                if (!CollectableInStack)
+                {
+                    Debug.Log("Player topladý");
+                    this.tag = "Collected";
+                    collectableManager.OnIteractionWithCollectable(this.transform.parent.gameObject);
+                }
+            }
+
+            if (other.CompareTag("CollectableUpdater"))
+            {
+                collectableManager.CollectableMeshUpdater();
+            }
+
+            if (other.CompareTag("ATM"))
+            {
+                collectableManager.OnIteractionWithATM(this.transform.parent.gameObject);
+            }
+
+            if (other.CompareTag("Obstacle"))
+            {
+
+                collectableManager.OnIteractionWithObstacle(this.transform.parent.gameObject);
+            }
         }
     }
 }
+

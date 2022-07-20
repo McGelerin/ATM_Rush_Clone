@@ -1,50 +1,95 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Signals;
 
-public class StackManager : MonoBehaviour
+namespace Managers
 {
+    public class StackManager : MonoBehaviour
+    {
+        #region Self Variables
+        #region Public Variables
+        public List<GameObject> CollectableStack = new List<GameObject>();
+        public List<GameObject> CollectableStackValues = new List<GameObject>();
+        #endregion
+        #endregion
 
-    public void StackCollectableRemove()
-    {
-        
-    }
+        #region Event Subscription
+        private void OnEnable()
+        {
+            SubscribeEvent();
 
-    public void OnReset()
-    {
-        
-    }
+        }
+        private void SubscribeEvent()
+        {
+            StackSignals.Instance.onInteractionCollectable += OnIteractionWithCollectable;
+            StackSignals.Instance.onIteractionObstacle += OnIteractionWithObstacle;
+            StackSignals.Instance.onInteractionATM += OnIteractionWithATM;
 
-    public void LerpFunction()
-    {
-        
-    }
-    public void onIteractionWithATM()
-    {
-        
-    }
-    public void onIteractionWithCollectable()
-    {
-        
-    }
-    public void RemoveStackList()
-    {
-        
-    }
-    public void AddStackList()
-    {
-        
-    }
+        }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        private void UnSubscribeEvent()
+        {
+            StackSignals.Instance.onInteractionCollectable -= OnIteractionWithCollectable;
+            StackSignals.Instance.onIteractionObstacle -= OnIteractionWithObstacle;
+            StackSignals.Instance.onInteractionATM -= OnIteractionWithATM;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void OnDisable()
+        {
+            UnSubscribeEvent();
+        }
+        #endregion
+
+        public void OnIteractionWithATM(GameObject collectableGameObject)
+        {
+
+        }
+        public void OnIteractionWithCollectable(GameObject collectableGameObject)
+        {
+            AddStackList(collectableGameObject);
+        }
+        public void OnIteractionWithObstacle(GameObject collectableGameObject)
+        {
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public void AddStackList(GameObject collectableGameObject)
+        {
+            CollectableStack.Add(collectableGameObject);
+        }
+
+        public void RemoveStackList()
+        {
+
+        }
+
+        public void StackCollectableRemove()
+        {
+
+        }
+
+        public void LerpFunction()
+        {
+
+        }
+
+        public void OnReset()
+        {
+
+        }
     }
 }
+

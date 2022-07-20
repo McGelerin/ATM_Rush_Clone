@@ -74,22 +74,20 @@ public class CollectableManager : MonoBehaviour
     //}
     //#endregion
 
-    public void OnIteractionWithCollectable(GameObject gameObject)
+    public void OnIteractionWithCollectable(GameObject collectableGameObject)
     {
-        IsCollectable = false;
-        StackSignals.Instance.onInteractionCollectable?.Invoke(gameObject);
-        Debug.Log("Topladý");
+        collectableGameObject.tag = "Collected";
+        StackSignals.Instance.onInteractionCollectable?.Invoke(collectableGameObject);
     }
 
-    public void OnIteractionWithATM(GameObject gameObject)
+    public void OnIteractionWithATM(GameObject collectableGameObject)
     {
-        StackSignals.Instance.onInteractionATM?.Invoke(gameObject);
+        StackSignals.Instance.onInteractionATM?.Invoke(collectableGameObject);
     }
 
-    public void OnIteractionWithObstacle(GameObject gameObject)
+    public void OnIteractionWithObstacle(GameObject collectableGameObject)
     {
-        IsCollectable = true;
-        StackSignals.Instance.onIteractionObstacle?.Invoke(gameObject);
+        StackSignals.Instance.onIteractionObstacle?.Invoke(collectableGameObject);
         Debug.Log("Daðýldý");
     }
 
