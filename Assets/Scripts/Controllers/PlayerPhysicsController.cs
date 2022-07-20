@@ -3,7 +3,6 @@ using Enums;
 using Managers;
 using Signals;
 using UnityEngine;
-
 namespace Controllers
 {
     public class PlayerPhysicsController : MonoBehaviour
@@ -24,10 +23,13 @@ namespace Controllers
         {
          
 
-            // if (other.CompareTag("Obstacle"))
-            // {
-            //   
-            // }
+            if (other.CompareTag("Obstacle"))
+            {
+                
+                rigidbody.transform.DOMoveZ(rigidbody.transform.position.z-10f,1f).SetEase(Ease.OutBack);
+                
+
+            }
             //
             // if (other.CompareTag("WinZone"))
             // {
