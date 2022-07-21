@@ -117,16 +117,10 @@ namespace Managers
             movementController.IsReadyToPlay(false);
         }
 
-        public void OnSetStackPosition()
+        public void SetStackPosition()
         {
             Vector2 pos = new Vector2(transform.position.x,transform.position.z);
             StackSignals.Instance.onStackFollowPlayer?.Invoke(pos);
-        }
-
-        public void OnOnIteractionWithCollectable(Collider other)
-        {
-            other.tag = "Collected";
-            StackSignals.Instance.onInteractionCollectable?.Invoke(other.transform.parent.gameObject);
         }
 
         private void OnReset()

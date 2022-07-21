@@ -69,7 +69,7 @@ namespace Controllers
                 {
                     StopSideways();
                 }
-                manager.OnSetStackPosition();
+                manager.SetStackPosition();
             }
             else
                 Stop();

@@ -13,7 +13,7 @@ namespace Controllers
         //public bool CollectableInStack;
         #endregion
         #region Serializefield Variables
-        [SerializeField] private CollectableManager collectableManager;
+        [SerializeField] private CollectableManager manager;
         #endregion
         #region Private Variables
         #endregion
@@ -29,7 +29,7 @@ namespace Controllers
             {
                 
                 other.tag = "Collected";
-                collectableManager.OnIteractionWithCollectable(other.transform.parent.gameObject);
+                manager.IteractionWithCollectable(other.transform.parent.gameObject);
             }
 
             #region useless
@@ -46,18 +46,18 @@ namespace Controllers
 
             if (other.CompareTag("CollectableUpdater"))
             {
-                collectableManager.CollectableMeshUpdater();
+                manager.CollectableMeshUpdater();
             }
 
             if (other.CompareTag("ATM"))
             {
-                collectableManager.OnIteractionWithATM(this.transform.parent.gameObject);
+                manager.IteractionWithATM(this.transform.parent.gameObject);
             }
 
             if (other.CompareTag("Obstacle"))
             {
 
-                collectableManager.OnIteractionWithObstacle(this.transform.parent.gameObject);
+                manager.IteractionWithObstacle(this.transform.parent.gameObject);
             }
         }
     }
