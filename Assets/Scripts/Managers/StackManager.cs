@@ -61,8 +61,6 @@ namespace Managers
 
         public void AddStackList(GameObject collectableGameObject)
         {
-
-
             if (CollectableStack.Count==0)
             {
                 
@@ -71,23 +69,14 @@ namespace Managers
                 collectableGameObject.transform.localPosition =new Vector3(transform.position.x,transform.position.y,4f);
 
             }
-
             else
             {
                 collectableGameObject.transform.SetParent(transform);
-              
-              
-                    Vector3 newPos = CollectableStack[CollectableStack.Count-1].transform.localPosition;
-                    newPos.z += 1;
-                    collectableGameObject.transform.localPosition=newPos;
-
-             
-                
+                Vector3 newPos = CollectableStack[CollectableStack.Count-1].transform.localPosition;
+                newPos.z += 1;
+                collectableGameObject.transform.localPosition=newPos;
                 CollectableStack.Add(collectableGameObject);
             }
-                
-            
-       
         }
 
         public void deleytest()
@@ -140,12 +129,6 @@ namespace Managers
         // }
 
         #endregion
-
-
-
-
-
-
 
         public void OnReset()
         {

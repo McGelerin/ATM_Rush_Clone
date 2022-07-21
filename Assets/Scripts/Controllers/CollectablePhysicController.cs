@@ -10,7 +10,7 @@ namespace Controllers
     {
         #region Self Variables
         #region Public Variables
-        public bool CollectableInStack;
+        //public bool CollectableInStack;
         #endregion
         #region Serializefield Variables
         [SerializeField] private CollectableManager collectableManager;
@@ -18,11 +18,10 @@ namespace Controllers
         #region Private Variables
         #endregion
         #endregion
-        private void Awake()
-        {
-            CollectableInStack = false;
-        }
-
+        //private void Awake()
+        //{
+        //    CollectableInStack = false;
+        //}
 
         private void OnTriggerEnter(Collider other)
         {
@@ -33,6 +32,7 @@ namespace Controllers
                 collectableManager.OnIteractionWithCollectable(other.transform.parent.gameObject);
             }
 
+            #region useless
             // if (other.CompareTag("Player"))
             // {
             //     if (!CollectableInStack)
@@ -41,7 +41,8 @@ namespace Controllers
             //         this.tag = "Collected";
             //         collectableManager.OnIteractionWithCollectable(this.transform.parent.gameObject);
             //     }
-            // }
+            // } 
+            #endregion
 
             if (other.CompareTag("CollectableUpdater"))
             {

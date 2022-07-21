@@ -42,8 +42,7 @@ namespace Controllers
             // }  
             if (other.CompareTag("Collectable"))
             {
-                other.tag = "Collected";
-                StackSignals.Instance.onInteractionCollectable?.Invoke(other.transform.parent.gameObject);
+                manager.OnOnIteractionWithCollectable(other);
 ;           }
         }
         

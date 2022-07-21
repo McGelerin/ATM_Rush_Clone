@@ -14,10 +14,10 @@ public class CollectableManager : MonoBehaviour
     #region Public Variables
     [Header("Data")] public CollectableMeshData MeshData;
 
-    [Space]
-    public bool IsCollectable;
+    //[Space]
+    //public bool IsCollectable;
     
-    //Type de�ime durumu
+    //Type degisme durumu
     public CollectableType CollectableTypeValue {
         get=> _collectableType;
         private set
@@ -26,6 +26,7 @@ public class CollectableManager : MonoBehaviour
             SendCollectableMeshDataToControllers();
         }
             }
+
     #endregion
     #region SerializeField Variables
     [SerializeField] private CollactableMeshController collactableMeshController;
@@ -37,7 +38,7 @@ public class CollectableManager : MonoBehaviour
 
     private void Awake()
     {
-        IsCollectable = true;
+        //IsCollectable = true;
         MeshData = GetMeshData();
         CollectableTypeValue = CollectableType.Money;
     }
@@ -88,7 +89,6 @@ public class CollectableManager : MonoBehaviour
     public void OnIteractionWithObstacle(GameObject collectableGameObject)
     {
         StackSignals.Instance.onIteractionObstacle?.Invoke(collectableGameObject);
-    
     }
 
     public void CollectableMeshUpdater()
