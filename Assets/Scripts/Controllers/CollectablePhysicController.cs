@@ -25,7 +25,7 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Collectable") && this.CompareTag("Collected"))
+            if (other.CompareTag("Collectable") && CompareTag("Collected"))
             {
                 
                 other.tag = "Collected";
@@ -54,7 +54,7 @@ namespace Controllers
                 manager.IteractionWithATM(this.transform.parent.gameObject);
             }
 
-            if (other.CompareTag("Obstacle"))
+            if (other.CompareTag("Obstacle")&& CompareTag("Collected"))
             {
 
                 manager.IteractionWithObstacle(this.transform.parent.gameObject);

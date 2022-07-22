@@ -88,6 +88,7 @@ namespace Managers
         private void OnActivateMovement()
         {
             movementController.EnableMovement();
+            
         }
 
         private void OnDeactiveMovement()
@@ -98,6 +99,7 @@ namespace Managers
         private void OnGetInputValues(HorizontalInputParams inputParams)
         {
             movementController.UpdateInputValue(inputParams);
+           
         }
 
         #endregion

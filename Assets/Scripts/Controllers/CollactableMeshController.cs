@@ -19,7 +19,7 @@ namespace Controllers {
         
         public void MeshDataInitialize(CollectableMeshData dataMeshData)
         {
-            Debug.Log("Ýniz yaptý");
+            //Debug.Log("ï¿½niz yaptï¿½");
             _collectableMeshData = dataMeshData;
         }
 
