@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3797880477572697395}
   m_Layer: 0
   m_Name: Hand
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,8 +214,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10.342437, y: 0.70347023, z: 1.6542587}
-  m_Center: {x: -0.23968649, y: 0.046169877, z: 0.1477176}
+  m_Size: {x: 10.342437, y: 1.5, z: 1.6542587}
+  m_Center: {x: -0.23968649, y: -0.35, z: 0.1477176}
 --- !u!1 &6845425820848549861
 GameObject:
   m_ObjectHideFlags: 0
