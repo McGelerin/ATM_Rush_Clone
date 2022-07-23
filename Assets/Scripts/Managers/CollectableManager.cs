@@ -102,7 +102,7 @@ public class CollectableManager : MonoBehaviour
     {
         if (ContVal == this.gameObject)
         {
-            Destroy(gameObject);
+            // Destroy(gameObject);
             transform.SetParent(null);
             transform.GetChild(1).tag = "Collectable";
         }

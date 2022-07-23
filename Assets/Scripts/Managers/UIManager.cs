@@ -37,7 +37,7 @@ namespace Managers
 
         private void UnsubscribeEvents()
         {
-            UISignals.Instance.onOpenPanel -= OnOpenPanel;
+                UISignals.Instance.onOpenPanel -= OnOpenPanel;
             UISignals.Instance.onClosePanel -= OnClosePanel;
             UISignals.Instance.onSetLevelText -= OnSetLevelText;
             CoreGameSignals.Instance.onPlay -= OnPlay;

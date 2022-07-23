@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Signals;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 
 namespace Managers
@@ -15,8 +17,12 @@ namespace Managers
 
         #region Public Variables
 
-        public List<GameObject> CollectableStack = new List<GameObject>();
-        public List<GameObject> CollectableStackValues = new List<GameObject>();
+        #endregion
+
+        #region Private Veriables
+
+        [ShowInInspector] private List<GameObject> _collectableStack = new List<GameObject>();
+        private List<GameObject> _collectableStackValues = new List<GameObject>();
 
         #endregion
 
@@ -34,7 +40,7 @@ namespace Managers
             StackSignals.Instance.onInteractionCollectable += OnIteractionWithCollectable;
             StackSignals.Instance.onIteractionObstacle += OnIteractionWithObstacle;
             StackSignals.Instance.onInteractionATM += OnIteractionWithATM;
-            StackSignals.Instance.onStackFollowPlayer += LerpFunction;
+            StackSignals.Instance.onStackFollowPlayer += OnStackMove;
         }
 
         private void UnSubscribeEvent()
@@ -42,7 +48,7 @@ namespace Managers
             StackSignals.Instance.onInteractionCollectable -= OnIteractionWithCollectable;
             StackSignals.Instance.onIteractionObstacle -= OnIteractionWithObstacle;
             StackSignals.Instance.onInteractionATM -= OnIteractionWithATM;
-            StackSignals.Instance.onStackFollowPlayer -= LerpFunction;
+            StackSignals.Instance.onStackFollowPlayer -= OnStackMove;
         }
 
         private void OnDisable()
@@ -59,7 +65,7 @@ namespace Managers
         private void OnIteractionWithCollectable(GameObject collectableGameObject)
         {
             AddStackList(collectableGameObject);
-            StartCoroutine(StackListShackAnim());
+            StartCoroutine(StackItemsShackAnim());
         }
 
         private void OnIteractionWithObstacle(GameObject collectableGameObject)
@@ -67,97 +73,84 @@ namespace Managers
             RemoveStackList(collectableGameObject);
         }
 
+        private void OnStackMove(Vector2 direction)
+        {
+            gameObject.transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 4f);
+            StackItemsMoveOrigin(direction.x);
+        }
 
         private void AddStackList(GameObject collectableGameObject)
         {
-            if (CollectableStack.Count == 0)
+            if (_collectableStack.Count == 0)
             {
-                CollectableStack.Add(collectableGameObject);
+                _collectableStack.Add(collectableGameObject);
                 collectableGameObject.transform.SetParent(transform);
-                collectableGameObject.transform.localPosition =
-                    new Vector3(transform.position.x, transform.position.y, 4f);
+                collectableGameObject.transform.localPosition = Vector3.zero;
             }
             else
             {
                 collectableGameObject.transform.SetParent(transform);
-                Vector3 newPos = CollectableStack[CollectableStack.Count - 1].transform.localPosition;
+                Vector3 newPos = _collectableStack[_collectableStack.Count - 1].transform.localPosition;
                 newPos.z += 1;
                 collectableGameObject.transform.localPosition = newPos;
-                CollectableStack.Add(collectableGameObject);
+                _collectableStack.Add(collectableGameObject);
             }
         }
 
-
-        public void RemoveStackList(GameObject collectableGameObject)
+        private void RemoveStackList(GameObject collectableGameObject)
         {
-            int index = CollectableStack.IndexOf(collectableGameObject);
-
-            for (int i = index; i < CollectableStack.Count; i++)
+            int index = _collectableStack.IndexOf(collectableGameObject);
+            int last = _collectableStack.Count - 1;
+            Destroy(collectableGameObject);
+            for (int i = last; i > index; i--)
             {
-                StackSignals.Instance.onRemoveFromStack(CollectableStack[i]);
-                CollectableStack[i].transform.DOPunchPosition(new Vector3(5f, 5f, 5f), 0.01f, 1, 1);
-                // CollectableStack[i].transform.DOJump(new Vector3(5f,5f,5f), 0.01f, 1, 1);
-                // CollectableStack[i].transform.SetParent(null);
-                // CollectableStack[i].tag="Collectable";
-                CollectableStack.Remove(CollectableStack[i]);
+                StackSignals.Instance.onRemoveFromStack?.Invoke(_collectableStack[i]);
+                _collectableStack[i].transform.DOJump(
+                    new Vector3(_collectableStack[i].transform.position.x + Random.Range(-4, 4),
+                        _collectableStack[i].transform.position.y,
+                        _collectableStack[i].transform.position.z + Random.Range(10, 15)),
+                    7f,
+                    Random.Range(1, 3),
+                    0.7f,
+                    false);
+                _collectableStack.RemoveAt(i);
             }
-
-            CollectableStack.TrimExcess();
+            _collectableStack.RemoveAt(index);
+            _collectableStack.TrimExcess();
         }
 
-        public void StackCollectableRemove()
+        private void StackItemsMoveOrigin(float directionX)
         {
-        }
-
-        private void LerpFunction(Vector2 direction)
-        {
-            gameObject.transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 4f);
             if (gameObject.transform.childCount > 0)
             {
-                float direct = Mathf.Lerp(CollectableStack[0].transform.localPosition.x, direction.x, 0.10f);
-                CollectableStack[0].transform.localPosition = new Vector3(direct, 0, 0);
-                // MoveOrigin();
-                MoveListElements();
+                float direct = Mathf.Lerp(_collectableStack[0].transform.localPosition.x, directionX, 0.25f);
+                _collectableStack[0].transform.localPosition = new Vector3(direct, 0, 0);
+                StackItemsLerpMove();
             }
         }
 
-        private void MoveListElements()
+        private void StackItemsLerpMove()
         {
-            for (int i = 1; i < CollectableStack.Count; i++)
+            for (int i = 1; i < _collectableStack.Count; i++)
             {
-                Vector3 pos = CollectableStack[i].transform.localPosition;
-                pos.x = CollectableStack[i - 1].transform.localPosition.x;
-                float direct = Mathf.Lerp(CollectableStack[i].transform.localPosition.x, pos.x, 0.1f);
-                CollectableStack[i].transform.localPosition = new Vector3(direct, pos.y, pos.z);
+                Vector3 pos = _collectableStack[i].transform.localPosition;
+                pos.x = _collectableStack[i - 1].transform.localPosition.x;
+                float direct = Mathf.Lerp(_collectableStack[i].transform.localPosition.x, pos.x, 0.25f);
+                _collectableStack[i].transform.localPosition = new Vector3(direct, pos.y, pos.z);
             }
         }
 
-        IEnumerator StackListShackAnim()
+        IEnumerator StackItemsShackAnim()
         {
-            for (int i = CollectableStack.Count - 1; i >= 0; i--)
+            for (int i = _collectableStack.Count - 1; i >= 0; i--)
             {
                 int index = i;
-                CollectableStack[index].transform.DOScale(new Vector3(2f, 2f, 2f), 0.15f).OnComplete(() =>
-                    CollectableStack[index].transform.DOScale(Vector3.one, 0.15f)
+                _collectableStack[index].transform.DOScale(new Vector3(2f, 2f, 2f), 0.12f).OnComplete(() =>
+                    _collectableStack[index].transform.DOScale(Vector3.one, 0.12f)
                 );
-                yield return new WaitForSeconds(0.07f);
+                yield return new WaitForSeconds(0.04f);
             }
         }
-
-        #region useless
-
-        // private void MoveOrigin()
-        // {
-        //     for (int i = 1; i < CollectableStack.Count; i++)
-        //     {
-        //         Vector3 pos = CollectableStack[i].transform.localPosition;
-        //         pos.x = CollectableStack[0].transform.localPosition.x;
-        //         CollectableStack[i].transform.DOLocalMove(pos, 0.5f);
-        //     }
-        //   
-        // }
-
-        #endregion
 
         public void OnReset()
         {
