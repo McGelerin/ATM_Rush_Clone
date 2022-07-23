@@ -10,29 +10,29 @@ namespace Controllers
     {
         #region Self Variables
         #region Public Variables
-        public bool CollectableInStack;
+        //public bool CollectableInStack;
         #endregion
         #region Serializefield Variables
-        [SerializeField] private CollectableManager collectableManager;
+        [SerializeField] private CollectableManager manager;
         #endregion
         #region Private Variables
         #endregion
         #endregion
-        private void Awake()
-        {
-            CollectableInStack = false;
-        }
-
+        //private void Awake()
+        //{
+        //    CollectableInStack = false;
+        //}
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Collectable") && this.CompareTag("Collected"))
+            if (other.CompareTag("Collectable") && CompareTag("Collected"))
             {
                 
                 other.tag = "Collected";
-                collectableManager.OnIteractionWithCollectable(other.transform.parent.gameObject);
+                manager.IteractionWithCollectable(other.transform.parent.gameObject);
             }
 
+            #region useless
             // if (other.CompareTag("Player"))
             // {
             //     if (!CollectableInStack)
@@ -41,22 +41,23 @@ namespace Controllers
             //         this.tag = "Collected";
             //         collectableManager.OnIteractionWithCollectable(this.transform.parent.gameObject);
             //     }
-            // }
+            // } 
+            #endregion
 
             if (other.CompareTag("CollectableUpdater"))
             {
-                collectableManager.CollectableMeshUpdater();
+                manager.CollectableMeshUpdater();
             }
 
             if (other.CompareTag("ATM"))
             {
-                collectableManager.OnIteractionWithATM(this.transform.parent.gameObject);
+                manager.IteractionWithATM(this.transform.parent.gameObject);
             }
 
-            if (other.CompareTag("Obstacle"))
+            if (other.CompareTag("Obstacle")&& CompareTag("Collected"))
             {
 
-                collectableManager.OnIteractionWithObstacle(this.transform.parent.gameObject);
+                manager.IteractionWithObstacle(this.transform.parent.gameObject);
             }
         }
     }

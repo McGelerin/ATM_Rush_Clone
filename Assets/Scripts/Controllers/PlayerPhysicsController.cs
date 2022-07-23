@@ -44,7 +44,7 @@ namespace Controllers
             {
                 other.tag = "Collected";
                 StackSignals.Instance.onInteractionCollectable?.Invoke(other.transform.parent.gameObject);
-;           }
+            }
         }
         
     }

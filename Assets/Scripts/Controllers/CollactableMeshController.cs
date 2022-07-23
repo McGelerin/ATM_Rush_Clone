@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 using Data.ValueObject;
 using Enums;
 
@@ -12,19 +11,27 @@ namespace Controllers {
         #region Serializefield Variables
         [SerializeField] private MeshFilter collectableMeshFilter;
         #endregion
-
         #region Private Variables
-        [Header("Data")] [ShowInInspector]private CollectableMeshData _collectableMeshData;
-        [ShowInInspector]private CollectableType _collectabletype;
+        [Header("Data")]private CollectableMeshData _collectableMeshData;
+        //[ShowInInspector]private CollectableType _collectabletype;
         #endregion
         #endregion
-
-        public void SetMeshData(CollectableMeshData dataMeshData,CollectableType type)
+        
+        public void MeshDataInitialize(CollectableMeshData dataMeshData)
         {
-            _collectabletype = type;
+            //Debug.Log("�niz yapt�");
             _collectableMeshData = dataMeshData;
-            collectableMeshFilter.mesh = _collectableMeshData.meshdatas[(int)_collectabletype];
+        }
+
+
+
+        public void SetMeshData(CollectableType type)
+        {
+            #region useless
+            //_collectabletype = type;
+            //_collectableMeshData = dataMeshData; 
+            #endregion
+            collectableMeshFilter.mesh = _collectableMeshData.meshdatas[(int)type];
         }
     }
 }
-

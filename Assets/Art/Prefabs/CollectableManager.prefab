@@ -92,7 +92,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MeshData:
     meshdatas: []
-  IsCollectable: 0
   collactableMeshController: {fileID: 2297952078168791736}
 --- !u!1 &1734958321690011293
 GameObject:
@@ -139,8 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 748cbef4730a06f49b005317fe31529c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollectableInStack: 0
-  collectableManager: {fileID: 1734958321483701035}
+  manager: {fileID: 1734958321483701035}
 --- !u!65 &8222521586747451
 BoxCollider:
   m_ObjectHideFlags: 0

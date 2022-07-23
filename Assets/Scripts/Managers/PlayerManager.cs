@@ -88,6 +88,7 @@ namespace Managers
         private void OnActivateMovement()
         {
             movementController.EnableMovement();
+            
         }
 
         private void OnDeactiveMovement()
@@ -98,6 +99,7 @@ namespace Managers
         private void OnGetInputValues(HorizontalInputParams inputParams)
         {
             movementController.UpdateInputValue(inputParams);
+           
         }
 
         #endregion
@@ -117,12 +119,12 @@ namespace Managers
             movementController.IsReadyToPlay(false);
         }
 
-        public void OnSetStackPosition()
+        public void SetStackPosition()
         {
             Vector2 pos = new Vector2(transform.position.x,transform.position.z);
             StackSignals.Instance.onStackFollowPlayer?.Invoke(pos);
         }
- 
+
         private void OnReset()
         {
             movementController.OnReset();

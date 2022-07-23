@@ -11,84 +11,116 @@ using UnityEngine;
 public class CollectableManager : MonoBehaviour
 {
     #region Self Variables
-    #region Public Variables
-    [Header("Data")] public CollectableMeshData MeshData;
 
-    [Space]
-    public bool IsCollectable;
-    
-    //Type de�ime durumu
-    public CollectableType CollectableTypeValue {
-        get=> _collectableType;
+    #region Public Variables
+
+    [Header("Data")] public CollectableMeshData MeshData;
+    //[Space]
+    //public bool IsCollectable;
+
+    //Type degisme durumu
+
+    public CollectableType CollectableTypeValue
+    {
+        get => _collectableType;
         private set
         {
             _collectableType = value;
-            SendCollectableMeshDataToControllers();
+            SendCollectableMeshDataToMeshController();
         }
-            }
+    }
+
     #endregion
+
     #region SerializeField Variables
+
     [SerializeField] private CollactableMeshController collactableMeshController;
+
     #endregion
+
     #region Private Variables
+
     private CollectableType _collectableType;
+
     #endregion
+
     #endregion
 
     private void Awake()
     {
-        IsCollectable = true;
+        //IsCollectable = true;
         MeshData = GetMeshData();
+        MeshDataInitializeToMeshController();
         CollectableTypeValue = CollectableType.Money;
     }
-    private CollectableMeshData GetMeshData() => Resources.Load<CD_CollectableData>("Data/CD_CollectableData").CollectableMeshData;
-    private void SendCollectableMeshDataToControllers()
+
+    private CollectableMeshData GetMeshData() =>
+        Resources.Load<CD_CollectableData>("Data/CD_CollectableData").CollectableMeshData;
+
+    //update mesh data
+    private void MeshDataInitializeToMeshController()
     {
-        collactableMeshController.SetMeshData(MeshData,CollectableTypeValue);
+        collactableMeshController.MeshDataInitialize(MeshData);
     }
 
-    //#region Event Subscription
-    //private void OnEnable()
-    //{
-    //    SubscribeEvent();
-
-    //}
-    //private void SubscribeEvent()
-    //{
-    //    StackSignals.Instance.onInteractionCollectable += OnIteractionWithCollectable;
-    //    StackSignals.Instance.onIteractionObstacle += OnIteractionWithObstacle;
-    //    StackSignals.Instance.onInteractionATM += OnIteractionWithATM;
-        
-    //}    
-    
-    //private void UnSubscribeEvent()
-    //{
-    //    StackSignals.Instance.onInteractionCollectable -= OnIteractionWithCollectable;
-    //    StackSignals.Instance.onIteractionObstacle -= OnIteractionWithObstacle;
-    //    StackSignals.Instance.onInteractionATM -= OnIteractionWithATM;
-    //}
-
-    //private void OnDisable()
-    //{
-    //    UnSubscribeEvent();
-    //}
-    //#endregion
-
-    public void OnIteractionWithCollectable(GameObject collectableGameObject)
+    private void SendCollectableMeshDataToMeshController()
     {
-        collectableGameObject.tag = "Collected";
+        collactableMeshController.SetMeshData(CollectableTypeValue);
+    }
+
+    #region Event Subscription
+
+    private void OnEnable()
+    {
+        SubscribeEvent();
+    }
+
+    private void SubscribeEvent()
+    {
+        //    StackSignals.Instance.onInteractionCollectable += OnIteractionWithCollectable;
+        //    StackSignals.Instance.onIteractionObstacle += OnIteractionWithObstacle;
+        //    StackSignals.Instance.onInteractionATM += OnIteractionWithATM;
+        StackSignals.Instance.onRemoveFromStack += RemoveStack;
+    }
+
+    private void UnSubscribeEvent()
+    {
+        //    StackSignals.Instance.onInteractionCollectable -= OnIteractionWithCollectable;
+        //    StackSignals.Instance.onIteractionObstacle -= OnIteractionWithObstacle;
+        //    StackSignals.Instance.onInteractionATM -= OnIteractionWithATM;
+        StackSignals.Instance.onRemoveFromStack -= RemoveStack;
+    }
+
+    private void OnDisable()
+    {
+        UnSubscribeEvent();
+    }
+
+    #endregion
+
+    private void RemoveStack(GameObject ContVal)
+    {
+        if (ContVal == this.gameObject)
+        {
+            // Destroy(gameObject);
+            transform.SetParent(null);
+            transform.GetChild(1).tag = "Collectable";
+        }
+    }
+
+    public void IteractionWithCollectable(GameObject collectableGameObject)
+    {
         StackSignals.Instance.onInteractionCollectable?.Invoke(collectableGameObject);
     }
 
-    public void OnIteractionWithATM(GameObject collectableGameObject)
+    public void IteractionWithATM(GameObject collectableGameObject)
     {
         StackSignals.Instance.onInteractionATM?.Invoke(collectableGameObject);
     }
 
-    public void OnIteractionWithObstacle(GameObject collectableGameObject)
+    public void IteractionWithObstacle(GameObject collectableGameObject)
     {
         StackSignals.Instance.onIteractionObstacle?.Invoke(collectableGameObject);
-    
     }
 
     public void CollectableMeshUpdater()

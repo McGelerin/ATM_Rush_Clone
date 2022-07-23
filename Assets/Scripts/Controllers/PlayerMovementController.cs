@@ -55,6 +55,15 @@ namespace Controllers
             _isReadyToPlay = state;
         }
 
+        private void Update()
+        {
+            if (_isReadyToPlay)
+            {
+                manager.SetStackPosition();
+        
+            }
+        }
+    
         private void FixedUpdate()
         {
             if (_isReadyToPlay)
@@ -69,7 +78,7 @@ namespace Controllers
                 {
                     StopSideways();
                 }
-                manager.OnSetStackPosition();
+                
             }
             else
                 Stop();
