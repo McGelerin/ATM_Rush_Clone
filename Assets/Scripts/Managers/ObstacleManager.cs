@@ -11,7 +11,7 @@ namespace Managers
 
         #region Private Variables
 
-        private DOTweenAnimation _obAnim;
+        private DOTweenAnimation _obstacleAnim;
 
         #endregion
 
@@ -46,13 +46,13 @@ namespace Managers
         
         private void Awake()
         {
-            _obAnim = this.GetComponent<DOTweenAnimation>();
+            _obstacleAnim = this.GetComponent<DOTweenAnimation>();
         }
 
         private void OnObstacleAnimationStart()
         {
-            Debug.Log("Running");
-            _obAnim.DOPlay();
+            
+            _obstacleAnim.DOPlay();
         }  
     }
 }

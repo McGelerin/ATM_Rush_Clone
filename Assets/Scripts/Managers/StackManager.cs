@@ -94,7 +94,7 @@ namespace Managers
         private void OnIteractionWithObstacle(GameObject collectableGameObject)
         {
             RemoveStackListItems(collectableGameObject);
-            StackValuesUpdate();
+           
         }
 
         private void OnStackMove(Vector2 direction)
@@ -156,6 +156,7 @@ namespace Managers
 
             _collectableStack.RemoveAt(index);
             _collectableStack.TrimExcess();
+            StackValuesUpdate();
         }
 
         private void StackItemsMoveOrigin(float directionX)
@@ -182,14 +183,13 @@ namespace Managers
 
         private void StackValuesUpdate()
         {
-            
+            _totalListScore = 0;
             foreach (var Items in _collectableStack)
             {
                 _totalListScore += (int)Items.GetComponent<CollectableManager>().CollectableTypeValue+1;
             }
 
             ScoreSignals.Instance.onSetScore?.Invoke(_totalListScore);
-            _totalListScore = 0;
               
           
          

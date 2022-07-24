@@ -36,10 +36,10 @@ namespace Controllers
             //
             // }
             //
-            // if (other.CompareTag("ATM"))
-            // {
-            //     
-            // }  
+            if (other.CompareTag("ATM"))
+            {
+                CoreGameSignals.Instance.onAtmTouched?.Invoke(other.gameObject);
+            }  
             if (other.CompareTag("Collectable"))
             {
                 other.tag = "Collected";

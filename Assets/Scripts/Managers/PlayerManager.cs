@@ -63,7 +63,7 @@ namespace Managers
             CoreGameSignals.Instance.onReset += OnReset;
             CoreGameSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
             CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
-            ScoreSignals.Instance.onSetAllScore += OnSetScoreText;
+            ScoreSignals.Instance.onSetPlayerScoreText += OnSetScoreText;
 
         }
 
@@ -76,7 +76,7 @@ namespace Managers
             CoreGameSignals.Instance.onReset -= OnReset;
             CoreGameSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
             CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
-            ScoreSignals.Instance.onSetAllScore -= OnSetScoreText;
+            ScoreSignals.Instance.onSetPlayerScoreText -= OnSetScoreText;
 
         
         }
