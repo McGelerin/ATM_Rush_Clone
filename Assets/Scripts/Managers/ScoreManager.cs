@@ -4,15 +4,14 @@ using System.Collections.Generic;
 using Signals;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
-public abstract class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour
 {
     #region Self Variables
 
     #region Public Variables
 
-    public int Score=0;
-    public int AtmScore=0;
     
     #endregion
 
@@ -21,8 +20,11 @@ public abstract class ScoreManager : MonoBehaviour
     #endregion
 
     #region Private Variables
-
+    private int _score=0;
     private int _scoreCache = 0;
+    private int _atmScoreValue = 0;
+    private int _atmScore=0;
+
     
     #endregion
 
@@ -37,16 +39,17 @@ public abstract class ScoreManager : MonoBehaviour
 
     private void SubscriptionEvent()
     {
-        ScoreSignals.Instance.onScoreUp += OnScoreUp;
-        ScoreSignals.Instance.onScoreDown += OnScoreUp;
+      
         ScoreSignals.Instance.onSetScore += OnSetScore;
+        ScoreSignals.Instance.onSetAtmScore += OnSetAtmScore;
     }
 
     private void UnSubscriptionEvent()
     {
-        ScoreSignals.Instance.onScoreUp -= OnScoreUp;
-        ScoreSignals.Instance.onScoreDown -= OnScoreUp;
+
         ScoreSignals.Instance.onSetScore -= OnSetScore;
+        ScoreSignals.Instance.onSetAtmScore -= OnSetAtmScore;
+
     }
     
     private void OnDisable()
@@ -58,20 +61,16 @@ public abstract class ScoreManager : MonoBehaviour
 
     public void OnSetScore(int setScore)
     {
-        Score += setScore;
-        
+
+        _score = setScore + _atmScoreValue;
+        ScoreSignals.Instance.onSetAllScore?.Invoke(_score);
+
+
     }
-    public void OnScoreUp(int scoreValue)
+    private void OnSetAtmScore(int atmValues)
     {
-        _scoreCache += scoreValue;
-        
+        _atmScoreValue += atmValues;
     }
-    public void OnScoreDown(int scoreValue)
-    {
-        _scoreCache -= scoreValue;
-    }
-    public void OnReset()
-    {
-        
-    }
+    
+    
 }

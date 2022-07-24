@@ -25,8 +25,10 @@ public class CollectableManager : MonoBehaviour
         get => _collectableType;
         private set
         {
+            
             _collectableType = value;
             SendCollectableMeshDataToMeshController();
+            StackSignals.Instance.onUpdateType?.Invoke();
         }
     }
 
@@ -51,9 +53,38 @@ public class CollectableManager : MonoBehaviour
         //IsCollectable = true;
         MeshData = GetMeshData();
         MeshDataInitializeToMeshController();
-        CollectableTypeValue = CollectableType.Money;
+        // CollectableTypeValue = CollectableType.Money;
     }
-
+    //
+    // #region Event Subscription
+    //
+    // private void OnEnable()
+    // {
+    //     SubscribeEvent();
+    // }
+    //
+    // private void SubscribeEvent()
+    // {
+    //     //    StackSignals.Instance.onInteractionCollectable += OnIteractionWithCollectable;
+    //     //    StackSignals.Instance.onIteractionObstacle += OnIteractionWithObstacle;
+    //     //    StackSignals.Instance.onInteractionATM += OnIteractionWithATM;
+    //     // StackSignals.Instance.onRemoveFromStack += RemoveStack;
+    // }
+    //
+    // private void UnSubscribeEvent()
+    // {
+    //     //    StackSignals.Instance.onInteractionCollectable -= OnIteractionWithCollectable;
+    //     //    StackSignals.Instance.onIteractionObstacle -= OnIteractionWithObstacle;
+    //     //    StackSignals.Instance.onInteractionATM -= OnIteractionWithATM;
+    //     // StackSignals.Instance.onRemoveFromStack -= RemoveStack;
+    // }
+    //
+    // private void OnDisable()
+    // {
+    //     UnSubscribeEvent();
+    // }
+    //
+    // #endregion
     private CollectableMeshData GetMeshData() =>
         Resources.Load<CD_CollectableData>("Data/CD_CollectableData").CollectableMeshData;
 
@@ -68,57 +99,28 @@ public class CollectableManager : MonoBehaviour
         collactableMeshController.SetMeshData(CollectableTypeValue);
     }
 
-    #region Event Subscription
 
-    private void OnEnable()
-    {
-        SubscribeEvent();
-    }
+    // private void RemoveStack(GameObject ContVal)
+    // {
+    //     if (ContVal == this.gameObject)
+    //     {
+    //         // Destroy(gameObject);
+    //         transform.SetParent(null);
+    //         transform.GetChild(1).tag = "Collectable";
+    //     }
+    // }
 
-    private void SubscribeEvent()
-    {
-        //    StackSignals.Instance.onInteractionCollectable += OnIteractionWithCollectable;
-        //    StackSignals.Instance.onIteractionObstacle += OnIteractionWithObstacle;
-        //    StackSignals.Instance.onInteractionATM += OnIteractionWithATM;
-        StackSignals.Instance.onRemoveFromStack += RemoveStack;
-    }
-
-    private void UnSubscribeEvent()
-    {
-        //    StackSignals.Instance.onInteractionCollectable -= OnIteractionWithCollectable;
-        //    StackSignals.Instance.onIteractionObstacle -= OnIteractionWithObstacle;
-        //    StackSignals.Instance.onInteractionATM -= OnIteractionWithATM;
-        StackSignals.Instance.onRemoveFromStack -= RemoveStack;
-    }
-
-    private void OnDisable()
-    {
-        UnSubscribeEvent();
-    }
-
-    #endregion
-
-    private void RemoveStack(GameObject ContVal)
-    {
-        if (ContVal == this.gameObject)
-        {
-            // Destroy(gameObject);
-            transform.SetParent(null);
-            transform.GetChild(1).tag = "Collectable";
-        }
-    }
-
-    public void IteractionWithCollectable(GameObject collectableGameObject)
+    public void InteractionWithCollectable(GameObject collectableGameObject)
     {
         StackSignals.Instance.onInteractionCollectable?.Invoke(collectableGameObject);
     }
 
-    public void IteractionWithATM(GameObject collectableGameObject)
+    public void InteractionWithATM(GameObject collectableGameObject)
     {
         StackSignals.Instance.onInteractionATM?.Invoke(collectableGameObject);
     }
 
-    public void IteractionWithObstacle(GameObject collectableGameObject)
+    public void InteractionWithObstacle(GameObject collectableGameObject)
     {
         StackSignals.Instance.onIteractionObstacle?.Invoke(collectableGameObject);
     }

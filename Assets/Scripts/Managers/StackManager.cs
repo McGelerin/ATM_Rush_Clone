@@ -14,68 +14,92 @@ namespace Managers
     public class StackManager : MonoBehaviour
     {
         #region Self Variables
-        [Space]
+
         #region Public Variables
+
         [Header("Data")] public StackData StackData;
+
         #endregion
-        [Space]
+
         #region Private Veriables
-        [ShowInInspector] private List<GameObject> _collectableStack = new List<GameObject>();
-        private List<GameObject> _collectableStackValues = new List<GameObject>();
-        [Space]
-        private bool _deleteCollectable;
+
+        [ShowInInspector] public List<GameObject> _collectableStack=new List<GameObject>();
+        [ShowInInspector] private List<GameObject> _collectableStackValues=new List<GameObject>();
+        [ShowInInspector] private int _totalListScore;
+
         #endregion
+
+        #region Seralized Veriables
+
+        [SerializeField] private GameObject levelHolder;
+
         #endregion
+
+        #endregion
+
         #region Event Subscription
+
         private void OnEnable()
         {
             SubscribeEvent();
         }
+
         private void SubscribeEvent()
         {
             StackSignals.Instance.onInteractionCollectable += OnIteractionWithCollectable;
             StackSignals.Instance.onIteractionObstacle += OnIteractionWithObstacle;
             StackSignals.Instance.onInteractionATM += OnIteractionWithATM;
             StackSignals.Instance.onStackFollowPlayer += OnStackMove;
+            StackSignals.Instance.onUpdateType += StackValuesUpdate;
         }
+
         private void UnSubscribeEvent()
         {
             StackSignals.Instance.onInteractionCollectable -= OnIteractionWithCollectable;
             StackSignals.Instance.onIteractionObstacle -= OnIteractionWithObstacle;
             StackSignals.Instance.onInteractionATM -= OnIteractionWithATM;
             StackSignals.Instance.onStackFollowPlayer -= OnStackMove;
+            StackSignals.Instance.onUpdateType -= StackValuesUpdate;
+
         }
+
         private void OnDisable()
         {
             UnSubscribeEvent();
         }
+
         #endregion
+
         private void Awake()
         {
             StackData = GetStackData();
-            _deleteCollectable = false;
+        
         }
-        private StackData GetStackData() =>
-            Resources.Load<CD_Stack>("Data/CD_StackData").StackData;
+
+        private StackData GetStackData() => Resources.Load<CD_Stack>("Data/CD_StackData").StackData;
 
         private void OnIteractionWithATM(GameObject collectableGameObject)
         {
+            ScoreSignals.Instance.onSetAtmScore?.Invoke((int)collectableGameObject.GetComponent<CollectableManager>().CollectableTypeValue+1);
+            RemoveStackListItems(collectableGameObject);
         }
 
         private void OnIteractionWithCollectable(GameObject collectableGameObject)
         {
             AddStackList(collectableGameObject);
             StartCoroutine(StackItemsShackAnim());
+            StackValuesUpdate();
         }
 
         private void OnIteractionWithObstacle(GameObject collectableGameObject)
         {
-            RemoveStackList(collectableGameObject);
+            RemoveStackListItems(collectableGameObject);
+            StackValuesUpdate();
         }
 
         private void OnStackMove(Vector2 direction)
         {
-            gameObject.transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 4f);
+            transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 4f);
             StackItemsMoveOrigin(direction.x);
         }
 
@@ -96,18 +120,19 @@ namespace Managers
                 _collectableStack.Add(collectableGameObject);
             }
         }
+
         IEnumerator StackItemsShackAnim()
         {
             for (int i = _collectableStack.Count - 1; i >= 0; i--)
             {
                 int index = i;
                 _collectableStack[i].transform.DOScale(new Vector3(2f, 2f, 2f), 0.12f).OnComplete(() =>
-                _collectableStack[index].transform.DOScale(Vector3.one, 0.12f));
+                    _collectableStack[index].transform.DOScale(Vector3.one, 0.12f));
                 yield return new WaitForSeconds(0.04f);
             }
         }
 
-        private void RemoveStackList(GameObject collectableGameObject)
+        private void RemoveStackListItems(GameObject collectableGameObject)
         {
             int index = _collectableStack.IndexOf(collectableGameObject);
             int last = _collectableStack.Count - 1;
@@ -115,15 +140,20 @@ namespace Managers
             StopAllCoroutines();
             for (int i = last; i > index; i--)
             {
-                StackSignals.Instance.onRemoveFromStack?.Invoke(_collectableStack[i]);
+                // StackSignals.Instance.onRemoveFromStack?.Invoke(_collectableStack[i]);
+                _collectableStack[i].transform.GetChild(1).tag = "Collectable";
+                _collectableStack[i].transform.SetParent(levelHolder.transform);
                 _collectableStack[i].transform.DOJump(
-                    new Vector3(Random.Range(-5, 5),
+                    new Vector3(
+                        Random.Range(-StackData.JumpItemsClampX, StackData.JumpItemsClampX + 1), //Ust Sinir Dahil Degil
                         _collectableStack[i].transform.position.y,
-                        _collectableStack[i].transform.position.z + Random.Range(10, 15)),7f,
-                        Random.Range(1, 3),0.7f
-                        );
+                        _collectableStack[i].transform.position.z + Random.Range(10, 15)),
+                    StackData.JumpForce,
+                    Random.Range(1, 3), 0.7f
+                );
                 _collectableStack.RemoveAt(i);
             }
+
             _collectableStack.RemoveAt(index);
             _collectableStack.TrimExcess();
         }
@@ -132,7 +162,8 @@ namespace Managers
         {
             if (gameObject.transform.childCount > 0)
             {
-                float direct = Mathf.Lerp(_collectableStack[0].transform.localPosition.x, directionX, StackData.LerpSpeed);
+                float direct = Mathf.Lerp(_collectableStack[0].transform.localPosition.x, directionX,
+                    StackData.LerpSpeed);
                 _collectableStack[0].transform.localPosition = new Vector3(direct, 0, 0);
                 StackItemsLerpMove();
             }
@@ -148,6 +179,22 @@ namespace Managers
                 _collectableStack[i].transform.localPosition = new Vector3(direct, pos.y, pos.z);
             }
         }
+
+        private void StackValuesUpdate()
+        {
+            
+            foreach (var Items in _collectableStack)
+            {
+                _totalListScore += (int)Items.GetComponent<CollectableManager>().CollectableTypeValue+1;
+            }
+
+            ScoreSignals.Instance.onSetScore?.Invoke(_totalListScore);
+            _totalListScore = 0;
+              
+          
+         
+        }
+
         public void OnReset()
         {
         }

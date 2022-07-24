@@ -4,6 +4,7 @@ using Data.UnityObject;
 using Data.ValueObject;
 using Keys;
 using Signals;
+using TMPro;
 using UnityEngine;
 
 namespace Managers
@@ -24,6 +25,7 @@ namespace Managers
         [SerializeField] private PlayerMovementController movementController;
         [SerializeField] private PlayerPhysicsController physicsController;
         [SerializeField] private PlayerAnimationController animationController;
+        [SerializeField] private TextMeshPro scoreText;
         
         #endregion
 
@@ -61,7 +63,8 @@ namespace Managers
             CoreGameSignals.Instance.onReset += OnReset;
             CoreGameSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
             CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
-         
+            ScoreSignals.Instance.onSetAllScore += OnSetScoreText;
+
         }
 
         private void UnsubscribeEvents()
@@ -73,6 +76,8 @@ namespace Managers
             CoreGameSignals.Instance.onReset -= OnReset;
             CoreGameSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
             CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
+            ScoreSignals.Instance.onSetAllScore -= OnSetScoreText;
+
         
         }
 
@@ -129,6 +134,10 @@ namespace Managers
         {
             movementController.OnReset();
         }
-    
+
+        private void OnSetScoreText(int Values)
+        {
+            scoreText.text = Values.ToString();
+        }
     }
 }
