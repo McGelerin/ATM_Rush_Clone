@@ -24,7 +24,7 @@ namespace Managers
         #region Private Veriables
 
         [ShowInInspector] public List<GameObject> _collectableStack=new List<GameObject>();
-        [ShowInInspector] private List<GameObject> _collectableStackValues=new List<GameObject>();
+        //[ShowInInspector] private List<GameObject> _collectableStackValues=new List<GameObject>();
         [ShowInInspector] private int _totalListScore;
 
         #endregion
@@ -73,7 +73,6 @@ namespace Managers
         private void Awake()
         {
             StackData = GetStackData();
-        
         }
 
         private StackData GetStackData() => Resources.Load<CD_Stack>("Data/CD_StackData").StackData;
@@ -88,19 +87,14 @@ namespace Managers
         {
             AddStackList(collectableGameObject);
             StartCoroutine(StackItemsShackAnim());
+            //StackItemsShackAnim();
             StackValuesUpdate();
         }
 
         private void OnIteractionWithObstacle(GameObject collectableGameObject)
         {
             RemoveStackListItems(collectableGameObject);
-           
-        }
-
-        private void OnStackMove(Vector2 direction)
-        {
-            transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 4f);
-            StackItemsMoveOrigin(direction.x);
+            //StopAllCoroutines();
         }
 
         private void AddStackList(GameObject collectableGameObject)
@@ -120,15 +114,16 @@ namespace Managers
                 _collectableStack.Add(collectableGameObject);
             }
         }
-
+        //private void StackItemsShackAnim()
         IEnumerator StackItemsShackAnim()
         {
-            for (int i = _collectableStack.Count - 1; i >= 0; i--)
+            for (int i = 0; i <= _collectableStack.Count - 1; i++)
             {
-                int index = i;
-                _collectableStack[i].transform.DOScale(new Vector3(2f, 2f, 2f), 0.12f).OnComplete(() =>
-                    _collectableStack[index].transform.DOScale(Vector3.one, 0.12f));
+                int index = (_collectableStack.Count - 1) - i;
+                _collectableStack[index].transform.DOScale(new Vector3(2f, 2f, 2f), 0.12f).OnComplete(()=> 
+                _collectableStack[index].transform.DOScale(Vector3.one, 0.03f));
                 yield return new WaitForSeconds(0.04f);
+                //_collectableStack[index].transform.DOScale(Vector3.one, 0.12f);
             }
         }
 
@@ -137,12 +132,12 @@ namespace Managers
             int index = _collectableStack.IndexOf(collectableGameObject);
             int last = _collectableStack.Count - 1;
             Destroy(collectableGameObject);
-            StopAllCoroutines();
+            //StopAllCoroutines();
             for (int i = last; i > index; i--)
             {
                 // StackSignals.Instance.onRemoveFromStack?.Invoke(_collectableStack[i]);
                 _collectableStack[i].transform.GetChild(1).tag = "Collectable";
-                _collectableStack[i].transform.SetParent(levelHolder.transform);
+                _collectableStack[i].transform.SetParent(levelHolder.transform.GetChild(0));
                 _collectableStack[i].transform.DOJump(
                     new Vector3(
                         Random.Range(-StackData.JumpItemsClampX, StackData.JumpItemsClampX + 1), //Ust Sinir Dahil Degil
@@ -150,13 +145,19 @@ namespace Managers
                         _collectableStack[i].transform.position.z + Random.Range(10, 15)),
                     StackData.JumpForce,
                     Random.Range(1, 3), 0.7f
-                );
+                );//.OnStart(()=> _collectableStack[i].transform.DOScale(Vector3.one,0.01f));
+                _collectableStack[i].transform.DOScale(Vector3.one, 0);
                 _collectableStack.RemoveAt(i);
+                _collectableStack.TrimExcess();
             }
-
             _collectableStack.RemoveAt(index);
             _collectableStack.TrimExcess();
             StackValuesUpdate();
+        }
+        private void OnStackMove(Vector2 direction)
+        {
+            transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 4f);
+            StackItemsMoveOrigin(direction.x);
         }
 
         private void StackItemsMoveOrigin(float directionX)

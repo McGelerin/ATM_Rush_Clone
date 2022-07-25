@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3633090597203012466
+--- !u!1 &6128162873552718229
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4116435240747577800}
-  - component: {fileID: 1049162378725801581}
-  - component: {fileID: 2984664815235451559}
-  - component: {fileID: 3296715263190154529}
+  - component: {fileID: 6791510730864104239}
+  - component: {fileID: 7633478857125239946}
+  - component: {fileID: 5623702747673487424}
   m_Layer: 0
-  m_Name: Atm_Rush_UpdaterGate
-  m_TagString: CollectableUpdater
+  m_Name: ATM_Rush_RedBarrier
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4116435240747577800
+--- !u!4 &6791510730864104239
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3633090597203012466}
+  m_GameObject: {fileID: 6128162873552718229}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1049162378725801581
+--- !u!33 &7633478857125239946
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3633090597203012466}
-  m_Mesh: {fileID: -4698462010696882544, guid: 99b6854712896034eab919ad82d3aad4, type: 3}
---- !u!23 &2984664815235451559
+  m_GameObject: {fileID: 6128162873552718229}
+  m_Mesh: {fileID: 4583064872099273209, guid: 0fb9be6826407324dba9d80295e2e918, type: 3}
+--- !u!23 &5623702747673487424
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3633090597203012466}
+  m_GameObject: {fileID: 6128162873552718229}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -60,8 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4488922424417462655, guid: 99b6854712896034eab919ad82d3aad4, type: 3}
-  - {fileID: 5600417043839553004, guid: 99b6854712896034eab919ad82d3aad4, type: 3}
+  - {fileID: -6478536213147159724, guid: 0fb9be6826407324dba9d80295e2e918, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,16 +81,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3296715263190154529
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3633090597203012466}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4.9885626, y: 3.0001063, z: 0.74996996}
-  m_Center: {x: 0.038556457, y: -0.24769378, z: 0.0007767379}
