@@ -6,6 +6,7 @@ using Signals;
 using Enums;
 using Data.UnityObject;
 using Data.ValueObject;
+using Sirenix.Serialization;
 using UnityEngine;
 
 public class CollectableManager : MonoBehaviour
@@ -92,7 +93,7 @@ public class CollectableManager : MonoBehaviour
 
     public void InteractionWithObstacle(GameObject collectableGameObject)
     {
-        StackSignals.Instance.onIteractionObstacle?.Invoke(collectableGameObject);
+        StackSignals.Instance.onInteractionObstacle?.Invoke(collectableGameObject);
     }
 
     public void CollectableMeshUpdater()
@@ -101,5 +102,10 @@ public class CollectableManager : MonoBehaviour
         {
             CollectableTypeValue++;
         }
+    }
+
+    public void InteractionWithConveyor()
+    {
+        StackSignals.Instance.onInteractionConveyor?.Invoke();
     }
 }

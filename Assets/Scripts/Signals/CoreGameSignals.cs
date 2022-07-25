@@ -18,6 +18,8 @@ namespace Signals
         public UnityAction onRestartLevel = delegate { };
         public UnityAction onPlay = delegate { };
         public UnityAction onReset = delegate { };
+        public UnityAction onConveyor = delegate { };
+        
 
 
         public UnityAction onSetCameraTarget = delegate { };

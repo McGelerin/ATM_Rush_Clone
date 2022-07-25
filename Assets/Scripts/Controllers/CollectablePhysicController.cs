@@ -49,15 +49,19 @@ namespace Controllers
                 manager.CollectableMeshUpdater();
             }
 
-            if (other.CompareTag("ATM")&& CompareTag("Collected"))
+            if (other.CompareTag("ATM") && CompareTag("Collected"))
             {
-                manager.InteractionWithATM(this.transform.parent.gameObject);
+                manager.InteractionWithATM(transform.parent.gameObject);
             }
 
             if (other.CompareTag("Obstacle")&& CompareTag("Collected"))
             {
+                manager.InteractionWithObstacle(transform.parent.gameObject);
+            }
 
-                manager.InteractionWithObstacle(this.transform.parent.gameObject);
+            if (other.CompareTag("Conveyor"))
+            {
+                manager.InteractionWithConveyor();
             }
         }
     }

@@ -26,6 +26,7 @@ namespace Managers
         [ShowInInspector] public List<GameObject> _collectableStack=new List<GameObject>();
         //[ShowInInspector] private List<GameObject> _collectableStackValues=new List<GameObject>();
         [ShowInInspector] private int _totalListScore;
+        private bool _lastCheck=false;
 
         #endregion
 
@@ -46,20 +47,22 @@ namespace Managers
 
         private void SubscribeEvent()
         {
-            StackSignals.Instance.onInteractionCollectable += OnIteractionWithCollectable;
-            StackSignals.Instance.onIteractionObstacle += OnIteractionWithObstacle;
-            StackSignals.Instance.onInteractionATM += OnIteractionWithATM;
+            StackSignals.Instance.onInteractionCollectable += OnInteractionWithCollectable;
+            StackSignals.Instance.onInteractionObstacle += OnInteractionWithObstacle;
+            StackSignals.Instance.onInteractionATM += OnInteractionWithATM;
             StackSignals.Instance.onStackFollowPlayer += OnStackMove;
             StackSignals.Instance.onUpdateType += StackValuesUpdate;
+            StackSignals.Instance.onInteractionConveyor += OnInteractionWithConveyor;
         }
 
         private void UnSubscribeEvent()
         {
-            StackSignals.Instance.onInteractionCollectable -= OnIteractionWithCollectable;
-            StackSignals.Instance.onIteractionObstacle -= OnIteractionWithObstacle;
-            StackSignals.Instance.onInteractionATM -= OnIteractionWithATM;
+            StackSignals.Instance.onInteractionCollectable -= OnInteractionWithCollectable;
+            StackSignals.Instance.onInteractionObstacle -= OnInteractionWithObstacle;
+            StackSignals.Instance.onInteractionATM -= OnInteractionWithATM;
             StackSignals.Instance.onStackFollowPlayer -= OnStackMove;
             StackSignals.Instance.onUpdateType -= StackValuesUpdate;
+            StackSignals.Instance.onInteractionConveyor -= OnInteractionWithConveyor;
 
         }
 
@@ -77,13 +80,23 @@ namespace Managers
 
         private StackData GetStackData() => Resources.Load<CD_Stack>("Data/CD_StackData").StackData;
 
-        private void OnIteractionWithATM(GameObject collectableGameObject)
+        private void OnInteractionWithATM(GameObject collectableGameObject)
         {
             ScoreSignals.Instance.onSetAtmScore?.Invoke((int)collectableGameObject.GetComponent<CollectableManager>().CollectableTypeValue+1);
-            RemoveStackListItems(collectableGameObject);
+            if (_lastCheck == false)
+            {
+                RemoveStackListItems(collectableGameObject);
+            }
+            else
+            {
+                collectableGameObject.SetActive(false);
+                _lastCheck=true ;
+            }
+
+            
         }
 
-        private void OnIteractionWithCollectable(GameObject collectableGameObject)
+        private void OnInteractionWithCollectable(GameObject collectableGameObject)
         {
             AddStackList(collectableGameObject);
             StartCoroutine(StackItemsShackAnim());
@@ -91,7 +104,7 @@ namespace Managers
             StackValuesUpdate();
         }
 
-        private void OnIteractionWithObstacle(GameObject collectableGameObject)
+        private void OnInteractionWithObstacle(GameObject collectableGameObject)
         {
             RemoveStackListItems(collectableGameObject);
             //StopAllCoroutines();
@@ -131,7 +144,9 @@ namespace Managers
         {
             int index = _collectableStack.IndexOf(collectableGameObject);
             int last = _collectableStack.Count - 1;
-            Destroy(collectableGameObject);
+            collectableGameObject.transform.SetParent(levelHolder.transform.GetChild(0));
+            collectableGameObject.SetActive(false);
+            //Destroy(collectableGameObject);
             //StopAllCoroutines();
             for (int i = last; i > index; i--)
             {
@@ -191,6 +206,17 @@ namespace Managers
             ScoreSignals.Instance.onSetScore?.Invoke(_totalListScore);
         }
 
+        private void OnInteractionWithConveyor()
+        {
+            _lastCheck = true;
+            int i = _collectableStack.Count - 1;
+            _collectableStack[i].transform.SetParent(levelHolder.transform.GetChild(0));
+            _collectableStack[i].transform.DOScale(Vector3.zero,2.5f);
+            _collectableStack[i].transform.DOMoveX(-10f, 1f, false);
+            _collectableStack.RemoveAt(i);
+            _collectableStack.TrimExcess();
+        }
+        
         public void OnReset()
         {
         }

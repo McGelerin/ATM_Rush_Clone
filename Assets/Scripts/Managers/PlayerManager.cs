@@ -64,6 +64,7 @@ namespace Managers
             CoreGameSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
             CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
             ScoreSignals.Instance.onSetPlayerScoreText += OnSetScoreText;
+            CoreGameSignals.Instance.onConveyor += OnConveyor;
 
         }
 
@@ -77,6 +78,7 @@ namespace Managers
             CoreGameSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
             CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
             ScoreSignals.Instance.onSetPlayerScoreText -= OnSetScoreText;
+            CoreGameSignals.Instance.onConveyor -= OnConveyor;
 
         
         }
@@ -138,6 +140,11 @@ namespace Managers
         private void OnSetScoreText(int Values)
         {
             scoreText.text = Values.ToString();
+        }
+        private void OnConveyor()
+        {
+            movementController.IsReadyToPlay(false);
+
         }
     }
 }

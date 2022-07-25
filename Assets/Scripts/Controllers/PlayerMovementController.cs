@@ -111,6 +111,7 @@ namespace Controllers
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
         }
+        
 
         public void OnReset()
         {

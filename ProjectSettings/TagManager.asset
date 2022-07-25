@@ -9,6 +9,7 @@ TagManager:
   - ATM
   - Obstacle
   - Collected
+  - Conveyor
   layers:
   - Default
   - TransparentFX
