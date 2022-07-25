@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 99b6854712896034eab919ad82d3aad4
+guid: 0561a8b5ea739fe4daccc6f475c996eb
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Development_Gate
-    second: {fileID: 2100000, guid: 566afb7ffeea84f419ffc7cf3ece30b2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Development_Gate_texture
-    second: {fileID: 2100000, guid: e64cdb66b643387408e2796ab5dc0ff3, type: 2}
+      name: Walking_platform
+    second: {fileID: 2100000, guid: 1ed326f45225ff740b50825c79c75764, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -102,7 +97,7 @@ ModelImporter:
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
