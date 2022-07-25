@@ -120,10 +120,10 @@ namespace Managers
             for (int i = 0; i <= _collectableStack.Count - 1; i++)
             {
                 int index = (_collectableStack.Count - 1) - i;
-                _collectableStack[index].transform.DOScale(new Vector3(2f, 2f, 2f), 0.12f).OnComplete(()=> 
-                _collectableStack[index].transform.DOScale(Vector3.one, 0.03f));
-                yield return new WaitForSeconds(0.04f);
-                //_collectableStack[index].transform.DOScale(Vector3.one, 0.12f);
+                _collectableStack[index].transform.DOScale(new Vector3(4, 4, 4), 0.20f);
+                _collectableStack[index].transform.DOScale(Vector3.one, 0.4f);
+                yield return new WaitForSeconds(0.05f);
+            
             }
         }
 
@@ -145,7 +145,7 @@ namespace Managers
                         _collectableStack[i].transform.position.z + Random.Range(10, 15)),
                     StackData.JumpForce,
                     Random.Range(1, 3), 0.7f
-                );//.OnStart(()=> _collectableStack[i].transform.DOScale(Vector3.one,0.01f));
+                );
                 _collectableStack[i].transform.DOScale(Vector3.one, 0);
                 _collectableStack.RemoveAt(i);
                 _collectableStack.TrimExcess();
@@ -159,7 +159,6 @@ namespace Managers
             transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 4f);
             StackItemsMoveOrigin(direction.x);
         }
-
         private void StackItemsMoveOrigin(float directionX)
         {
             if (gameObject.transform.childCount > 0)
@@ -189,11 +188,7 @@ namespace Managers
             {
                 _totalListScore += (int)Items.GetComponent<CollectableManager>().CollectableTypeValue+1;
             }
-
             ScoreSignals.Instance.onSetScore?.Invoke(_totalListScore);
-              
-          
-         
         }
 
         public void OnReset()

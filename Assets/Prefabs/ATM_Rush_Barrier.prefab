@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2947242513626261720}
   - component: {fileID: 2254455023495833469}
   - component: {fileID: 4084089417742980023}
+  - component: {fileID: 5313918058925707907}
   m_Layer: 0
   m_Name: ATM_Rush_Barrier
   m_TagString: Obstacle
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5313918058925707907
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2570822974662718050}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.9999998, y: 0.60181475, z: 0.5999985}
+  m_Center: {x: -0.000005841255, y: 0.19590376, z: 0.00000011920929}

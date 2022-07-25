@@ -55,36 +55,6 @@ public class CollectableManager : MonoBehaviour
         MeshDataInitializeToMeshController();
         // CollectableTypeValue = CollectableType.Money;
     }
-    //
-    // #region Event Subscription
-    //
-    // private void OnEnable()
-    // {
-    //     SubscribeEvent();
-    // }
-    //
-    // private void SubscribeEvent()
-    // {
-    //     //    StackSignals.Instance.onInteractionCollectable += OnIteractionWithCollectable;
-    //     //    StackSignals.Instance.onIteractionObstacle += OnIteractionWithObstacle;
-    //     //    StackSignals.Instance.onInteractionATM += OnIteractionWithATM;
-    //     // StackSignals.Instance.onRemoveFromStack += RemoveStack;
-    // }
-    //
-    // private void UnSubscribeEvent()
-    // {
-    //     //    StackSignals.Instance.onInteractionCollectable -= OnIteractionWithCollectable;
-    //     //    StackSignals.Instance.onIteractionObstacle -= OnIteractionWithObstacle;
-    //     //    StackSignals.Instance.onInteractionATM -= OnIteractionWithATM;
-    //     // StackSignals.Instance.onRemoveFromStack -= RemoveStack;
-    // }
-    //
-    // private void OnDisable()
-    // {
-    //     UnSubscribeEvent();
-    // }
-    //
-    // #endregion
     private CollectableMeshData GetMeshData() =>
         Resources.Load<CD_CollectableData>("Data/CD_CollectableData").CollectableMeshData;
 
