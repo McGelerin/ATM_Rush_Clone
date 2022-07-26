@@ -9,7 +9,7 @@ namespace Controllers
 
         #region Public Veriables
         public PlayerAnimationStates State=PlayerAnimationStates.Idle;
-
+        
         
 
         #endregion
@@ -22,21 +22,21 @@ namespace Controllers
 
         #region Serial Veriables
 
-        
+        [SerializeField] private Animator animatorController;
 
         #endregion
 
         #endregion
 
-        public void Playanim()
+        public void Playanim(PlayerAnimationStates animationStates)
         {
-            
+            animatorController.SetTrigger(animationStates.ToString());
         }
 
-        public void Resetanim()
+        public void OnReset()
         {
-            
+            animatorController.SetTrigger(PlayerAnimationStates.Idle.ToString());
         }
        
-    }
+    }           
 }

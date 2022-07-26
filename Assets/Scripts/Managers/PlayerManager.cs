@@ -1,7 +1,10 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using Controllers;
 using Data.UnityObject;
 using Data.ValueObject;
+using Enums;
 using Keys;
 using Signals;
 using TMPro;
@@ -21,8 +24,7 @@ namespace Managers
 
         #region Serialized Variables
 
-        [Space] 
-        [SerializeField] private PlayerMovementController movementController;
+        [Space] [SerializeField] private PlayerMovementController movementController;
         [SerializeField] private PlayerPhysicsController physicsController;
         [SerializeField] private PlayerAnimationController animationController;
         [SerializeField] private TextMeshPro scoreText;
@@ -114,6 +116,7 @@ namespace Managers
         private void OnPlay()
         {
             movementController.IsReadyToPlay(true);
+            animationController.Playanim(PlayerAnimationStates.Run);
         }
 
         private void OnLevelSuccessful()
@@ -135,6 +138,7 @@ namespace Managers
         private void OnReset()
         {
             movementController.OnReset();
+            animationController.OnReset();
         }
 
         private void OnSetScoreText(int Values)
@@ -144,7 +148,14 @@ namespace Managers
         private void OnConveyor()
         {
             movementController.IsReadyToPlay(false);
+            StartCoroutine(WaitForFinal());
+        }
 
+        IEnumerator WaitForFinal()
+        {
+            animationController.Playanim(animationStates:PlayerAnimationStates.Idle);
+            yield return new WaitForSeconds(2f);
+            CoreGameSignals.Instance.onLevelSuccessful?.Invoke();
         }
     }
 }

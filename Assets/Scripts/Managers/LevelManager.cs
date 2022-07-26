@@ -39,7 +39,6 @@ namespace Managers
         private void Awake()
         {
             _levelID = GetActiveLevel();
-            Data = GetLevelData();
             levelClearer = new ClearActiveLevelCommand();
             levelLoader = new LevelLoaderCommand();
         }
@@ -50,10 +49,10 @@ namespace Managers
             return ES3.KeyExists("Level") ? ES3.Load<int>("Level") : 0;
         }
 
-        private int GetLevelData()
+        private int GetLevelCount()
         {
-            var newLevelData = _levelID % Resources.Load<CD_Level>("Data/CD_Level").Levels.Count;
-            return Resources.Load<CD_Level>("Data/CD_Level").Levels[newLevelData];
+            return _levelID % Resources.Load<CD_Level>("Data/CD_Level").Levels.Count;
+           
         }
 
         #region Event Subscription
@@ -91,6 +90,7 @@ namespace Managers
         private void Start()
         {
             OnInitializeLevel();
+            SetLevelText();
         }
 
         private void OnNextLevel()
@@ -103,6 +103,7 @@ namespace Managers
                 Level = _levelID,
             });
             CoreGameSignals.Instance.onLevelInitialize?.Invoke();
+            SetLevelText();
         }
 
         private void OnRestartLevel()
@@ -115,19 +116,22 @@ namespace Managers
             });
             CoreGameSignals.Instance.onLevelInitialize?.Invoke();
         }
-
         private int OnGetLevelID()
         {
             return _levelID;
         }
 
+        private void SetLevelText()
+        {
+            
+            UISignals.Instance.onSetLevelText?.Invoke(OnGetLevelID());
 
+        }
         private void OnInitializeLevel()
         {
-            var newLevelData = _levelID % Resources.Load<CD_Level>("Data/CD_Level").Levels.Count;
+            int newLevelData = GetLevelCount();
             levelLoader.InitializeLevel(newLevelData, levelHolder.transform);
         }
-
         private void OnClearActiveLevel()
         {
             levelClearer.ClearActiveLevel(levelHolder.transform);

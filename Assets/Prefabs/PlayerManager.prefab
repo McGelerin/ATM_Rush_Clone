@@ -1567,7 +1567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1da25a1c5de0b941967709d6fccf189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
+  manager: {fileID: 30647704456802502}
   collider: {fileID: 4920222493048728722}
   rigidbody: {fileID: 869464903192760335}
 --- !u!1 &4328435950445389309
@@ -1581,7 +1581,7 @@ GameObject:
   - component: {fileID: 4328435950445389299}
   - component: {fileID: 869464903192760335}
   - component: {fileID: 30647704456802502}
-  - component: {fileID: 3741820289942188035}
+  - component: {fileID: 6257669157796171523}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Player
@@ -1637,11 +1637,11 @@ MonoBehaviour:
     MovementData:
       ForwardSpeed: 5
       SidewaysSpeed: 2
-  movementController: {fileID: 3741820289942188035}
+  movementController: {fileID: 6257669157796171523}
   physicsController: {fileID: 3562346819130660552}
   animationController: {fileID: 2381628004607453418}
   scoreText: {fileID: 304959963014692221}
---- !u!114 &3741820289942188035
+--- !u!114 &6257669157796171523
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1721,6 +1721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   State: 1
+  animatorController: {fileID: 2200964010714191009}
 --- !u!1 &4332776064098133264
 GameObject:
   m_ObjectHideFlags: 0

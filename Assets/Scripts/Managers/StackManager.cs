@@ -7,6 +7,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using Data.UnityObject;
 using Data.ValueObject;
+using UnityEditor;
 using Random = UnityEngine.Random;
 
 namespace Managers
@@ -47,6 +48,8 @@ namespace Managers
 
         private void SubscribeEvent()
         {
+            CoreGameSignals.Instance.onPlay += OnPlay;
+            CoreGameSignals.Instance.onReset += OnReset;
             StackSignals.Instance.onInteractionCollectable += OnInteractionWithCollectable;
             StackSignals.Instance.onInteractionObstacle += OnInteractionWithObstacle;
             StackSignals.Instance.onInteractionATM += OnInteractionWithATM;
@@ -57,6 +60,8 @@ namespace Managers
 
         private void UnSubscribeEvent()
         {
+            CoreGameSignals.Instance.onPlay -= OnPlay;
+            CoreGameSignals.Instance.onReset -= OnReset;
             StackSignals.Instance.onInteractionCollectable -= OnInteractionWithCollectable;
             StackSignals.Instance.onInteractionObstacle -= OnInteractionWithObstacle;
             StackSignals.Instance.onInteractionATM -= OnInteractionWithATM;
@@ -76,7 +81,6 @@ namespace Managers
         private void Awake()
         {
             StackData = GetStackData();
-            _lastCheck = false;
         }
 
         private StackData GetStackData() => Resources.Load<CD_Stack>("Data/CD_StackData").StackData;
@@ -91,7 +95,7 @@ namespace Managers
             else
             {
                 collectableGameObject.SetActive(false);
-                _lastCheck=true ;
+                
             }
         }
 
@@ -214,13 +218,25 @@ namespace Managers
             _collectableStack[i].transform.SetParent(levelHolder.transform.GetChild(0));
             _collectableStack[i].transform.DOScale(Vector3.zero,2.5f);
             //_collectableStack[i].transform.DOMoveX(-10f, 1f, false);
-            _collectableStack[i].transform.DOMove(new Vector3(-10,5,_collectableStack[i].transform.position.z),1f);
+            _collectableStack[i].transform.DOMove(new Vector3(-10,2,_collectableStack[i].transform.position.z),1.5f);
             _collectableStack.RemoveAt(i);
             _collectableStack.TrimExcess();
         }
-        
-        public void OnReset()
+
+        private void OnPlay()
         {
+            _lastCheck = false;
+
+        }
+        private void OnReset()
+        {
+            foreach (Transform childs in transform)
+            {
+                Destroy(childs.gameObject);
+            }
+            _collectableStack.Clear();
+            
+            
         }
     }
 }

@@ -12,7 +12,6 @@ public class ScoreManager : MonoBehaviour
 
     #region Public Variables
 
-    
     #endregion
 
     #region Serialized Variables
@@ -20,12 +19,12 @@ public class ScoreManager : MonoBehaviour
     #endregion
 
     #region Private Variables
-    private int _score=0;
+
+    private int _score = 0;
     private int _scoreCache = 0;
     private int _atmScoreValue = 0;
-    private int _atmScore=0;
+    private int _atmScore = 0;
 
-    
     #endregion
 
     #endregion
@@ -39,19 +38,21 @@ public class ScoreManager : MonoBehaviour
 
     private void SubscriptionEvent()
     {
-      
         ScoreSignals.Instance.onSetScore += OnSetScore;
         ScoreSignals.Instance.onSetAtmScore += OnSetAtmScore;
+        CoreGameSignals.Instance.onReset += OnPlay;
+        CoreGameSignals.Instance.onReset += OnReset;
     }
+
 
     private void UnSubscriptionEvent()
     {
-
         ScoreSignals.Instance.onSetScore -= OnSetScore;
         ScoreSignals.Instance.onSetAtmScore -= OnSetAtmScore;
-
+        CoreGameSignals.Instance.onReset -= OnPlay;
+        CoreGameSignals.Instance.onReset -= OnReset;
     }
-    
+
     private void OnDisable()
     {
         UnSubscriptionEvent();
@@ -59,17 +60,37 @@ public class ScoreManager : MonoBehaviour
 
     #endregion
 
+    private void Awake()
+    {
+        OnPlay();
+        OnReset();
+    }
+
     public void OnSetScore(int setScore)
     {
-
-        _score = setScore + _atmScoreValue;
-        ScoreSignals.Instance.onSetTotalScore?.Invoke(_score);
-
-
+        _scoreCache = setScore + _atmScoreValue;
+        ScoreSignals.Instance.onSetTotalScore?.Invoke(_scoreCache);
     }
+
     private void OnSetAtmScore(int atmValues)
     {
         _atmScoreValue += atmValues;
         ScoreSignals.Instance.onSetAtmScoreText?.Invoke(_atmScoreValue);
+    }
+
+    private void OnPlay()
+    {
+        if (!ES3.FileExists()) _score = 0;
+        else
+        {
+            _score = ES3.KeyExists("Coin") ? ES3.Load<int>("Coin") : 0;
+        }
+    }
+
+    private void OnReset()
+    {
+        _scoreCache = 0;
+        _atmScoreValue = 0;
+        _atmScore = 0;
     }
 }
