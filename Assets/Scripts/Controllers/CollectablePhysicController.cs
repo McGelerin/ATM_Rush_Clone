@@ -59,7 +59,7 @@ namespace Controllers
                 manager.InteractionWithObstacle(transform.parent.gameObject);
             }
 
-            if (other.CompareTag("Conveyor"))
+            if (other.CompareTag("Conveyor") && CompareTag("Collected"))
             {
                 manager.InteractionWithConveyor();
             }

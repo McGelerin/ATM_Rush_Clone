@@ -26,7 +26,7 @@ namespace Managers
         [ShowInInspector] public List<GameObject> _collectableStack=new List<GameObject>();
         //[ShowInInspector] private List<GameObject> _collectableStackValues=new List<GameObject>();
         [ShowInInspector] private int _totalListScore;
-        private bool _lastCheck=false;
+        private bool _lastCheck;
 
         #endregion
 
@@ -76,6 +76,7 @@ namespace Managers
         private void Awake()
         {
             StackData = GetStackData();
+            _lastCheck = false;
         }
 
         private StackData GetStackData() => Resources.Load<CD_Stack>("Data/CD_StackData").StackData;
@@ -92,8 +93,6 @@ namespace Managers
                 collectableGameObject.SetActive(false);
                 _lastCheck=true ;
             }
-
-            
         }
 
         private void OnInteractionWithCollectable(GameObject collectableGameObject)
@@ -133,8 +132,8 @@ namespace Managers
             for (int i = 0; i <= _collectableStack.Count - 1; i++)
             {
                 int index = (_collectableStack.Count - 1) - i;
-                _collectableStack[index].transform.DOScale(new Vector3(4, 4, 4), 0.20f);
-                _collectableStack[index].transform.DOScale(Vector3.one, 0.4f);
+                _collectableStack[index].transform.DOScale(new Vector3(2, 2, 2), 0.14f).SetEase(Ease.Flash);
+                _collectableStack[index].transform.DOScale(Vector3.one, 0.14f).SetDelay(0.14f).SetEase(Ease.Flash);
                 yield return new WaitForSeconds(0.05f);
             
             }
@@ -169,11 +168,13 @@ namespace Managers
             _collectableStack.TrimExcess();
             StackValuesUpdate();
         }
+
         private void OnStackMove(Vector2 direction)
         {
             transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 4f);
             StackItemsMoveOrigin(direction.x);
         }
+
         private void StackItemsMoveOrigin(float directionX)
         {
             if (gameObject.transform.childCount > 0)
@@ -212,7 +213,8 @@ namespace Managers
             int i = _collectableStack.Count - 1;
             _collectableStack[i].transform.SetParent(levelHolder.transform.GetChild(0));
             _collectableStack[i].transform.DOScale(Vector3.zero,2.5f);
-            _collectableStack[i].transform.DOMoveX(-10f, 1f, false);
+            //_collectableStack[i].transform.DOMoveX(-10f, 1f, false);
+            _collectableStack[i].transform.DOMove(new Vector3(-10,5,_collectableStack[i].transform.position.z),1f);
             _collectableStack.RemoveAt(i);
             _collectableStack.TrimExcess();
         }

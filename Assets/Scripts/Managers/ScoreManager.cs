@@ -63,7 +63,7 @@ public class ScoreManager : MonoBehaviour
     {
 
         _score = setScore + _atmScoreValue;
-        ScoreSignals.Instance.onSetPlayerScoreText?.Invoke(_score);
+        ScoreSignals.Instance.onSetTotalScore?.Invoke(_score);
 
 
     }
@@ -72,6 +72,4 @@ public class ScoreManager : MonoBehaviour
         _atmScoreValue += atmValues;
         ScoreSignals.Instance.onSetAtmScoreText?.Invoke(_atmScoreValue);
     }
-    
-    
 }

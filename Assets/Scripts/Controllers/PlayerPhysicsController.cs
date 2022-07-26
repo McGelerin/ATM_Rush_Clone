@@ -30,12 +30,12 @@ namespace Controllers
                 
 
             }
-            //
+
             // if (other.CompareTag("WinZone"))
             // {
             //
             // }
-            //
+
             if (other.CompareTag("ATM"))
             {
                 CoreGameSignals.Instance.onAtmTouched?.Invoke(other.gameObject);
