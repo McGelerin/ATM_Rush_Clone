@@ -1109,8 +1109,6 @@ GameObject:
   m_Component:
   - component: {fileID: 340305000}
   - component: {fileID: 340304999}
-  - component: {fileID: 340304998}
-  - component: {fileID: 340304997}
   m_Layer: 0
   m_Name: UIRoot
   m_TagString: Untagged
@@ -1118,36 +1116,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &340304997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 340304996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38c024c61ac247cbaf8c5017a0eafcdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panels:
-  - {fileID: 492139209}
-  - {fileID: 783080230}
-  - {fileID: 1369543987}
-  - {fileID: 404801892}
---- !u!114 &340304998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 340304996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 808b7ad34880478aa443be6bb1a69815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelText: {fileID: 1780073859}
 --- !u!114 &340304999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1160,8 +1128,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b75f8facb24205a6e066952a13d877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiPanelController: {fileID: 340304997}
-  levelPanelController: {fileID: 340304998}
+  uiPanelController:
+    panels:
+    - {fileID: 492139209}
+    - {fileID: 783080230}
+    - {fileID: 1369543987}
+    - {fileID: 404801892}
+  levelPanelController:
+    levelText: {fileID: 1780073859}
 --- !u!4 &340305000
 Transform:
   m_ObjectHideFlags: 0
@@ -1175,7 +1149,7 @@ Transform:
   m_Children:
   - {fileID: 134122910}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &404801892
 GameObject:
@@ -1365,7 +1339,7 @@ Transform:
   - {fileID: 1517047505}
   - {fileID: 110375471}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &553709796
 GameObject:
@@ -3158,8 +3132,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1834574923}
   - component: {fileID: 1834574922}
-  - component: {fileID: 1834574921}
-  - component: {fileID: 1834574920}
   m_Layer: 0
   m_Name: LevelManger
   m_TagString: Untagged
@@ -3167,30 +3139,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1834574920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1834574919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f16e64cc26b4caa875b8d8d93811a04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1834574921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1834574919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e29acb3e746d4ac3877537285b7ec821, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1834574922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3205,8 +3153,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: 0
   levelHolder: {fileID: 110375470}
-  levelLoader: {fileID: 1834574921}
-  levelClearer: {fileID: 1834574920}
 --- !u!4 &1834574923
 Transform:
   m_ObjectHideFlags: 0

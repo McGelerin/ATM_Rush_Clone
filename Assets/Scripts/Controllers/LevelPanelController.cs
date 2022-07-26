@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
@@ -7,7 +8,8 @@ using UnityEngine.UI;
 
 namespace Controllers
 {
-    public class LevelPanelController : MonoBehaviour
+    [Serializable]
+    public class LevelPanelController
     {
         #region Self Variables
 

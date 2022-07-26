@@ -23,8 +23,8 @@ namespace Managers
         #region Serialized Variables
 
         [Space] [SerializeField] private GameObject levelHolder;
-        [SerializeField] private LevelLoaderCommand levelLoader;
-        [SerializeField] private ClearActiveLevelCommand levelClearer;
+        private LevelLoaderCommand levelLoader;
+        private ClearActiveLevelCommand levelClearer;
 
         #endregion
 
@@ -40,6 +40,8 @@ namespace Managers
         {
             _levelID = GetActiveLevel();
             Data = GetLevelData();
+            levelClearer = new ClearActiveLevelCommand();
+            levelLoader = new LevelLoaderCommand();
         }
 
         private int GetActiveLevel()
@@ -99,8 +101,6 @@ namespace Managers
             CoreGameSignals.Instance.onSaveGameData?.Invoke(new SaveGameDataParams()
             {
                 Level = _levelID,
-
-
             });
             CoreGameSignals.Instance.onLevelInitialize?.Invoke();
         }

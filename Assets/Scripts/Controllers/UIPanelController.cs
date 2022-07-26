@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Enums;
 using Managers;
@@ -5,7 +6,8 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class UIPanelController : MonoBehaviour
+    [Serializable]
+    public class UIPanelController 
     {
         #region Self Variables
 
