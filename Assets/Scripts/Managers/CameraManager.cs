@@ -1,8 +1,10 @@
 ﻿using System;
 using Cinemachine;
+using DG.Tweening;
 using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Enums;
 
 namespace Managers
 {
@@ -12,13 +14,15 @@ namespace Managers
 
         #region Serialized Variables
 
-        [SerializeField] private CinemachineVirtualCamera virtualCamera;
+       public CinemachineVirtualCamera virtualCamera;
 
         #endregion
 
         #region Private Variables
 
         [ShowInInspector] private Vector3 _initialPosition;
+        private CameraStates _cameraState = CameraStates.InitializeCamera;
+        private Animator _camAnimator;
 
         #endregion
 
@@ -28,7 +32,9 @@ namespace Managers
 
         private void Awake()
         {
-            virtualCamera = GetComponent<CinemachineVirtualCamera>();
+            // virtualCamera = GetComponent<CinemachineVirtualCamera>();
+            _camAnimator = GetComponent<Animator>();
+            
             GetInitialPosition();
         }
 
@@ -39,6 +45,7 @@ namespace Managers
 
         private void SubscribeEvents()
         {
+            CoreGameSignals.Instance.onMiniGameStart += OnMiniGame;
             CoreGameSignals.Instance.onPlay += SetCameraTarget;
             CoreGameSignals.Instance.onSetCameraTarget += OnSetCameraTarget;
             CoreGameSignals.Instance.onReset += OnReset;
@@ -46,10 +53,13 @@ namespace Managers
 
         private void UnsubscribeEvents()
         {
+            CoreGameSignals.Instance.onMiniGameStart -= OnMiniGame;
             CoreGameSignals.Instance.onPlay -= SetCameraTarget;
             CoreGameSignals.Instance.onSetCameraTarget -= OnSetCameraTarget;
             CoreGameSignals.Instance.onReset -= OnReset;
         }
+
+     
 
         private void OnDisable()
         {
@@ -59,6 +69,24 @@ namespace Managers
         #endregion
 
 
+        private void SetCameraStates(CameraStates cameraStates)
+        {
+            if (cameraStates == CameraStates.InitializeCamera)
+            {
+                _camAnimator.Play("PlayerCamera");
+                cameraStates = CameraStates.PlayerCamera;
+            } 
+            else if (cameraStates == CameraStates.PlayerCamera)
+            {
+                _camAnimator.Play("MiniGameCamera");
+                cameraStates = CameraStates.MiniGameCamera;
+            }  
+            else if (cameraStates == CameraStates.MiniGameCamera)
+            {
+                _camAnimator.Play(CameraStates.InitializeCamera.ToString());
+            }
+            
+        }
         private void GetInitialPosition()
         {
             _initialPosition = transform.position;
@@ -71,7 +99,10 @@ namespace Managers
 
         private void SetCameraTarget()
         {
+
             CoreGameSignals.Instance.onSetCameraTarget?.Invoke();
+            SetCameraStates(_cameraState);
+
         }
 
         private void OnSetCameraTarget()
@@ -82,7 +113,10 @@ namespace Managers
             
          
         }
+        private void OnMiniGame()
+        {
 
+        }
         private void OnReset()
         {
             virtualCamera.Follow = null;

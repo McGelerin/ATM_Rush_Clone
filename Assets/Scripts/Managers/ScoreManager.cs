@@ -42,6 +42,7 @@ public class ScoreManager : MonoBehaviour
         ScoreSignals.Instance.onSetAtmScore += OnSetAtmScore;
         CoreGameSignals.Instance.onReset += OnPlay;
         CoreGameSignals.Instance.onReset += OnReset;
+        CoreGameSignals.Instance.onMiniGameStart += SendScore;
     }
 
 
@@ -51,6 +52,8 @@ public class ScoreManager : MonoBehaviour
         ScoreSignals.Instance.onSetAtmScore -= OnSetAtmScore;
         CoreGameSignals.Instance.onReset -= OnPlay;
         CoreGameSignals.Instance.onReset -= OnReset;
+        CoreGameSignals.Instance.onMiniGameStart -= SendScore;
+
     }
 
     private void OnDisable()
@@ -78,6 +81,10 @@ public class ScoreManager : MonoBehaviour
         ScoreSignals.Instance.onSetAtmScoreText?.Invoke(_atmScoreValue);
     }
 
+    private void SendScore()
+    {
+        ScoreSignals.Instance.onSendScore?.Invoke(_scoreCache);
+    }
     private void OnPlay()
     {
         if (!ES3.FileExists()) _score = 0;

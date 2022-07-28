@@ -137,6 +137,7 @@ namespace Managers
 
         private void OnReset()
         {
+            gameObject.SetActive(true);
             movementController.OnReset();
             animationController.OnReset();
         }
@@ -155,7 +156,9 @@ namespace Managers
         {
             animationController.Playanim(animationStates:PlayerAnimationStates.Idle);
             yield return new WaitForSeconds(2f);
+            gameObject.SetActive(false);
             CoreGameSignals.Instance.onMiniGameStart?.Invoke();
         }
+        
     }
 }
