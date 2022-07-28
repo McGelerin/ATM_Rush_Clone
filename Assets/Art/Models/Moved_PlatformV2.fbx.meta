@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 423567a6819a1d14caa18391054eb4e1
+guid: 317ddbed483b16d4c80613307a8d5fc8
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material1
+    second: {fileID: 2100000, guid: 1ed326f45225ff740b50825c79c75764, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material2
+    second: {fileID: 2100000, guid: 0ad5d7f6286961b4ebd212dedc741c95, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -88,11 +98,11 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1

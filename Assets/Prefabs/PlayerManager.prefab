@@ -1639,7 +1639,7 @@ MonoBehaviour:
       SidewaysSpeed: 2
   movementController: {fileID: 6257669157796171523}
   physicsController: {fileID: 3562346819130660552}
-  animationController: {fileID: 2381628004607453418}
+  animationController: {fileID: 7216884527926004260}
   scoreText: {fileID: 304959963014692221}
 --- !u!114 &6257669157796171523
 MonoBehaviour:
@@ -1665,7 +1665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4328435950865445287}
   - component: {fileID: 2200964010714191009}
-  - component: {fileID: 2381628004607453418}
+  - component: {fileID: 7216884527926004260}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -1708,7 +1708,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2381628004607453418
+--- !u!114 &7216884527926004260
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

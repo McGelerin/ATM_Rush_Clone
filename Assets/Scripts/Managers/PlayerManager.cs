@@ -155,7 +155,7 @@ namespace Managers
         {
             animationController.Playanim(animationStates:PlayerAnimationStates.Idle);
             yield return new WaitForSeconds(2f);
-            CoreGameSignals.Instance.onLevelSuccessful?.Invoke();
+            CoreGameSignals.Instance.onMiniGameStart?.Invoke();
         }
     }
 }

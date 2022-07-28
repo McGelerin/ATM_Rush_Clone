@@ -19,14 +19,12 @@ namespace Signals
         public UnityAction onPlay = delegate { };
         public UnityAction onReset = delegate { };
         public UnityAction onConveyor = delegate { };
-        
-
 
         public UnityAction onSetCameraTarget = delegate { };
 
-
         public UnityAction<GameObject> onAtmTouched = delegate { };
 
+        public UnityAction onMiniGameStart = delegate { };
 
         public Func<int> onGetLevelID = delegate { return 0; };
     }

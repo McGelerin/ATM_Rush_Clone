@@ -61,12 +61,12 @@ namespace Managers
 
         private void GetInitialPosition()
         {
-            _initialPosition = transform.localPosition;
+            _initialPosition = transform.position;
         }
 
         private void OnMoveToInitialPosition()
         {
-            transform.localPosition = _initialPosition;
+            transform.position = _initialPosition;
         }
 
         private void SetCameraTarget()
