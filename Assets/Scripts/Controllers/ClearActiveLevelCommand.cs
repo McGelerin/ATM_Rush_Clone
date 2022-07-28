@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class ClearActiveLevelCommand : MonoBehaviour
+    public class ClearActiveLevelCommand
     {
         public void ClearActiveLevel(Transform levelHolder)
         {
-            Destroy(levelHolder.GetChild(0).gameObject);
+            Object.Destroy(levelHolder.GetChild(0).gameObject);
         }
     }
 }

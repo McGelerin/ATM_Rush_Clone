@@ -29,7 +29,7 @@ namespace Controllers
             {
                 
                 other.tag = "Collected";
-                manager.IteractionWithCollectable(other.transform.parent.gameObject);
+                manager.InteractionWithCollectable(other.transform.parent.gameObject);
             }
 
             #region useless
@@ -44,20 +44,24 @@ namespace Controllers
             // } 
             #endregion
 
-            if (other.CompareTag("CollectableUpdater"))
+            if (other.CompareTag("CollectableUpdater")&& CompareTag("Collected"))
             {
                 manager.CollectableMeshUpdater();
             }
 
-            if (other.CompareTag("ATM"))
+            if (other.CompareTag("ATM") && CompareTag("Collected"))
             {
-                manager.IteractionWithATM(this.transform.parent.gameObject);
+                manager.InteractionWithATM(transform.parent.gameObject);
             }
 
             if (other.CompareTag("Obstacle")&& CompareTag("Collected"))
             {
+                manager.InteractionWithObstacle(transform.parent.gameObject);
+            }
 
-                manager.IteractionWithObstacle(this.transform.parent.gameObject);
+            if (other.CompareTag("Conveyor") && CompareTag("Collected"))
+            {
+                manager.InteractionWithConveyor();
             }
         }
     }

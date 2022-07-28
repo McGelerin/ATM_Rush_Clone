@@ -4,7 +4,7 @@ namespace Extentions
 {
     public class MonoSingleton<T> : MonoBehaviour where T : Component
     {
-        private static volatile T _instance;
+        private static T _instance;
 
         public static T Instance
         {
@@ -12,13 +12,21 @@ namespace Extentions
             {
                 if (_instance == null)
                 {
-                    _instance = FindObjectOfType(typeof(T)) as T;
+                    _instance = FindObjectOfType<T>();
+                    if (_instance == null)
+                    {
+                        GameObject newGo = new GameObject();
+                        _instance = newGo.AddComponent<T>();
+                    }
                 }
 
                 return _instance;
             }
         }
 
-        
+        protected virtual void Awake()
+        {
+            _instance = this as T;
+        }
     }
 }

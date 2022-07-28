@@ -1,3 +1,4 @@
+using System;
 using Controllers;
 using Enums;
 using Signals;
@@ -15,7 +16,6 @@ namespace Managers
         [SerializeField] private LevelPanelController levelPanelController;
 
         #endregion
-
         #endregion
 
         #region Event Subscriptions
@@ -37,7 +37,7 @@ namespace Managers
 
         private void UnsubscribeEvents()
         {
-                UISignals.Instance.onOpenPanel -= OnOpenPanel;
+            UISignals.Instance.onOpenPanel -= OnOpenPanel;
             UISignals.Instance.onClosePanel -= OnClosePanel;
             UISignals.Instance.onSetLevelText -= OnSetLevelText;
             CoreGameSignals.Instance.onPlay -= OnPlay;
@@ -49,6 +49,8 @@ namespace Managers
         {
             UnsubscribeEvents();
         }
+
+     
 
         #endregion
 
@@ -71,6 +73,7 @@ namespace Managers
         private void OnPlay()
         {
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.StartPanel);
+            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.LevelPanel);
         }
 
         private void OnLevelFailed()
@@ -101,6 +104,7 @@ namespace Managers
         {
             CoreGameSignals.Instance.onRestartLevel?.Invoke();
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.FailPanel);
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.LevelPanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.StartPanel);
         }
     }

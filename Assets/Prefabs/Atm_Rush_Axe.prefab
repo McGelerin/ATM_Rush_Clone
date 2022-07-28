@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -241577541216730158, guid: df6dd9668764cc94c93ce322ed17c902, type: 3}
+  - {fileID: 2100000, guid: 80231d89afb99b1438ac8669e1858b0a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6870331588717693816}
   m_Layer: 0
   m_Name: Swimging_Obstacle
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,7 +141,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -241577541216730158, guid: df6dd9668764cc94c93ce322ed17c902, type: 3}
+  - {fileID: 2100000, guid: 80231d89afb99b1438ac8669e1858b0a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -15,7 +15,12 @@ ModelImporter:
   - first:
       74: 8015242699761650877
     second: "Armature|Armature|Armature|\u0131dle"
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_Pallet
+    second: {fileID: 2100000, guid: 0633751400830074aaa93d501e4bd670, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

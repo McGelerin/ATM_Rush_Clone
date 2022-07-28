@@ -4,16 +4,14 @@ using System.Collections.Generic;
 using Signals;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
-public abstract class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour
 {
     #region Self Variables
 
     #region Public Variables
 
-    public int Score=0;
-    public int AtmScore=0;
-    
     #endregion
 
     #region Serialized Variables
@@ -22,8 +20,11 @@ public abstract class ScoreManager : MonoBehaviour
 
     #region Private Variables
 
+    private int _score = 0;
     private int _scoreCache = 0;
-    
+    private int _atmScoreValue = 0;
+    private int _atmScore = 0;
+
     #endregion
 
     #endregion
@@ -37,18 +38,21 @@ public abstract class ScoreManager : MonoBehaviour
 
     private void SubscriptionEvent()
     {
-        ScoreSignals.Instance.onScoreUp += OnScoreUp;
-        ScoreSignals.Instance.onScoreDown += OnScoreUp;
         ScoreSignals.Instance.onSetScore += OnSetScore;
+        ScoreSignals.Instance.onSetAtmScore += OnSetAtmScore;
+        CoreGameSignals.Instance.onReset += OnPlay;
+        CoreGameSignals.Instance.onReset += OnReset;
     }
+
 
     private void UnSubscriptionEvent()
     {
-        ScoreSignals.Instance.onScoreUp -= OnScoreUp;
-        ScoreSignals.Instance.onScoreDown -= OnScoreUp;
         ScoreSignals.Instance.onSetScore -= OnSetScore;
+        ScoreSignals.Instance.onSetAtmScore -= OnSetAtmScore;
+        CoreGameSignals.Instance.onReset -= OnPlay;
+        CoreGameSignals.Instance.onReset -= OnReset;
     }
-    
+
     private void OnDisable()
     {
         UnSubscriptionEvent();
@@ -56,22 +60,37 @@ public abstract class ScoreManager : MonoBehaviour
 
     #endregion
 
+    private void Awake()
+    {
+        OnPlay();
+        OnReset();
+    }
+
     public void OnSetScore(int setScore)
     {
-        Score += setScore;
-        
+        _scoreCache = setScore + _atmScoreValue;
+        ScoreSignals.Instance.onSetTotalScore?.Invoke(_scoreCache);
     }
-    public void OnScoreUp(int scoreValue)
+
+    private void OnSetAtmScore(int atmValues)
     {
-        _scoreCache += scoreValue;
-        
+        _atmScoreValue += atmValues;
+        ScoreSignals.Instance.onSetAtmScoreText?.Invoke(_atmScoreValue);
     }
-    public void OnScoreDown(int scoreValue)
+
+    private void OnPlay()
     {
-        _scoreCache -= scoreValue;
+        if (!ES3.FileExists()) _score = 0;
+        else
+        {
+            _score = ES3.KeyExists("Coin") ? ES3.Load<int>("Coin") : 0;
+        }
     }
-    public void OnReset()
+
+    private void OnReset()
     {
-        
+        _scoreCache = 0;
+        _atmScoreValue = 0;
+        _atmScore = 0;
     }
 }

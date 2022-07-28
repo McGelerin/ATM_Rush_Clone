@@ -3,7 +3,12 @@ guid: df6dd9668764cc94c93ce322ed17c902
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Swimging_Obstacle
+    second: {fileID: 2100000, guid: 80231d89afb99b1438ac8669e1858b0a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
