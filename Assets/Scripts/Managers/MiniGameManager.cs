@@ -67,7 +67,6 @@ namespace Managers
             NewWallStage();
             InitializeFake();
             _initializePos = transform.GetChild(0).localPosition;
-
         }
 
         private void NewWallStage()
@@ -82,41 +81,30 @@ namespace Managers
 
         private void InitializeFake()
         {
-
             for (int i = 0; i < 15; i++)    
             {
                 var ob=  Instantiate(fakeMoney,fakeObject);
                 ob.transform.localPosition = new Vector3(0,-i*1.58f , -7);
-                
             }
-            
         }
 
         private void OnSendScore(int scoreValue)
         {
             _score = scoreValue;
         }
+
         private void OnMiniGameStart()
         {
             fakeObject.gameObject.SetActive(true);
-            
             StartCoroutine(GoUp());
-
         }
 
         IEnumerator GoUp()
         {
-
             yield return new WaitForSeconds(1f);
-                
-                transform.GetChild(0).DOLocalMoveY(_score,2.5f).SetEase(Ease.Flash).SetDelay(0.2f).OnComplete(() =>
-                    {
-                       
-                        CoreGameSignals.Instance.onLevelSuccessful?.Invoke();
-                        
-                    }
-                );
-
+            transform.GetChild(0).DOLocalMoveY(_score, 2.5f).SetEase(Ease.Flash).SetDelay(1f);
+            yield return new WaitForSeconds(4.5f);
+            CoreGameSignals.Instance.onLevelSuccessful?.Invoke();
         }
         private void OnReset()
         {           
