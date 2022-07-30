@@ -68,9 +68,9 @@ namespace Managers
             uiPanelController.ClosePanel(panelParam);
         }
 
-        private void SetMoneyText(int value)
+        private void SetMoneyText(float value)
         {
-            money.text = value.ToString();
+            money.text = ((int)value).ToString();
         }
 
         private void OnSetLevelText(int value)

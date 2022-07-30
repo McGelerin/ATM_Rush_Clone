@@ -1699,6 +1699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10391423a6274a67bd033c51ac224acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1306812094}
 --- !u!1 &604549736
 GameObject:
   m_ObjectHideFlags: 0
@@ -2716,6 +2717,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f720a17b22540e8b28fce8ab27cb3df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1306812094 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 124136432874902682, guid: 44a9fa85b95931d41bf43df008bae907, type: 3}
+  m_PrefabInstance: {fileID: 1613265587}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 492a018611b54b288f57e015bab62a34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1331325376
 GameObject:
   m_ObjectHideFlags: 0
@@ -3395,6 +3407,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1950286432, guid: 44a9fa85b95931d41bf43df008bae907, type: 3}
+      propertyPath: m_TagString
+      value: FakePlayer
+      objectReference: {fileID: 0}
     - target: {fileID: 1950286433, guid: 44a9fa85b95931d41bf43df008bae907, type: 3}
       propertyPath: m_LocalPosition.z
       value: -5

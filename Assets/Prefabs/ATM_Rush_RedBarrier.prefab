@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6791510730864104239}
   - component: {fileID: 7633478857125239946}
   - component: {fileID: 5623702747673487424}
-  - component: {fileID: -5639535027366441000}
+  - component: {fileID: 2922809525161042316}
   m_Layer: 0
   m_Name: ATM_Rush_RedBarrier
   m_TagString: Obstacle
@@ -82,15 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-5639535027366441000
-MonoBehaviour:
+--- !u!65 &2922809525161042316
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6128162873552718229}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a0a9a6bd334acdb9e50f80e15c6268, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 2
+  m_Size: {x: 2.3999934, y: 1.5999985, z: 0.50000006}
+  m_Center: {x: 0, y: 0.000000834465, z: 0.0000046268106}

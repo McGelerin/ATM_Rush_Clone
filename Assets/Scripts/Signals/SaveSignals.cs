@@ -9,6 +9,6 @@ namespace Signals
     {
         public UnityAction onSaveGameData = delegate { };
         public Func<int> onGetLevelID = delegate { return 0; };
-        public Func<int> onGetMoney = delegate { return 0; };
+        public Func<float> onGetMoney = delegate { return 0; };
     }
 }

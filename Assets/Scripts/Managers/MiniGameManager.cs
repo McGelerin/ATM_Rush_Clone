@@ -15,8 +15,8 @@ namespace Managers
         #region Veriables
 
         #region Private Veriables
-
         private int _score = 0;
+        private float _multipler;
         private Vector3 _initializePos;
         // private MaterialPropertyBlock _materialPropertyBlock = null;
 
@@ -50,6 +50,7 @@ namespace Managers
             CoreGameSignals.Instance.onReset += OnReset;
             CoreGameSignals.Instance.onMiniGameStart += OnMiniGameStart;
             ScoreSignals.Instance.onSendFinalScore += OnSendScore;
+            ScoreSignals.Instance.onGetMultiplier += OnGetMultipler;
         }
 
         private void UnSubcribtion()
@@ -57,6 +58,8 @@ namespace Managers
             CoreGameSignals.Instance.onReset -= OnReset;
             CoreGameSignals.Instance.onMiniGameStart -= OnMiniGameStart;
             ScoreSignals.Instance.onSendFinalScore -= OnSendScore;
+            ScoreSignals.Instance.onGetMultiplier -= OnGetMultipler;
+
         }
 
         private void OnDisable()
@@ -129,6 +132,13 @@ namespace Managers
                 transform.GetChild(i).transform.DOLocalMoveZ(0, 0);
             }
         }
+
+        public void OnSetMultipler(float multipler)
+        {
+            _multipler = multipler;
+        }
+
+        private float OnGetMultipler() => _multipler;
 
         private void OnReset()
         {

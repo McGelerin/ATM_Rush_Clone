@@ -20,7 +20,7 @@ namespace Managers
 
         #region Private Variables
 
-        private int _money;
+        private float _money;
         private int _levelId;
 
         #endregion
@@ -53,7 +53,7 @@ namespace Managers
             UnsubscribeEvents();
         }
         
-        private void SetMoney(int value)
+        private void SetMoney(float value)
         {
             _money = value;
         }

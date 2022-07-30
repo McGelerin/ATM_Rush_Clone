@@ -23,7 +23,7 @@ public class ScoreManager : MonoBehaviour
 
     #region Private Variables
 
-    private int _Money;
+    private float _Money;
     private int _scoreCache = 0;
     private int _atmScoreValue = 0;
     private int _atmScore = 0;
@@ -99,19 +99,19 @@ public class ScoreManager : MonoBehaviour
     {
         ScoreSignals.Instance.onSendFinalScore?.Invoke(_scoreCache);
     }
-    private int SetMoney()
+    private float SetMoney()
     {
         if (!ES3.FileExists()) return 0;
-        return ES3.KeyExists("Money") ? ES3.Load<int>("Money") : 0;
+        return ES3.KeyExists("Money") ? ES3.Load<float>("Money") : 0;
     }
 
-    private int OnGetMoney()
+    private float OnGetMoney()
     {
-        return _Money;
+        return _Money ;
     }
     private void RefreshMoney()
     {
-        _Money += _scoreCache;
+        _Money += _scoreCache * ScoreSignals.Instance.onGetMultiplier();
         ScoreSignals.Instance.onSendMoney?.Invoke(_Money);
     }
     

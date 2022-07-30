@@ -1,3 +1,4 @@
+using System;
 using Extentions;
 using UnityEngine.Events;
 
@@ -11,6 +12,8 @@ namespace Signals
         public UnityAction<int> onSetTotalScore = delegate { };
         public UnityAction<int> onSetAtmScoreText = delegate { };
         public UnityAction<int> onSendFinalScore = delegate { };
-        public UnityAction<int> onSendMoney = delegate { };
+        public UnityAction<float> onSendMoney = delegate { };
+        
+        public Func<float> onGetMultiplier= delegate { return 0;};
     }
 }
