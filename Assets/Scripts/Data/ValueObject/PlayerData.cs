@@ -7,7 +7,6 @@ namespace Data.ValueObject
     public class PlayerData
     {
         public PlayerMovementData MovementData;
-
     }
 
     [Serializable]
@@ -15,6 +14,5 @@ namespace Data.ValueObject
     {
         public float ForwardSpeed = 5;
         public float SidewaysSpeed = 2;
-      
     }
 }

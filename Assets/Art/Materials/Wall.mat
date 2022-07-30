@@ -73,6 +73,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_85701e1cacf14b1481b77592aaddc40c_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 3a76f2bf032bd46a59c35a385a1753e1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_8d647408e64f47efa25b512a412c0bd7_Texture_1:
         m_Texture: {fileID: 2800000, guid: 3a76f2bf032bd46a59c35a385a1753e1, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -94,6 +98,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_6d077e60ba844c56985af17ea971c086: 0
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -113,7 +118,8 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.5
+    - _SampleGI: 0
+    - _Smoothness: 0.4
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

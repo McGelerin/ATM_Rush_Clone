@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Controllers;
 using UnityEngine;
 using Signals;
 using DG.Tweening;
@@ -24,9 +25,11 @@ namespace Managers
 
         #region Private Veriables
 
-        [ShowInInspector] public List<GameObject> _collectableStack=new List<GameObject>();
+        [ShowInInspector] public List<GameObject> _collectableStack = new List<GameObject>();
+
         //[ShowInInspector] private List<GameObject> _collectableStackValues=new List<GameObject>();
         [ShowInInspector] private int _totalListScore;
+        private StackMoveController stackMoveController;
         private bool _lastCheck;
 
         #endregion
@@ -68,7 +71,6 @@ namespace Managers
             StackSignals.Instance.onStackFollowPlayer -= OnStackMove;
             StackSignals.Instance.onUpdateType -= StackValuesUpdate;
             StackSignals.Instance.onInteractionConveyor -= OnInteractionWithConveyor;
-
         }
 
         private void OnDisable()
@@ -81,13 +83,16 @@ namespace Managers
         private void Awake()
         {
             StackData = GetStackData();
+            stackMoveController = new StackMoveController();
+            stackMoveController.InisializedController(StackData);
         }
 
         private StackData GetStackData() => Resources.Load<CD_Stack>("Data/CD_StackData").StackData;
 
         private void OnInteractionWithATM(GameObject collectableGameObject)
         {
-            ScoreSignals.Instance.onSetAtmScore?.Invoke((int)collectableGameObject.GetComponent<CollectableManager>().CollectableTypeValue+1);
+            ScoreSignals.Instance.onSetAtmScore?.Invoke((int)collectableGameObject.GetComponent<CollectableManager>()
+                .CollectableTypeValue + 1);
             if (_lastCheck == false)
             {
                 RemoveStackListItems(collectableGameObject);
@@ -95,7 +100,6 @@ namespace Managers
             else
             {
                 collectableGameObject.SetActive(false);
-                
             }
         }
 
@@ -103,16 +107,13 @@ namespace Managers
         {
             AddStackList(collectableGameObject);
             StartCoroutine(StackItemsShackAnim());
-            //StackItemsShackAnim();
             StackValuesUpdate();
         }
 
         private void OnInteractionWithObstacle(GameObject collectableGameObject)
         {
             RemoveStackListItems(collectableGameObject);
-            //StopAllCoroutines();
         }
-
         private void AddStackList(GameObject collectableGameObject)
         {
             if (_collectableStack.Count == 0)
@@ -130,7 +131,6 @@ namespace Managers
                 _collectableStack.Add(collectableGameObject);
             }
         }
-        //private void StackItemsShackAnim()
         IEnumerator StackItemsShackAnim()
         {
             for (int i = 0; i <= _collectableStack.Count - 1; i++)
@@ -139,21 +139,24 @@ namespace Managers
                 _collectableStack[index].transform.DOScale(new Vector3(2, 2, 2), 0.14f).SetEase(Ease.Flash);
                 _collectableStack[index].transform.DOScale(Vector3.one, 0.14f).SetDelay(0.14f).SetEase(Ease.Flash);
                 yield return new WaitForSeconds(0.05f);
-            
             }
         }
-
         private void RemoveStackListItems(GameObject collectableGameObject)
         {
             int index = _collectableStack.IndexOf(collectableGameObject);
             int last = _collectableStack.Count - 1;
             collectableGameObject.transform.SetParent(levelHolder.transform.GetChild(0));
             collectableGameObject.SetActive(false);
-            //Destroy(collectableGameObject);
-            //StopAllCoroutines();
+            ItemsJump(last, index);
+            _collectableStack.RemoveAt(index);
+            _collectableStack.TrimExcess();
+            StackValuesUpdate();
+        }
+
+        private void ItemsJump(int last, int index)
+        {
             for (int i = last; i > index; i--)
             {
-                // StackSignals.Instance.onRemoveFromStack?.Invoke(_collectableStack[i]);
                 _collectableStack[i].transform.GetChild(1).tag = "Collectable";
                 _collectableStack[i].transform.SetParent(levelHolder.transform.GetChild(0));
                 _collectableStack[i].transform.DOJump(
@@ -168,46 +171,51 @@ namespace Managers
                 _collectableStack.RemoveAt(i);
                 _collectableStack.TrimExcess();
             }
-            _collectableStack.RemoveAt(index);
-            _collectableStack.TrimExcess();
-            StackValuesUpdate();
         }
 
         private void OnStackMove(Vector2 direction)
         {
             transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 4f);
-            StackItemsMoveOrigin(direction.x);
-        }
-
-        private void StackItemsMoveOrigin(float directionX)
-        {
             if (gameObject.transform.childCount > 0)
             {
-                float direct = Mathf.Lerp(_collectableStack[0].transform.localPosition.x, directionX,
-                    StackData.LerpSpeed);
-                _collectableStack[0].transform.localPosition = new Vector3(direct, 0, 0);
-                StackItemsLerpMove();
+                stackMoveController.StackItemsMoveOrigin(direction.x, _collectableStack);
             }
         }
 
-        private void StackItemsLerpMove()
-        {
-            for (int i = 1; i < _collectableStack.Count; i++)
-            {
-                Vector3 pos = _collectableStack[i].transform.localPosition;
-                pos.x = _collectableStack[i - 1].transform.localPosition.x;
-                float direct = Mathf.Lerp(_collectableStack[i].transform.localPosition.x, pos.x, StackData.LerpSpeed);
-                _collectableStack[i].transform.localPosition = new Vector3(direct, pos.y, pos.z);
-            }
-        }
+        #region useless
+
+        // private void StackItemsMoveOrigin(float directionX)
+        // {
+        //     if (gameObject.transform.childCount > 0)
+        //     {
+        //         float direct = Mathf.Lerp(_collectableStack[0].transform.localPosition.x, directionX,
+        //             StackData.LerpSpeed);
+        //         _collectableStack[0].transform.localPosition = new Vector3(direct, 0, 0);
+        //         StackItemsLerpMove();
+        //     }
+        // }
+        //
+        // private void StackItemsLerpMove()
+        // {
+        //     for (int i = 1; i < _collectableStack.Count; i++)
+        //     {
+        //         Vector3 pos = _collectableStack[i].transform.localPosition;
+        //         pos.x = _collectableStack[i - 1].transform.localPosition.x;
+        //         float direct = Mathf.Lerp(_collectableStack[i].transform.localPosition.x, pos.x, StackData.LerpSpeed);
+        //         _collectableStack[i].transform.localPosition = new Vector3(direct, pos.y, pos.z);
+        //     }
+        // }
+
+        #endregion
 
         private void StackValuesUpdate()
         {
             _totalListScore = 0;
             foreach (var Items in _collectableStack)
             {
-                _totalListScore += (int)Items.GetComponent<CollectableManager>().CollectableTypeValue+1;
+                _totalListScore += (int)Items.GetComponent<CollectableManager>().CollectableTypeValue + 1;
             }
+
             ScoreSignals.Instance.onSetScore?.Invoke(_totalListScore);
         }
 
@@ -216,9 +224,8 @@ namespace Managers
             _lastCheck = true;
             int i = _collectableStack.Count - 1;
             _collectableStack[i].transform.SetParent(levelHolder.transform.GetChild(0));
-            _collectableStack[i].transform.DOScale(Vector3.zero,2.5f);
-            //_collectableStack[i].transform.DOMoveX(-10f, 1f, false);
-            _collectableStack[i].transform.DOMove(new Vector3(-10,2,_collectableStack[i].transform.position.z),1.5f);
+            _collectableStack[i].transform.DOScale(Vector3.zero, 2.5f);
+            _collectableStack[i].transform.DOMove(new Vector3(-10, 2, _collectableStack[i].transform.position.z), 1.5f);
             _collectableStack.RemoveAt(i);
             _collectableStack.TrimExcess();
         }
@@ -226,17 +233,16 @@ namespace Managers
         private void OnPlay()
         {
             _lastCheck = false;
-
         }
+
         private void OnReset()
         {
             foreach (Transform childs in transform)
             {
                 Destroy(childs.gameObject);
             }
+
             _collectableStack.Clear();
-            
-            
         }
     }
 }

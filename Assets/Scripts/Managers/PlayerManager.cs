@@ -63,8 +63,8 @@ namespace Managers
             InputSignals.Instance.onInputDragged += OnGetInputValues;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
-            CoreGameSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
-            CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
+            LevelSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
+            LevelSignals.Instance.onLevelFailed += OnLevelFailed;
             ScoreSignals.Instance.onSetTotalScore += OnSetScoreText;
             CoreGameSignals.Instance.onConveyor += OnConveyor;
 
@@ -77,8 +77,8 @@ namespace Managers
             InputSignals.Instance.onInputDragged -= OnGetInputValues;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
-            CoreGameSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
-            CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
+            LevelSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
+            LevelSignals.Instance.onLevelFailed -= OnLevelFailed;
             ScoreSignals.Instance.onSetTotalScore -= OnSetScoreText;
             CoreGameSignals.Instance.onConveyor -= OnConveyor;
 
@@ -137,6 +137,7 @@ namespace Managers
 
         private void OnReset()
         {
+            gameObject.SetActive(true);
             movementController.OnReset();
             animationController.OnReset();
         }
@@ -155,7 +156,9 @@ namespace Managers
         {
             animationController.Playanim(animationStates:PlayerAnimationStates.Idle);
             yield return new WaitForSeconds(2f);
-            CoreGameSignals.Instance.onLevelSuccessful?.Invoke();
+            gameObject.SetActive(false);
+            CoreGameSignals.Instance.onMiniGameStart?.Invoke();
         }
+        
     }
 }

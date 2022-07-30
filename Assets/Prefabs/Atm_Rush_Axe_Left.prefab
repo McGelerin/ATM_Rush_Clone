@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 6225337178202750094}
   - component: {fileID: 6225337178202750093}
   m_Layer: 0
-  m_Name: Atm_Rush_Axe
+  m_Name: Atm_Rush_Axe_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,15 +201,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6531836840768625942}
-  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.60876137, w: 0.7933534}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 6901639555365405023}
   - {fileID: 8138707712235514762}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -75}
 --- !u!114 &6225337178202750094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,8 +267,8 @@ MonoBehaviour:
   targetIsSelf: 1
   targetGO: {fileID: 0}
   tweenTargetIsTargetGO: 1
-  delay: 0
-  duration: 2
+  delay: 1
+  duration: 3
   easeType: 10
   easeCurve:
     serializedVersion: 2
@@ -311,7 +311,7 @@ MonoBehaviour:
   autoPlay: 0
   useTargetAsV3: 0
   endValueFloat: 0
-  endValueV3: {x: 0, y: 0, z: 90}
+  endValueV3: {x: 0, y: 0, z: 150}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
   endValueString: 
