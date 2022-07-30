@@ -2,6 +2,7 @@ using System;
 using Controllers;
 using Enums;
 using Signals;
+using TMPro;
 using UnityEngine;
 
 namespace Managers
@@ -14,8 +15,10 @@ namespace Managers
 
         [SerializeField] private UIPanelController uiPanelController;
         [SerializeField] private LevelPanelController levelPanelController;
+        [SerializeField] private TextMeshProUGUI money;
 
         #endregion
+
         #endregion
 
         #region Event Subscriptions
@@ -31,8 +34,9 @@ namespace Managers
             UISignals.Instance.onClosePanel += OnClosePanel;
             UISignals.Instance.onSetLevelText += OnSetLevelText;
             CoreGameSignals.Instance.onPlay += OnPlay;
-            CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
-            CoreGameSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
+            LevelSignals.Instance.onLevelFailed += OnLevelFailed;
+            LevelSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
+            ScoreSignals.Instance.onSendMoney += SetMoneyText;
         }
 
         private void UnsubscribeEvents()
@@ -41,8 +45,9 @@ namespace Managers
             UISignals.Instance.onClosePanel -= OnClosePanel;
             UISignals.Instance.onSetLevelText -= OnSetLevelText;
             CoreGameSignals.Instance.onPlay -= OnPlay;
-            CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
-            CoreGameSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
+            LevelSignals.Instance.onLevelFailed -= OnLevelFailed;
+            LevelSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
+            ScoreSignals.Instance.onSendMoney -= SetMoneyText;
         }
 
         private void OnDisable()
@@ -50,9 +55,8 @@ namespace Managers
             UnsubscribeEvents();
         }
 
-     
-
         #endregion
+
 
         private void OnOpenPanel(UIPanels panelParam)
         {
@@ -63,7 +67,11 @@ namespace Managers
         {
             uiPanelController.ClosePanel(panelParam);
         }
-        
+
+        private void SetMoneyText(int value)
+        {
+            money.text = value.ToString();
+        }
 
         private void OnSetLevelText(int value)
         {
@@ -95,16 +103,16 @@ namespace Managers
 
         public void NextLevel()
         {
-            CoreGameSignals.Instance.onNextLevel?.Invoke();
+            LevelSignals.Instance.onNextLevel?.Invoke();
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.WinPanel);
+            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.LevelPanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.StartPanel);
         }
 
         public void RestartLevel()
         {
-            CoreGameSignals.Instance.onRestartLevel?.Invoke();
+            LevelSignals.Instance.onRestartLevel?.Invoke();
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.FailPanel);
-            UISignals.Instance.onClosePanel?.Invoke(UIPanels.LevelPanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.StartPanel);
         }
     }

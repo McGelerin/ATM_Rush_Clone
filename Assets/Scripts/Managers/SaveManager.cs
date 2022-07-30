@@ -14,6 +14,15 @@ namespace Managers
 
         #region Public Variables
 
+        public SaveGameDataParams saveGameDataParams;
+
+        #endregion
+
+        #region Private Variables
+
+        private int _money;
+        private int _levelId;
+
         #endregion
 
         #endregion
@@ -27,27 +36,42 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            CoreGameSignals.Instance.onSaveGameData += OnSaveGame;
+            SaveSignals.Instance.onSaveGameData += SaveData;
+            ScoreSignals.Instance.onSendMoney += SetMoney;
         }
 
         private void UnsubscribeEvents()
         {
-            CoreGameSignals.Instance.onSaveGameData -= OnSaveGame;
+            SaveSignals.Instance.onSaveGameData -= SaveData;
+            ScoreSignals.Instance.onSendMoney -= SetMoney;
+            LevelSignals.Instance.onLevelSuccessful -= SaveData;
         }
+
 
         private void OnDisable()
         {
             UnsubscribeEvents();
+        }
+        
+        private void SetMoney(int value)
+        {
+            _money = value;
+        }
+
+        private void SaveData()
+        {
+            OnSaveGame(new SaveGameDataParams()
+            {
+                Money = SaveSignals.Instance.onGetMoney(),
+                Level = SaveSignals.Instance.onGetLevelID()
+            });
         }
 
 
         private void OnSaveGame(SaveGameDataParams saveDataParams)
         {
             if (saveDataParams.Level != null) ES3.Save("Level", saveDataParams.Level);
-            if (saveDataParams.Coin != null) ES3.Save("Coin", saveDataParams.Coin);
-            if (saveDataParams.SFX != null) ES3.Save("SFX", saveDataParams.SFX);
-            if (saveDataParams.VFX != null) ES3.Save("VFX", saveDataParams.VFX);
-            if (saveDataParams.Haptic != null) ES3.Save("Haptic", saveDataParams.Haptic);
+            if (saveDataParams.Money != null) ES3.Save("Money", saveDataParams.Money);
         }
     }
 }

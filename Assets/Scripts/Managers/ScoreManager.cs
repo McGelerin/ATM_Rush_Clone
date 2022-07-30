@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
+using Keys;
+using Managers;
 using Signals;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -20,7 +23,7 @@ public class ScoreManager : MonoBehaviour
 
     #region Private Variables
 
-    private int _score = 0;
+    private int _Money;
     private int _scoreCache = 0;
     private int _atmScoreValue = 0;
     private int _atmScore = 0;
@@ -40,9 +43,11 @@ public class ScoreManager : MonoBehaviour
     {
         ScoreSignals.Instance.onSetScore += OnSetScore;
         ScoreSignals.Instance.onSetAtmScore += OnSetAtmScore;
-        CoreGameSignals.Instance.onReset += OnPlay;
         CoreGameSignals.Instance.onReset += OnReset;
-        CoreGameSignals.Instance.onMiniGameStart += SendScore;
+        CoreGameSignals.Instance.onMiniGameStart += SendFinalScore;
+        LevelSignals.Instance.onLevelSuccessful += RefreshMoney;
+        SaveSignals.Instance.onGetMoney += OnGetMoney;
+
     }
 
 
@@ -50,11 +55,15 @@ public class ScoreManager : MonoBehaviour
     {
         ScoreSignals.Instance.onSetScore -= OnSetScore;
         ScoreSignals.Instance.onSetAtmScore -= OnSetAtmScore;
-        CoreGameSignals.Instance.onReset -= OnPlay;
         CoreGameSignals.Instance.onReset -= OnReset;
-        CoreGameSignals.Instance.onMiniGameStart -= SendScore;
+        CoreGameSignals.Instance.onMiniGameStart -= SendFinalScore;
+        LevelSignals.Instance.onLevelSuccessful -= RefreshMoney;
+        SaveSignals.Instance.onGetMoney -= OnGetMoney;
+
 
     }
+
+  
 
     private void OnDisable()
     {
@@ -65,14 +74,19 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        OnPlay();
-        OnReset();
+        _Money = SetMoney();
+    }
+
+    private void Start()
+    {
+        RefreshMoney();
     }
 
     public void OnSetScore(int setScore)
     {
         _scoreCache = setScore + _atmScoreValue;
         ScoreSignals.Instance.onSetTotalScore?.Invoke(_scoreCache);
+        
     }
 
     private void OnSetAtmScore(int atmValues)
@@ -81,18 +95,26 @@ public class ScoreManager : MonoBehaviour
         ScoreSignals.Instance.onSetAtmScoreText?.Invoke(_atmScoreValue);
     }
 
-    private void SendScore()
+    private void SendFinalScore()
     {
-        ScoreSignals.Instance.onSendScore?.Invoke(_scoreCache);
+        ScoreSignals.Instance.onSendFinalScore?.Invoke(_scoreCache);
     }
-    private void OnPlay()
+    private int SetMoney()
     {
-        if (!ES3.FileExists()) _score = 0;
-        else
-        {
-            _score = ES3.KeyExists("Coin") ? ES3.Load<int>("Coin") : 0;
-        }
+        if (!ES3.FileExists()) return 0;
+        return ES3.KeyExists("Money") ? ES3.Load<int>("Money") : 0;
     }
+
+    private int OnGetMoney()
+    {
+        return _Money;
+    }
+    private void RefreshMoney()
+    {
+        _Money += _scoreCache;
+        ScoreSignals.Instance.onSendMoney?.Invoke(_Money);
+    }
+    
 
     private void OnReset()
     {

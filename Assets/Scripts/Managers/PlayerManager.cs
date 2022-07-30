@@ -63,8 +63,8 @@ namespace Managers
             InputSignals.Instance.onInputDragged += OnGetInputValues;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
-            CoreGameSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
-            CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
+            LevelSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
+            LevelSignals.Instance.onLevelFailed += OnLevelFailed;
             ScoreSignals.Instance.onSetTotalScore += OnSetScoreText;
             CoreGameSignals.Instance.onConveyor += OnConveyor;
 
@@ -77,8 +77,8 @@ namespace Managers
             InputSignals.Instance.onInputDragged -= OnGetInputValues;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
-            CoreGameSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
-            CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
+            LevelSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
+            LevelSignals.Instance.onLevelFailed -= OnLevelFailed;
             ScoreSignals.Instance.onSetTotalScore -= OnSetScoreText;
             CoreGameSignals.Instance.onConveyor -= OnConveyor;
 

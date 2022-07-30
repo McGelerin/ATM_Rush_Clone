@@ -11,11 +11,15 @@ namespace Managers
     public class CameraManager : MonoBehaviour
     {
         #region Self Variables
+
         #region Serialized Variables
 
         public CinemachineVirtualCamera VirtualCamera;
         public GameObject FakePlayer;
-        public CameraStates CameraController { get => _cameraStateValue;
+
+        public CameraStates CameraController
+        {
+            get => _cameraStateValue;
             set
             {
                 _cameraStateValue = value;
@@ -53,21 +57,18 @@ namespace Managers
         {
             CoreGameSignals.Instance.onMiniGameStart += OnMiniGame;
             CoreGameSignals.Instance.onPlay += OnSetCameraTarget;
-            CoreGameSignals.Instance.onSetCameraTarget += OnSetCameraTarget;
             CoreGameSignals.Instance.onReset += OnReset;
-            CoreGameSignals.Instance.onNextLevel += OnNextLevel;
+            LevelSignals.Instance.onNextLevel += OnNextLevel;
         }
 
         private void UnsubscribeEvents()
         {
             CoreGameSignals.Instance.onMiniGameStart -= OnMiniGame;
             CoreGameSignals.Instance.onPlay -= OnSetCameraTarget;
-            CoreGameSignals.Instance.onSetCameraTarget -= OnSetCameraTarget;
             CoreGameSignals.Instance.onReset -= OnReset;
-            CoreGameSignals.Instance.onNextLevel -= OnNextLevel;
+            LevelSignals.Instance.onNextLevel -= OnNextLevel;
         }
 
-     
 
         private void OnDisable()
         {
@@ -79,7 +80,7 @@ namespace Managers
 
         private void SetCameraStates()
         {
-            if(CameraController == CameraStates.InitializeCamera)
+            if (CameraController == CameraStates.InitializeCamera)
             {
                 _camAnimator.Play("InitializeCamera");
             }
@@ -87,7 +88,7 @@ namespace Managers
             {
                 _camAnimator.Play("PlayerCamera");
             }
-            else if(CameraController == CameraStates.MiniGameCamera)
+            else if (CameraController == CameraStates.MiniGameCamera)
             {
                 VirtualCamera = transform.GetChild(2).GetComponent<CinemachineVirtualCamera>();
                 VirtualCamera.Follow = FakePlayer.transform;
@@ -124,6 +125,7 @@ namespace Managers
 
         private void OnReset()
         {
+            CameraController = CameraStates.InitializeCamera;
             VirtualCamera.Follow = null;
             VirtualCamera.LookAt = null;
             VirtualCamera = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();

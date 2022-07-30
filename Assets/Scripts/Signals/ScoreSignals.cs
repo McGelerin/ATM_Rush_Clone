@@ -10,6 +10,7 @@ namespace Signals
         public UnityAction<int> onSetAtmScore = delegate { };
         public UnityAction<int> onSetTotalScore = delegate { };
         public UnityAction<int> onSetAtmScoreText = delegate { };
-        public UnityAction<int> onSendScore = delegate { };
+        public UnityAction<int> onSendFinalScore = delegate { };
+        public UnityAction<int> onSendMoney = delegate { };
     }
 }

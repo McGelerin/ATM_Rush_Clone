@@ -64,20 +64,20 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            CoreGameSignals.Instance.onLevelInitialize += OnInitializeLevel;
-            CoreGameSignals.Instance.onClearActiveLevel += OnClearActiveLevel;
-            CoreGameSignals.Instance.onNextLevel += OnNextLevel;
-            CoreGameSignals.Instance.onRestartLevel += OnRestartLevel;
-            CoreGameSignals.Instance.onGetLevelID += OnGetLevelID;
+            LevelSignals.Instance.onLevelInitialize += OnInitializeLevel;
+            LevelSignals.Instance.onClearActiveLevel += OnClearActiveLevel;
+            LevelSignals.Instance.onNextLevel += OnNextLevel;
+            LevelSignals.Instance.onRestartLevel += OnRestartLevel;
+            SaveSignals.Instance.onGetLevelID += OnGetLevelID;
         }
 
         private void UnsubscribeEvents()
         {
-            CoreGameSignals.Instance.onLevelInitialize -= OnInitializeLevel;
-            CoreGameSignals.Instance.onClearActiveLevel -= OnClearActiveLevel;
-            CoreGameSignals.Instance.onNextLevel -= OnNextLevel;
-            CoreGameSignals.Instance.onRestartLevel -= OnRestartLevel;
-            CoreGameSignals.Instance.onGetLevelID -= OnGetLevelID;
+            LevelSignals.Instance.onLevelInitialize -= OnInitializeLevel;
+            LevelSignals.Instance.onClearActiveLevel -= OnClearActiveLevel;
+            LevelSignals.Instance.onNextLevel -= OnNextLevel;
+            LevelSignals.Instance.onRestartLevel -= OnRestartLevel;
+            SaveSignals.Instance.onGetLevelID -= OnGetLevelID;
         }
 
         private void OnDisable()
@@ -96,25 +96,19 @@ namespace Managers
         private void OnNextLevel()
         {
             _levelID++;
-            CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
+            LevelSignals.Instance.onClearActiveLevel?.Invoke();
             CoreGameSignals.Instance.onReset?.Invoke();
-            CoreGameSignals.Instance.onSaveGameData?.Invoke(new SaveGameDataParams()
-            {
-                Level = _levelID,
-            });
-            CoreGameSignals.Instance.onLevelInitialize?.Invoke();
+            SaveSignals.Instance.onSaveGameData?.Invoke();
+            LevelSignals.Instance.onLevelInitialize?.Invoke();
             SetLevelText();
         }
 
         private void OnRestartLevel()
         {
-            CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
+            LevelSignals.Instance.onClearActiveLevel?.Invoke();
             CoreGameSignals.Instance.onReset?.Invoke();
-            CoreGameSignals.Instance.onSaveGameData?.Invoke(new SaveGameDataParams()
-            {
-                Level = _levelID
-            });
-            CoreGameSignals.Instance.onLevelInitialize?.Invoke();
+            SaveSignals.Instance.onSaveGameData?.Invoke();
+            LevelSignals.Instance.onLevelInitialize?.Invoke();
         }
         private int OnGetLevelID()
         {
@@ -124,7 +118,7 @@ namespace Managers
         private void SetLevelText()
         {
             
-            UISignals.Instance.onSetLevelText?.Invoke(OnGetLevelID());
+            UISignals.Instance.onSetLevelText?.Invoke(_levelID);
 
         }
         private void OnInitializeLevel()
