@@ -33,8 +33,15 @@ MonoBehaviour:
     - Cinemachine
     - Assembly-CSharp
     - Sirenix.OdinInspector.CompatibilityLayer
+    - ToonyColorsPro.Runtime
+    - Boxophobic.Utils.Scripts
+    - Boxophobic.PolyverseSkies.Runtime
+    - Boxophobic.PolyverseSkies.Scripts
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - Sirenix.OdinInspector.Modules.UnityMathematics
+    - ToonyColorsPro.Editor
+    - Boxophobic.Utils.Editor
+    - Boxophobic.PolyverseSkies.Editor
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1
