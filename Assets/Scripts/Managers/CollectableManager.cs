@@ -16,11 +16,6 @@ public class CollectableManager : MonoBehaviour
     #region Public Variables
 
     [Header("Data")] public CollectableMeshData MeshData;
-    //[Space]
-    //public bool IsCollectable;
-
-    //Type degisme durumu
-
     public CollectableType CollectableTypeValue
     {
         get => _collectableType;
@@ -34,13 +29,11 @@ public class CollectableManager : MonoBehaviour
     }
 
     #endregion
-
     #region SerializeField Variables
 
     [SerializeField] private CollactableMeshController collactableMeshController;
 
     #endregion
-
     #region Private Variables
 
     private CollectableType _collectableType;
@@ -51,15 +44,12 @@ public class CollectableManager : MonoBehaviour
 
     private void Awake()
     {
-        //IsCollectable = true;
         MeshData = GetMeshData();
         MeshDataInitializeToMeshController();
-        // CollectableTypeValue = CollectableType.Money;
     }
     private CollectableMeshData GetMeshData() =>
         Resources.Load<CD_CollectableData>("Data/CD_CollectableData").CollectableMeshData;
 
-    //update mesh data
     private void MeshDataInitializeToMeshController()
     {
         collactableMeshController.MeshDataInitialize(MeshData);
@@ -69,17 +59,6 @@ public class CollectableManager : MonoBehaviour
     {
         collactableMeshController.SetMeshData(CollectableTypeValue);
     }
-
-
-    // private void RemoveStack(GameObject ContVal)
-    // {
-    //     if (ContVal == this.gameObject)
-    //     {
-    //         // Destroy(gameObject);
-    //         transform.SetParent(null);
-    //         transform.GetChild(1).tag = "Collectable";
-    //     }
-    // }
 
     public void InteractionWithCollectable(GameObject collectableGameObject)
     {

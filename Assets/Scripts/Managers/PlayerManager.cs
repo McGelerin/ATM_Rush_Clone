@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using Controllers;
@@ -8,7 +7,6 @@ using Enums;
 using Keys;
 using Signals;
 using TMPro;
-using UnityEngine;
 
 namespace Managers
 {
@@ -25,14 +23,11 @@ namespace Managers
         #region Serialized Variables
 
         [Space] [SerializeField] private PlayerMovementController movementController;
-        [SerializeField] private PlayerPhysicsController physicsController;
         [SerializeField] private PlayerAnimationController animationController;
         [SerializeField] private TextMeshPro scoreText;
         
         #endregion
-
         #endregion
-
 
         private void Awake()
         {

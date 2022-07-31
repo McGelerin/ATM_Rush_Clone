@@ -18,13 +18,11 @@ namespace Managers
         [Header("Data")] public InputData Data;
 
         #endregion
-
         #region Serialized Variables
 
         [SerializeField] private bool isReadyForTouch, isFirstTimeTouchTaken;
 
         #endregion
-
         #region Private Variables
 
         private bool _isTouching;
@@ -34,9 +32,7 @@ namespace Managers
         private Vector3 _moveVector; //ref type
 
         #endregion
-
         #endregion
-
 
         private void Awake()
         {
@@ -45,9 +41,7 @@ namespace Managers
 
         private InputData GetInputData() => Resources.Load<CD_Input>("Data/CD_Input").InputData;
 
-
         #region Event Subscriptions
-
         private void OnEnable()
         {
             SubscribeEvents();

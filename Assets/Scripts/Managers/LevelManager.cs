@@ -22,14 +22,14 @@ namespace Managers
 
         #region Serialized Variables
 
-        [Space] [SerializeField] private GameObject levelHolder;
-        private LevelLoaderCommand levelLoader;
-        private ClearActiveLevelCommand levelClearer;
+        [SerializeField] private GameObject levelHolder;
 
         #endregion
 
         #region Private Variables
 
+        private LevelLoaderCommand _levelLoader;
+        private ClearActiveLevelCommand _levelClearer;
         [ShowInInspector] private int _levelID;
 
         #endregion
@@ -39,8 +39,8 @@ namespace Managers
         private void Awake()
         {
             _levelID = GetActiveLevel();
-            levelClearer = new ClearActiveLevelCommand();
-            levelLoader = new LevelLoaderCommand();
+            _levelClearer = new ClearActiveLevelCommand();
+            _levelLoader = new LevelLoaderCommand();
         }
 
         private int GetActiveLevel()
@@ -124,11 +124,11 @@ namespace Managers
         private void OnInitializeLevel()
         {
             int newLevelData = GetLevelCount();
-            levelLoader.InitializeLevel(newLevelData, levelHolder.transform);
+            _levelLoader.InitializeLevel(newLevelData, levelHolder.transform);
         }
         private void OnClearActiveLevel()
         {
-            levelClearer.ClearActiveLevel(levelHolder.transform);
+            _levelClearer.ClearActiveLevel(levelHolder.transform);
         }
     }
 }

@@ -21,29 +21,27 @@ namespace Managers
         #region Event Subscriptions
 
         private void OnEnable()
-                {
-                    SubscribeEvents();
-                }
-                private void SubscribeEvents()
-                {
-                    CoreGameSignals.Instance.onPlay += OnObstacleAnimationStart;
-                }
+        {
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            CoreGameSignals.Instance.onPlay += OnObstacleAnimationStart;
+        }
         
-                private void UnsubscribeEvents()
-                {
-                    CoreGameSignals.Instance.onPlay -= OnObstacleAnimationStart;
-                }
+        private void UnsubscribeEvents()
+        {
+            CoreGameSignals.Instance.onPlay -= OnObstacleAnimationStart;
+        }
         
-                private void OnDisable()
-                {
-                    UnsubscribeEvents();
-                }
-        
+        private void OnDisable()
+        {
+            UnsubscribeEvents();
+        }
 
         #endregion
-        
-        
-        
+             
         private void Awake()
         {
             _obstacleAnim = this.GetComponent<DOTweenAnimation>();

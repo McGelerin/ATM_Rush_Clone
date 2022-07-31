@@ -8,7 +8,7 @@ namespace Managers
 {
     public class AtmManager : MonoBehaviour
     {
-        #region Veriables
+        #region Self Variables
 
         #region Serialized Veriables
 
@@ -23,6 +23,7 @@ namespace Managers
         #endregion
 
         #endregion
+
         #region EventSubcribtions
 
         private void OnEnable()
@@ -68,6 +69,5 @@ namespace Managers
         {
             scoreText.text = _atmValues.ToString();
         }
-
     }
 }

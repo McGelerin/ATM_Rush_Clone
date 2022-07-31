@@ -13,17 +13,9 @@ public class ScoreManager : MonoBehaviour
 {
     #region Self Variables
 
-    #region Public Variables
-
-    #endregion
-
-    #region Serialized Variables
-
-    #endregion
-
     #region Private Variables
 
-    private float _Money;
+    private float _money;
     private int _scoreCache = 0;
     private int _atmScoreValue = 0;
     private int _atmScore = 0;
@@ -50,7 +42,6 @@ public class ScoreManager : MonoBehaviour
 
     }
 
-
     private void UnSubscriptionEvent()
     {
         ScoreSignals.Instance.onSetScore -= OnSetScore;
@@ -59,11 +50,7 @@ public class ScoreManager : MonoBehaviour
         CoreGameSignals.Instance.onMiniGameStart -= SendFinalScore;
         LevelSignals.Instance.onLevelSuccessful -= RefreshMoney;
         SaveSignals.Instance.onGetMoney -= OnGetMoney;
-
-
     }
-
-  
 
     private void OnDisable()
     {
@@ -74,7 +61,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        _Money = SetMoney();
+        _money = SetMoney();
     }
 
     private void Start()
@@ -107,15 +94,14 @@ public class ScoreManager : MonoBehaviour
 
     private float OnGetMoney()
     {
-        return _Money ;
+        return _money ;
     }
     private void RefreshMoney()
     {
-        _Money += _scoreCache * ScoreSignals.Instance.onGetMultiplier();
-        ScoreSignals.Instance.onSendMoney?.Invoke(_Money);
+        _money += _scoreCache * ScoreSignals.Instance.onGetMultiplier();
+        ScoreSignals.Instance.onSendMoney?.Invoke(_money);
     }
     
-
     private void OnReset()
     {
         _scoreCache = 0;
