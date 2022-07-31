@@ -175,7 +175,7 @@ namespace Managers
 
         private void OnStackMove(Vector2 direction)
         {
-            transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 4f);
+            transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 2f);
             if (gameObject.transform.childCount > 0)
             {
                 stackMoveController.StackItemsMoveOrigin(direction.x, _collectableStack);

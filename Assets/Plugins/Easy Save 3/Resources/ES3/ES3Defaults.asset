@@ -30,18 +30,20 @@ MonoBehaviour:
     serializationDepthLimit: 64
     assemblyNames:
     - Assembly-CSharp-firstpass
+    - Boxophobic.PolyverseSkies.Runtime
     - Cinemachine
     - Assembly-CSharp
+    - sc.stylizedwater2.runtime
+    - Boxophobic.Utils.Scripts
+    - sc.stylizedwater2.editor
     - Sirenix.OdinInspector.CompatibilityLayer
     - ToonyColorsPro.Runtime
-    - Boxophobic.Utils.Scripts
-    - Boxophobic.PolyverseSkies.Runtime
     - Boxophobic.PolyverseSkies.Scripts
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
-    - Sirenix.OdinInspector.Modules.UnityMathematics
-    - ToonyColorsPro.Editor
     - Boxophobic.Utils.Editor
+    - ToonyColorsPro.Editor
     - Boxophobic.PolyverseSkies.Editor
+    - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1
