@@ -14,25 +14,20 @@ namespace Managers
 
         #region Public Variables
 
-        public SaveGameDataParams saveGameDataParams;
+        public SaveGameDataParams SaveGameDataParams;
 
         #endregion
-
         #region Private Variables
-
         private float _money;
-        private int _levelId;
 
         #endregion
-
         #endregion
 
-
+        #region EventSubscribtion
         private void OnEnable()
         {
             SubscribeEvents();
         }
-
 
         private void SubscribeEvents()
         {
@@ -47,12 +42,12 @@ namespace Managers
             LevelSignals.Instance.onLevelSuccessful -= SaveData;
         }
 
-
         private void OnDisable()
         {
             UnsubscribeEvents();
-        }
-        
+        } 
+        #endregion
+
         private void SetMoney(float value)
         {
             _money = value;
@@ -60,13 +55,14 @@ namespace Managers
 
         private void SaveData()
         {
-            OnSaveGame(new SaveGameDataParams()
-            {
-                Money = SaveSignals.Instance.onGetMoney(),
-                Level = SaveSignals.Instance.onGetLevelID()
-            });
+            OnSaveGame(
+                new SaveGameDataParams()
+                {
+                    Money = SaveSignals.Instance.onGetMoney(),
+                    Level = SaveSignals.Instance.onGetLevelID()
+                }
+            );
         }
-
 
         private void OnSaveGame(SaveGameDataParams saveDataParams)
         {

@@ -12,19 +12,7 @@ namespace Managers
 {
     public class MiniGameManager : MonoBehaviour
     {
-        #region Veriables
-
-        #region Private Veriables
-        private int _score = 0;
-        private float _multipler;
-        private Vector3 _initializePos;
-        // private MaterialPropertyBlock _materialPropertyBlock = null;
-
-        #endregion
-
-        #region Public Veriables
-
-        #endregion
+        #region Self Variables
 
         #region Serialized Veriables
 
@@ -32,11 +20,24 @@ namespace Managers
         [SerializeField] private GameObject fakeMoney;
         [SerializeField] private Transform fakeObject;
         [SerializeField] private Material mat;
-        // [SerializeField] private Color baseColor = Color.grey;
+
+        #endregion
+
+        #region Private Veriables
+        private int _score = 0;
+        private float _multipler;
+        private Vector3 _initializePos;
 
         #endregion
 
         #endregion
+
+        private void Awake()
+        {
+            NewWallStage();
+            InitializeFake();
+            _initializePos = transform.GetChild(0).localPosition;
+        }
 
         #region Event Subscribtion
 
@@ -68,15 +69,6 @@ namespace Managers
         }
 
         #endregion
-
-        private void Awake()
-        {
-            NewWallStage();
-            InitializeFake();
-            // _materialPropertyBlock = new MaterialPropertyBlock();
-            // _materialPropertyBlock.SetColor("_Color", baseColor);
-            _initializePos = transform.GetChild(0).localPosition;
-        }
 
         private void NewWallStage()
         {
@@ -148,7 +140,5 @@ namespace Managers
             fakeObject.gameObject.SetActive(false);
             transform.GetChild(0).localPosition = _initializePos;
         }
-
-      
     }
 }

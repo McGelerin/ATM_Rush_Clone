@@ -9,28 +9,22 @@ namespace Controllers {
     {
         #region Self Variables
         #region Serializefield Variables
+
         [SerializeField] private MeshFilter collectableMeshFilter;
         #endregion
         #region Private Variables
+
         [Header("Data")]private CollectableMeshData _collectableMeshData;
-        //[ShowInInspector]private CollectableType _collectabletype;
         #endregion
         #endregion
         
         public void MeshDataInitialize(CollectableMeshData dataMeshData)
         {
-            //Debug.Log("�niz yapt�");
             _collectableMeshData = dataMeshData;
         }
 
-
-
         public void SetMeshData(CollectableType type)
         {
-            #region useless
-            //_collectabletype = type;
-            //_collectableMeshData = dataMeshData; 
-            #endregion
             collectableMeshFilter.mesh = _collectableMeshData.meshdatas[(int)type];
         }
     }

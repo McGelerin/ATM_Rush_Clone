@@ -11,12 +11,8 @@ namespace Controllers
 
         #region Serialized Variables
 
-        [SerializeField] private PlayerManager manager;
-        [SerializeField] private new Collider collider;
         [SerializeField] private new Rigidbody rigidbody;
-
         #endregion
-
         #endregion
 
         private void OnTriggerEnter(Collider other)
@@ -25,20 +21,22 @@ namespace Controllers
             {
                 rigidbody.transform.DOMoveZ(rigidbody.transform.position.z-10f,1f).SetEase(Ease.OutBack);
             }
+
             if (other.CompareTag("ATM"))
             {
                 CoreGameSignals.Instance.onAtmTouched?.Invoke(other.gameObject);
             }  
+
             if (other.CompareTag("Collectable"))
             {
                 other.tag = "Collected";
                 StackSignals.Instance.onInteractionCollectable?.Invoke(other.transform.parent.gameObject);
             }
+
             if (other.CompareTag("Conveyor"))
             {
                 CoreGameSignals.Instance.onConveyor?.Invoke();
             }
         }
-        
     }
 }

@@ -11,13 +11,8 @@ namespace Managers
     public class CameraManager : MonoBehaviour
     {
         #region Self Variables
-
-        #region Serialized Variables
-
-        public CinemachineVirtualCamera VirtualCamera;
-        public GameObject FakePlayer;
-
-        public CameraStates CameraController
+        #region Public variables
+        public CameraStates CameraStateController
         {
             get => _cameraStateValue;
             set
@@ -28,7 +23,11 @@ namespace Managers
         }
 
         #endregion
+        #region Serialized Variables
 
+        [SerializeField]private CinemachineVirtualCamera virtualCamera;
+        [SerializeField]private GameObject fakePlayer;
+        #endregion
         #region Private Variables
 
         [ShowInInspector] private Vector3 _initialPosition;
@@ -36,18 +35,16 @@ namespace Managers
         private Animator _camAnimator;
 
         #endregion
-
         #endregion
-
-        #region Event Subscriptions
 
         private void Awake()
         {
-            VirtualCamera = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
+            virtualCamera = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
             _camAnimator = GetComponent<Animator>();
             GetInitialPosition();
         }
 
+        #region Event Subscriptions
         private void OnEnable()
         {
             SubscribeEvents();
@@ -77,58 +74,57 @@ namespace Managers
 
         #endregion
 
-
         private void SetCameraStates()
         {
-            if (CameraController == CameraStates.InitializeCamera)
+            if (CameraStateController == CameraStates.InitializeCamera)
             {
                 _camAnimator.Play("InitializeCamera");
             }
-            else if (CameraController == CameraStates.PlayerCamera)
+            else if (CameraStateController == CameraStates.PlayerCamera)
             {
                 _camAnimator.Play("PlayerCamera");
             }
-            else if (CameraController == CameraStates.MiniGameCamera)
+            else if (CameraStateController == CameraStates.MiniGameCamera)
             {
-                VirtualCamera = transform.GetChild(2).GetComponent<CinemachineVirtualCamera>();
-                VirtualCamera.Follow = FakePlayer.transform;
+                virtualCamera = transform.GetChild(2).GetComponent<CinemachineVirtualCamera>();
+                virtualCamera.Follow = fakePlayer.transform;
                 _camAnimator.Play("MiniGameCamera");
             }
         }
 
         private void GetInitialPosition()
         {
-            _initialPosition = VirtualCamera.transform.localPosition;
+            _initialPosition = virtualCamera.transform.localPosition;
         }
 
         private void OnMoveToInitialPosition()
         {
-            VirtualCamera.transform.localPosition = _initialPosition;
+            virtualCamera.transform.localPosition = _initialPosition;
         }
 
         private void OnSetCameraTarget()
         {
             var playerManager = FindObjectOfType<PlayerManager>().transform;
-            VirtualCamera.Follow = playerManager;
-            CameraController = CameraStates.PlayerCamera;
+            virtualCamera.Follow = playerManager;
+            CameraStateController = CameraStates.PlayerCamera;
         }
 
         private void OnMiniGame()
         {
-            CameraController = CameraStates.MiniGameCamera;
+            CameraStateController = CameraStates.MiniGameCamera;
         }
 
         private void OnNextLevel()
         {
-            CameraController = CameraStates.InitializeCamera;
+            CameraStateController = CameraStates.InitializeCamera;
         }
 
         private void OnReset()
         {
-            CameraController = CameraStates.InitializeCamera;
-            VirtualCamera.Follow = null;
-            VirtualCamera.LookAt = null;
-            VirtualCamera = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
+            CameraStateController = CameraStates.InitializeCamera;
+            virtualCamera.Follow = null;
+            virtualCamera.LookAt = null;
+            virtualCamera = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
             OnMoveToInitialPosition();
         }
     }

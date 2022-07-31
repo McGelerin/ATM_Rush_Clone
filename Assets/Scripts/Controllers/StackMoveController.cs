@@ -7,14 +7,12 @@ namespace Controllers
 {
     public class StackMoveController
     {
-        #region Veriables
+        #region Self Variables
 
-        #region Serialized Veriables
+        #region Private Veriables
 
         private StackData _stackData;
-
         #endregion
-
         #endregion
 
         public void InisializedController(StackData Stackdata)

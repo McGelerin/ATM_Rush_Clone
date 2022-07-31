@@ -2,7 +2,6 @@ using System;
 using Data.ValueObject;
 using Keys;
 using Managers;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Controllers
@@ -10,23 +9,17 @@ namespace Controllers
     public class PlayerMovementController : MonoBehaviour
     {
         #region Self Variables
-
-        #region Public Variables
-
-        #endregion
-
         #region Serialized Variables
 
         [SerializeField] private PlayerManager manager;
         [SerializeField] private Rigidbody rigidbody;
-
         #endregion
-
-        [Header("Data")] [ShowInInspector] private PlayerMovementData _movementData;
-        [ShowInInspector] private bool _isReadyToMove, _isReadyToPlay;
-        [ShowInInspector] private float _inputValue;
-        [ShowInInspector] private Vector2 _clampValues;
-
+        #region Private Variables
+        [Header("Data")] private PlayerMovementData _movementData;
+        private bool _isReadyToMove, _isReadyToPlay;
+        private float _inputValue;
+        private Vector2 _clampValues; 
+        #endregion
         #endregion
 
         public void SetMovementData(PlayerMovementData dataMovementData)
@@ -112,7 +105,6 @@ namespace Controllers
             rigidbody.angularVelocity = Vector3.zero;
         }
         
-
         public void OnReset()
         {
             Stop();

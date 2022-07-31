@@ -15,7 +15,5 @@ namespace Signals
         public UnityAction<Vector2> onStackFollowPlayer = delegate { };
         public UnityAction onUpdateType=delegate { };
         public UnityAction onInteractionConveyor = delegate { };
-        // public UnityAction<GameObject> onRemoveFromStack=delegate {  };
-        
     }
 }

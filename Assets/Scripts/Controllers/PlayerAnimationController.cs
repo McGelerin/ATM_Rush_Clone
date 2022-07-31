@@ -5,25 +5,14 @@ namespace Controllers
 {
     public class PlayerAnimationController : MonoBehaviour
     {
-        #region Veriables
+        #region Self Variables
 
-        #region Public Veriables
+        #region Public Variables
         public PlayerAnimationStates State=PlayerAnimationStates.Idle;
-        
-        
-
         #endregion
-
-        #region Private Veriables
-
-        
-
-        #endregion
-
-        #region Serial Veriables
+        #region Serial Variables
 
         [SerializeField] private Animator animatorController;
-
         #endregion
 
         #endregion
@@ -37,6 +26,5 @@ namespace Controllers
         {
             animatorController.SetTrigger(PlayerAnimationStates.Idle.ToString());
         }
-       
     }           
 }

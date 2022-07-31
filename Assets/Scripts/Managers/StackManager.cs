@@ -20,16 +20,14 @@ namespace Managers
         #region Public Variables
 
         [Header("Data")] public StackData StackData;
+        public List<GameObject> _collectableStack = new List<GameObject>();
 
         #endregion
 
-        #region Private Veriables
+        #region Private Variables
 
-        [ShowInInspector] public List<GameObject> _collectableStack = new List<GameObject>();
-
-        //[ShowInInspector] private List<GameObject> _collectableStackValues=new List<GameObject>();
         [ShowInInspector] private int _totalListScore;
-        private StackMoveController stackMoveController;
+        private StackMoveController _stackMoveController;
         private bool _lastCheck;
 
         #endregion
@@ -41,6 +39,12 @@ namespace Managers
         #endregion
 
         #endregion
+        private void Awake()
+        {
+            StackData = GetStackData();
+            _stackMoveController = new StackMoveController();
+            _stackMoveController.InisializedController(StackData);
+        }
 
         #region Event Subscription
 
@@ -79,13 +83,6 @@ namespace Managers
         }
 
         #endregion
-
-        private void Awake()
-        {
-            StackData = GetStackData();
-            stackMoveController = new StackMoveController();
-            stackMoveController.InisializedController(StackData);
-        }
 
         private StackData GetStackData() => Resources.Load<CD_Stack>("Data/CD_StackData").StackData;
 
@@ -175,38 +172,12 @@ namespace Managers
 
         private void OnStackMove(Vector2 direction)
         {
-            transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 4f);
+            transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 2f);
             if (gameObject.transform.childCount > 0)
             {
-                stackMoveController.StackItemsMoveOrigin(direction.x, _collectableStack);
+                _stackMoveController.StackItemsMoveOrigin(direction.x, _collectableStack);
             }
         }
-
-        #region useless
-
-        // private void StackItemsMoveOrigin(float directionX)
-        // {
-        //     if (gameObject.transform.childCount > 0)
-        //     {
-        //         float direct = Mathf.Lerp(_collectableStack[0].transform.localPosition.x, directionX,
-        //             StackData.LerpSpeed);
-        //         _collectableStack[0].transform.localPosition = new Vector3(direct, 0, 0);
-        //         StackItemsLerpMove();
-        //     }
-        // }
-        //
-        // private void StackItemsLerpMove()
-        // {
-        //     for (int i = 1; i < _collectableStack.Count; i++)
-        //     {
-        //         Vector3 pos = _collectableStack[i].transform.localPosition;
-        //         pos.x = _collectableStack[i - 1].transform.localPosition.x;
-        //         float direct = Mathf.Lerp(_collectableStack[i].transform.localPosition.x, pos.x, StackData.LerpSpeed);
-        //         _collectableStack[i].transform.localPosition = new Vector3(direct, pos.y, pos.z);
-        //     }
-        // }
-
-        #endregion
 
         private void StackValuesUpdate()
         {

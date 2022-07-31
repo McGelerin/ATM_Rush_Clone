@@ -14,9 +14,7 @@ namespace Controllers
         #region Serialized Variables
 
         [SerializeField] private List<GameObject> panels;
-
         #endregion
-
         #endregion
 
         public void OpenPanel(UIPanels panelParam)

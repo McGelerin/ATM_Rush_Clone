@@ -9,19 +9,24 @@ namespace Controllers
 {
     public class WallCheckController : MonoBehaviour
     {
+        #region Self Variables
+        #region SerializeField Variables
+
+        [SerializeField] private MiniGameManager manager;
+        #endregion
+        #region Private Variables
+
         private float _changesColor;
         private float _multiplier = 0.90f;
-        [SerializeField] private MiniGameManager manager;
+        #endregion
+        #endregion
 
-     
         private void OnDisable()
         {
           
             _changesColor = 0;
             _multiplier = 0.90f;
         }
-
-       
 
         private void ChangeColor(Collider other)
         {
