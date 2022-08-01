@@ -2,7 +2,7 @@
 
 Projemizi ziyaret eden herkese merhabalar, Level-UP Akademideki ilk projemizi size sunmaktan mutluluk duyarız. Projeyi Okan Demirel hocamızın önderliğinde, ekipce (Muhammed Can Gelerin, Bünyamin Baltacı, Muhammed Yasin Yıldız) geliştirdik.
 
-Bu proje sayesinde grup çalışması, solid prensipleri, kod okunabilirliği, klasörleme... gibi konularlarda kendimizi daha da geliştirdik. Bu hızlı gelişimi görmemiz bizim en büyük motivasyon kaynağımız oldu.
+Bu proje sayesinde grup çalışması, solid prensipleri, kod okunabilirliği, klasörleme... gibi konularlarda kendimizi daha da geliştirdik. Bu hızlı gelişim bizim en büyük motivasyon kaynağımız oldu.
 
 Projenin detaylarını aşağıda kısaca anlattım.
 
