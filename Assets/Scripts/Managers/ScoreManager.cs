@@ -42,7 +42,6 @@ public class ScoreManager : MonoBehaviour
         CoreGameSignals.Instance.onPlay += OnPlay;
         LevelSignals.Instance.onLevelSuccessful += RefreshMoney;
         SaveSignals.Instance.onGetMoney += OnGetMoney;
-
     }
 
     private void UnSubscriptionEvent()
@@ -66,7 +65,6 @@ public class ScoreManager : MonoBehaviour
     private void Awake()
     {
         _money = SetMoney();
-
     }
 
     private void Start()
@@ -76,14 +74,13 @@ public class ScoreManager : MonoBehaviour
 
     public void OnSetScore(int setScore)
     {
-        _scoreCache = (setScore*_stackValueMultiplier) + _atmScoreValue;
+        _scoreCache = (setScore * _stackValueMultiplier) + _atmScoreValue;
         ScoreSignals.Instance.onSetTotalScore?.Invoke(_scoreCache);
-        
     }
 
     private void OnSetAtmScore(int atmValues)
     {
-        _atmScoreValue += atmValues*_stackValueMultiplier;
+        _atmScoreValue += atmValues * _stackValueMultiplier;
         ScoreSignals.Instance.onSetAtmScoreText?.Invoke(_atmScoreValue);
     }
 
@@ -91,6 +88,7 @@ public class ScoreManager : MonoBehaviour
     {
         ScoreSignals.Instance.onSendFinalScore?.Invoke(_scoreCache);
     }
+
     private float SetMoney()
     {
         if (!ES3.FileExists()) return 0;
@@ -99,9 +97,9 @@ public class ScoreManager : MonoBehaviour
 
     private float OnGetMoney()
     {
-        Debug.Log("ben func"+_money);
-        return _money ;
+        return _money;
     }
+
     private void RefreshMoney()
     {
         _money += _scoreCache * ScoreSignals.Instance.onGetMultiplier();
@@ -111,9 +109,8 @@ public class ScoreManager : MonoBehaviour
     private void OnPlay()
     {
         _stackValueMultiplier = CoreGameSignals.Instance.onGetIncomeLevel();
-        
-        
     }
+
     private void OnReset()
     {
         _scoreCache = 0;
