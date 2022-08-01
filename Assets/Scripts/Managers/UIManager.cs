@@ -86,8 +86,6 @@ namespace Managers
             SyncShopUi();
         }
 
-      
-
         private void OnOpenPanel(UIPanels panelParam)
         {
             uiPanelController.OpenPanel(panelParam, panels);
@@ -101,7 +99,7 @@ namespace Managers
         private void SetMoneyText(float value)
         {
             money.text = ((int)value).ToString();
-             SyncShopUi();
+            SyncShopUi();
         }
 
         private void OnSetLevelText(int value)
@@ -119,7 +117,6 @@ namespace Managers
         {
             stackLvlText.text ="Stack lvl\n"+CoreGameSignals.Instance.onGetStackLevel();
             stackValue.text = (250 + (CoreGameSignals.Instance.onGetStackLevel() * 100)).ToString();
-            
         }
 
         private void OnPlay()
@@ -171,6 +168,7 @@ namespace Managers
             ChangesIncomeIntaractable();
             ChangesStackIntaractable();
         }
+
         public void IncomeUpdate()
         {
             CoreGameSignals.Instance.onClickIncome?.Invoke();
@@ -193,10 +191,9 @@ namespace Managers
             else
             {
                 incomeLvlButton.interactable=true;
-
             }
-            
         }
+
         private void ChangesStackIntaractable()
         {
             if (int.Parse(money.text) < int.Parse(stackValue.text) && CoreGameSignals.Instance.onGetStackLevel()<=15)

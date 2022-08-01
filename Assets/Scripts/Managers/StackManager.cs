@@ -187,7 +187,6 @@ namespace Managers
             {
                 _totalListScore += (int)Items.GetComponent<CollectableManager>().CollectableTypeValue + 1;
             }
-
             ScoreSignals.Instance.onSetScore?.Invoke(_totalListScore);
         }
 
@@ -201,26 +200,21 @@ namespace Managers
             _collectableStack.RemoveAt(i);
             _collectableStack.TrimExcess();
         }
+
         private void InitialzeStack()
         {
-
             for (int i = 1; i < CoreGameSignals.Instance.onGetStackLevel(); i++)
             {
                 GameObject obj= Instantiate(Money);
-                AddStackList(obj);
-                
+                AddStackList(obj);   
             }
-
         }
 
-      
         private void OnPlay()
         {
             _lastCheck = false;
             InitialzeStack();
         }
-
-       
 
         private void OnReset()
         {
@@ -228,7 +222,6 @@ namespace Managers
             {
                 Destroy(childs.gameObject);
             }
-
             _collectableStack.Clear();
         }
     }

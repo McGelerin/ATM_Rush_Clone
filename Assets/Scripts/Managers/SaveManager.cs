@@ -37,7 +37,6 @@ namespace Managers
         private void UnsubscribeEvents()
         {
             SaveSignals.Instance.onSaveGameData -= SaveData;
-           
         }
 
         private void OnDisable()
@@ -45,8 +44,6 @@ namespace Managers
             UnsubscribeEvents();
         } 
         #endregion
-
-       
 
         private void SaveData()
         {
@@ -56,8 +53,7 @@ namespace Managers
                     Money = SaveSignals.Instance.onGetMoney(),
                     Level = SaveSignals.Instance.onGetLevelID(),
                     IncomeLevel = CoreGameSignals.Instance.onGetIncomeLevel(),
-                    StackLevel = CoreGameSignals.Instance.onGetStackLevel()
-                    
+                    StackLevel = CoreGameSignals.Instance.onGetStackLevel() 
                 }
             );
         }

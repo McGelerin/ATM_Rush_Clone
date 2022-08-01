@@ -560,7 +560,7 @@ MonoBehaviour:
     JumpItemsClampX: 5
   _collectableStack: []
   levelHolder: {fileID: 912194508}
-  Money: {fileID: 0}
+  Money: {fileID: 1734958321483701028, guid: f7d151b9e87da1541af737f32bc61b57, type: 3}
 --- !u!1 &152744763
 GameObject:
   m_ObjectHideFlags: 0

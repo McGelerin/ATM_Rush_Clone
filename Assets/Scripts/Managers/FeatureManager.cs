@@ -63,38 +63,33 @@ namespace Managers
         {
             if (!ES3.FileExists()) return 1;
             return ES3.KeyExists("IncomeLevel") ? ES3.Load<int>("IncomeLevel") : 1;
-
         } 
+
         private int LoadStackData()
         {
             if (!ES3.FileExists()) return 1;
             return ES3.KeyExists("StackLevel") ? ES3.Load<int>("StackLevel") : 1;
         }
+
         private void OnClickIncome()
         {
-           Debug.LogWarning(SaveSignals.Instance.onGetMoney());
             _newmoney = (SaveSignals.Instance.onGetMoney()-(250+(_incomeLevel*100)));
             _incomeLevel+=1;
-            ScoreSignals.Instance.onSendMoney.Invoke(_newmoney);
+            ScoreSignals.Instance.onSendMoney?.Invoke(_newmoney);
             SaveFeatureData();
-          
-
         }  
+
         private void OnClickStack()
         {
             _newmoney = (SaveSignals.Instance.onGetMoney()-(250+(_stackLevel*100)));
             _stackLevel+=1;
             ScoreSignals.Instance.onSendMoney?.Invoke(_newmoney);
             SaveFeatureData();
-         
-
         }
+
         private void SaveFeatureData()
         {
             SaveSignals.Instance.onSaveGameData?.Invoke();
-            
         }
-        
-        
     }
 }
