@@ -35,6 +35,7 @@ namespace Managers
         #region Seralized Veriables
 
         [SerializeField] private GameObject levelHolder;
+        [SerializeField] private GameObject Money;
 
         #endregion
 
@@ -200,11 +201,26 @@ namespace Managers
             _collectableStack.RemoveAt(i);
             _collectableStack.TrimExcess();
         }
+        private void InitialzeStack()
+        {
 
+            for (int i = 1; i < CoreGameSignals.Instance.onGetStackLevel(); i++)
+            {
+                GameObject obj= Instantiate(Money);
+                AddStackList(obj);
+                
+            }
+
+        }
+
+      
         private void OnPlay()
         {
             _lastCheck = false;
+            InitialzeStack();
         }
+
+       
 
         private void OnReset()
         {
