@@ -9,5 +9,7 @@ namespace Enums
         LevelPanel,
         WinPanel,
         FailPanel,
+        Money,
+        Shop
     }
 }

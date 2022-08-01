@@ -15,4 +15,4 @@ MonoBehaviour:
   Data:
     MovementData:
       ForwardSpeed: 10
-      SidewaysSpeed: 1.1
+      SidewaysSpeed: 8
