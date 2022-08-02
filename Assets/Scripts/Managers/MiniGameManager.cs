@@ -103,7 +103,6 @@ namespace Managers
             if (_score==0)
             {
                 LevelSignals.Instance.onLevelFailed?.Invoke();
-                
             }
             else
             {
@@ -111,7 +110,6 @@ namespace Managers
                 yield return new WaitForSeconds(4.5f);
                 LevelSignals.Instance.onLevelSuccessful?.Invoke();
             }
-          
         }
         private void ResetWalls()
         {

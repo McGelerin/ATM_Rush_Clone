@@ -20,7 +20,7 @@ namespace Managers
         #region Public Variables
 
         [Header("Data")] public StackData StackData;
-        public List<GameObject> _collectableStack = new List<GameObject>();
+        public List<GameObject> CollectableStack = new List<GameObject>();
 
         #endregion
 
@@ -35,7 +35,7 @@ namespace Managers
         #region Seralized Veriables
 
         [SerializeField] private GameObject levelHolder;
-        [SerializeField] private GameObject Money;
+        [SerializeField] private GameObject money;
 
         #endregion
 
@@ -114,40 +114,40 @@ namespace Managers
         }
         private void AddStackList(GameObject collectableGameObject)
         {
-            if (_collectableStack.Count == 0)
+            if (CollectableStack.Count == 0)
             {
-                _collectableStack.Add(collectableGameObject);
+                CollectableStack.Add(collectableGameObject);
                 collectableGameObject.transform.SetParent(transform);
                 collectableGameObject.transform.localPosition = Vector3.zero;
             }
             else
             {
                 collectableGameObject.transform.SetParent(transform);
-                Vector3 newPos = _collectableStack[_collectableStack.Count - 1].transform.localPosition;
+                Vector3 newPos = CollectableStack[CollectableStack.Count - 1].transform.localPosition;
                 newPos.z += StackData.CollectableOffsetInStack;
                 collectableGameObject.transform.localPosition = newPos;
-                _collectableStack.Add(collectableGameObject);
+                CollectableStack.Add(collectableGameObject);
             }
         }
         IEnumerator StackItemsShackAnim()
         {
-            for (int i = 0; i <= _collectableStack.Count - 1; i++)
+            for (int i = 0; i <= CollectableStack.Count - 1; i++)
             {
-                int index = (_collectableStack.Count - 1) - i;
-                _collectableStack[index].transform.DOScale(new Vector3(2, 2, 2), 0.14f).SetEase(Ease.Flash);
-                _collectableStack[index].transform.DOScale(Vector3.one, 0.14f).SetDelay(0.14f).SetEase(Ease.Flash);
+                int index = (CollectableStack.Count - 1) - i;
+                CollectableStack[index].transform.DOScale(new Vector3(2, 2, 2), 0.14f).SetEase(Ease.Flash);
+                CollectableStack[index].transform.DOScale(Vector3.one, 0.14f).SetDelay(0.14f).SetEase(Ease.Flash);
                 yield return new WaitForSeconds(0.05f);
             }
         }
         private void RemoveStackListItems(GameObject collectableGameObject)
         {
-            int index = _collectableStack.IndexOf(collectableGameObject);
-            int last = _collectableStack.Count - 1;
+            int index = CollectableStack.IndexOf(collectableGameObject);
+            int last = CollectableStack.Count - 1;
             collectableGameObject.transform.SetParent(levelHolder.transform.GetChild(0));
             collectableGameObject.SetActive(false);
             ItemsJump(last, index);
-            _collectableStack.RemoveAt(index);
-            _collectableStack.TrimExcess();
+            CollectableStack.RemoveAt(index);
+            CollectableStack.TrimExcess();
             StackValuesUpdate();
         }
 
@@ -155,19 +155,19 @@ namespace Managers
         {
             for (int i = last; i > index; i--)
             {
-                _collectableStack[i].transform.GetChild(1).tag = "Collectable";
-                _collectableStack[i].transform.SetParent(levelHolder.transform.GetChild(0));
-                _collectableStack[i].transform.DOJump(
+                CollectableStack[i].transform.GetChild(1).tag = "Collectable";
+                CollectableStack[i].transform.SetParent(levelHolder.transform.GetChild(0));
+                CollectableStack[i].transform.DOJump(
                     new Vector3(
                         Random.Range(-StackData.JumpItemsClampX, StackData.JumpItemsClampX + 1), //Ust Sinir Dahil Degil
-                        _collectableStack[i].transform.position.y,
-                        _collectableStack[i].transform.position.z + Random.Range(10, 15)),
+                        CollectableStack[i].transform.position.y,
+                        CollectableStack[i].transform.position.z + Random.Range(10, 15)),
                     StackData.JumpForce,
                     Random.Range(1, 3), 0.7f
                 );
-                _collectableStack[i].transform.DOScale(Vector3.one, 0);
-                _collectableStack.RemoveAt(i);
-                _collectableStack.TrimExcess();
+                CollectableStack[i].transform.DOScale(Vector3.one, 0);
+                CollectableStack.RemoveAt(i);
+                CollectableStack.TrimExcess();
             }
         }
 
@@ -176,14 +176,14 @@ namespace Managers
             transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 2f);
             if (gameObject.transform.childCount > 0)
             {
-                _stackMoveController.StackItemsMoveOrigin(direction.x, _collectableStack);
+                _stackMoveController.StackItemsMoveOrigin(direction.x, CollectableStack);
             }
         }
 
         private void StackValuesUpdate()
         {
             _totalListScore = 0;
-            foreach (var Items in _collectableStack)
+            foreach (var Items in CollectableStack)
             {
                 _totalListScore += (int)Items.GetComponent<CollectableManager>().CollectableTypeValue + 1;
             }
@@ -193,27 +193,29 @@ namespace Managers
         private void OnInteractionWithConveyor()
         {
             _lastCheck = true;
-            int i = _collectableStack.Count - 1;
-            _collectableStack[i].transform.SetParent(levelHolder.transform.GetChild(0));
-            _collectableStack[i].transform.DOScale(Vector3.zero, 2.5f);
-            _collectableStack[i].transform.DOMove(new Vector3(-10, 2, _collectableStack[i].transform.position.z), 1.5f);
-            _collectableStack.RemoveAt(i);
-            _collectableStack.TrimExcess();
+            int i = CollectableStack.Count - 1;
+            CollectableStack[i].transform.SetParent(levelHolder.transform.GetChild(0));
+            CollectableStack[i].transform.DOScale(Vector3.zero, 2.5f);
+            CollectableStack[i].transform.DOMove(new Vector3(-10, 2, CollectableStack[i].transform.position.z), 1.5f);
+            CollectableStack.RemoveAt(i);
+            CollectableStack.TrimExcess();
         }
 
         private void InitialzeStack()
         {
             for (int i = 1; i < CoreGameSignals.Instance.onGetStackLevel(); i++)
             {
-                GameObject obj= Instantiate(Money);
-                AddStackList(obj);   
+                GameObject obj= Instantiate(money);
+                AddStackList(obj);
             }
+            StackValuesUpdate();
         }
 
         private void OnPlay()
         {
             _lastCheck = false;
             InitialzeStack();
+            
         }
 
         private void OnReset()
@@ -222,7 +224,7 @@ namespace Managers
             {
                 Destroy(childs.gameObject);
             }
-            _collectableStack.Clear();
+            CollectableStack.Clear();
         }
     }
 }

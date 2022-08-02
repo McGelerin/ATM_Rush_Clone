@@ -110,13 +110,13 @@ namespace Managers
         private void SetIncomeLvlText()
         {
             incomeLvlText.text = "Income lvl\n"+CoreGameSignals.Instance.onGetIncomeLevel();
-            incomeValue.text = (250 + (CoreGameSignals.Instance.onGetIncomeLevel() * 100)).ToString();
+            incomeValue.text = (Mathf.Pow(2,CoreGameSignals.Instance.onGetIncomeLevel()) * 100).ToString();
         }
 
         private void SetStackLvlText()
         {
             stackLvlText.text ="Stack lvl\n"+CoreGameSignals.Instance.onGetStackLevel();
-            stackValue.text = (250 + (CoreGameSignals.Instance.onGetStackLevel() * 100)).ToString();
+            stackValue.text = (Mathf.Pow(2,CoreGameSignals.Instance.onGetStackLevel()) * 100).ToString();
         }
 
         private void OnPlay()
