@@ -1,28 +1,11 @@
 ﻿using UnityEngine;
-using System;
-using Enums;
-using Extentions;
 using Keys;
 using Signals;
-using UnityEngine;
 
 namespace Managers
 {
     public class SaveManager : MonoBehaviour
     {
-        #region Self Variables
-
-        #region Public Variables
-
-        public SaveGameDataParams SaveGameDataParams;
-
-        #endregion
-        #region Private Variables
-        private float _money;
-
-        #endregion
-        #endregion
-
         #region EventSubscribtion
         private void OnEnable()
         {

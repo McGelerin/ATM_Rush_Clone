@@ -1,7 +1,6 @@
 using UnityEngine;
-using Managers;
 
-namespace Controllers
+namespace Command
 {
     public class LevelLoaderCommand 
     {

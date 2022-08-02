@@ -109,7 +109,7 @@ Transform:
   m_GameObject: {fileID: 5250528012234762357}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 0.015, y: 0.01, z: 0.025}
+  m_LocalScale: {x: 0.015, y: 0.02, z: 0.025}
   m_Children: []
   m_Father: {fileID: 5903777466343917484}
   m_RootOrder: 1
@@ -203,7 +203,7 @@ Transform:
   m_GameObject: {fileID: 6531836840768625942}
   m_LocalRotation: {x: 0, y: 0, z: -0.60876137, w: 0.7933534}
   m_LocalPosition: {x: 0, y: 15, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6901639555365405023}
   - {fileID: 8138707712235514762}
@@ -296,7 +296,7 @@ MonoBehaviour:
   animationType: 3
   targetType: 11
   forcedTargetType: 0
-  autoPlay: 1
+  autoPlay: 0
   useTargetAsV3: 0
   endValueFloat: 0
   endValueV3: {x: 0, y: 0, z: 150}

@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using Controllers;
 using Enums;
 using Signals;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Managers
@@ -18,7 +16,6 @@ namespace Managers
 
         [Space (15),Header("Data")]
 
-        // [SerializeField] private LevelPanelController levelPanelController;
         [SerializeField] private TextMeshProUGUI money;
         [SerializeField] private List<GameObject> panels;
         [SerializeField] private TextMeshProUGUI levelText;
@@ -34,7 +31,8 @@ namespace Managers
 
         #region Private Variables
 
-        private UIPanelController uiPanelController;
+        private UIPanelController _uiPanelController;
+        private ShopControllerController _shopControllerController;
 
         #endregion
 
@@ -78,7 +76,9 @@ namespace Managers
 
         private void Awake()
         {
-            uiPanelController = new UIPanelController();
+            _uiPanelController = new UIPanelController();
+            _shopControllerController =
+                new ShopControllerController(money, incomeLvlText, incomeValue, incomeLvlButton,stackLvlText,stackValue,stackLvlButton);
         }
 
         private void Start()
@@ -88,12 +88,12 @@ namespace Managers
 
         private void OnOpenPanel(UIPanels panelParam)
         {
-            uiPanelController.OpenPanel(panelParam, panels);
+            _uiPanelController.OpenPanel(panelParam, panels);
         }
 
         private void OnClosePanel(UIPanels panelParam)
         {
-            uiPanelController.ClosePanel(panelParam, panels);
+            _uiPanelController.ClosePanel(panelParam, panels);
         }
 
         private void SetMoneyText(float value)
@@ -105,18 +105,6 @@ namespace Managers
         private void OnSetLevelText(int value)
         {
             levelText.text = "Level " + (value + 1);
-        }
-
-        private void SetIncomeLvlText()
-        {
-            incomeLvlText.text = "Income lvl\n"+CoreGameSignals.Instance.onGetIncomeLevel();
-            incomeValue.text = (250 + (CoreGameSignals.Instance.onGetIncomeLevel() * 100)).ToString();
-        }
-
-        private void SetStackLvlText()
-        {
-            stackLvlText.text ="Stack lvl\n"+CoreGameSignals.Instance.onGetStackLevel();
-            stackValue.text = (250 + (CoreGameSignals.Instance.onGetStackLevel() * 100)).ToString();
         }
 
         private void OnPlay()
@@ -161,49 +149,25 @@ namespace Managers
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.StartPanel);
         }
 
-        private void SyncShopUi()
-        {
-            SetIncomeLvlText();
-            SetStackLvlText();
-            ChangesIncomeIntaractable();
-            ChangesStackIntaractable();
-        }
 
         public void IncomeUpdate()
         {
             CoreGameSignals.Instance.onClickIncome?.Invoke();
-            SetIncomeLvlText();
+            _shopControllerController.SetIncomeLvlText();
         }
 
         public void StackUpdate()
         {
             CoreGameSignals.Instance.onClickStack?.Invoke();
-            SetStackLvlText();
-        }
-        
-        private void ChangesIncomeIntaractable()
-        {
-            if (int.Parse(money.text)<int.Parse(incomeValue.text) && CoreGameSignals.Instance.onGetIncomeLevel()<=99)
-            {
-                incomeLvlButton.interactable=false;
-            }
-
-            else
-            {
-                incomeLvlButton.interactable=true;
-            }
+            _shopControllerController.SetStackLvlText();
         }
 
-        private void ChangesStackIntaractable()
+        private void SyncShopUi()
         {
-            if (int.Parse(money.text) < int.Parse(stackValue.text) && CoreGameSignals.Instance.onGetStackLevel()<=15)
-            {
-                stackLvlButton.interactable = false;
-            }
-            else
-            {
-                stackLvlButton.interactable = true;
-            }
+            _shopControllerController.SetIncomeLvlText();
+            _shopControllerController.SetStackLvlText();
+            _shopControllerController.ChangesIncomeIntaractable();
+            _shopControllerController.ChangesStackIntaractable();
         }
     }
 }

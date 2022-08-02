@@ -1,9 +1,6 @@
-﻿using System;
-using System.Security.Cryptography;
-using UnityEngine;
+﻿using UnityEngine;
 using DG.Tweening;
 using Managers;
-using Signals;
 
 namespace Controllers
 {
@@ -23,7 +20,6 @@ namespace Controllers
 
         private void OnDisable()
         {
-          
             _changesColor = 0;
             _multiplier = 0.90f;
         }

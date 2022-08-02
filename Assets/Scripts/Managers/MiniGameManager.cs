@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using DG.Tweening;
 using Signals;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
+
 
 namespace Managers
 {
@@ -106,15 +103,13 @@ namespace Managers
             if (_score==0)
             {
                 LevelSignals.Instance.onLevelFailed?.Invoke();
-                
             }
             else
             {
-                transform.GetChild(0).DOLocalMoveY(Mathf.Clamp(_score,0,900), 2.5f).SetEase(Ease.Flash).SetDelay(1f);
+                transform.GetChild(0).DOLocalMoveY(Mathf.Clamp(_score,0,900), 3f).SetEase(Ease.Flash).SetDelay(1f);
                 yield return new WaitForSeconds(4.5f);
                 LevelSignals.Instance.onLevelSuccessful?.Invoke();
             }
-          
         }
         private void ResetWalls()
         {

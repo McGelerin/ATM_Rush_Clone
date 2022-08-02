@@ -12,7 +12,7 @@ namespace Managers
 {
     public class PlayerManager : MonoBehaviour
     {
-          #region Self Variables
+        #region Self Variables
 
         #region Public Variables
 
@@ -40,8 +40,6 @@ namespace Managers
         private void SendPlayerDataToControllers()
         {
             movementController.SetMovementData(Data.MovementData);
-           
-          
         }
 
         #region Event Subscription
@@ -62,7 +60,6 @@ namespace Managers
             LevelSignals.Instance.onLevelFailed += OnLevelFailed;
             ScoreSignals.Instance.onSetTotalScore += OnSetScoreText;
             CoreGameSignals.Instance.onConveyor += OnConveyor;
-
         }
 
         private void UnsubscribeEvents()
@@ -76,8 +73,6 @@ namespace Managers
             LevelSignals.Instance.onLevelFailed -= OnLevelFailed;
             ScoreSignals.Instance.onSetTotalScore -= OnSetScoreText;
             CoreGameSignals.Instance.onConveyor -= OnConveyor;
-
-        
         }
 
         private void OnDisable()
@@ -154,6 +149,5 @@ namespace Managers
             gameObject.SetActive(false);
             CoreGameSignals.Instance.onMiniGameStart?.Invoke();
         }
-        
     }
 }

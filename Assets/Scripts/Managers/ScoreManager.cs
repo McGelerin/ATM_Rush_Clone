@@ -1,14 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cinemachine;
-using Keys;
-using Managers;
 using Signals;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Serialization;
+
 
 public class ScoreManager : MonoBehaviour
 {
@@ -20,7 +12,6 @@ public class ScoreManager : MonoBehaviour
     private int _stackValueMultiplier;
     private int _scoreCache = 0;
     private int _atmScoreValue = 0;
-    private int _atmScore = 0;
 
     #endregion
 
@@ -39,9 +30,10 @@ public class ScoreManager : MonoBehaviour
         ScoreSignals.Instance.onSetAtmScore += OnSetAtmScore;
         CoreGameSignals.Instance.onReset += OnReset;
         CoreGameSignals.Instance.onMiniGameStart += SendFinalScore;
-        CoreGameSignals.Instance.onPlay += OnPlay;
         LevelSignals.Instance.onLevelSuccessful += RefreshMoney;
         SaveSignals.Instance.onGetMoney += OnGetMoney;
+        ScoreSignals.Instance.onSendMoney += FeatureSetMoney;
+        CoreGameSignals.Instance.onClickIncome += SetValueMultipler;
     }
 
     private void UnSubscriptionEvent()
@@ -49,10 +41,11 @@ public class ScoreManager : MonoBehaviour
         ScoreSignals.Instance.onSetScore -= OnSetScore;
         ScoreSignals.Instance.onSetAtmScore -= OnSetAtmScore;
         CoreGameSignals.Instance.onReset -= OnReset;
-        CoreGameSignals.Instance.onPlay -= OnPlay;
         CoreGameSignals.Instance.onMiniGameStart -= SendFinalScore;
         LevelSignals.Instance.onLevelSuccessful -= RefreshMoney;
         SaveSignals.Instance.onGetMoney -= OnGetMoney;
+        ScoreSignals.Instance.onSendMoney -= FeatureSetMoney;
+        CoreGameSignals.Instance.onClickIncome -= SetValueMultipler;
     }
 
     private void OnDisable()
@@ -65,14 +58,10 @@ public class ScoreManager : MonoBehaviour
     private void Awake()
     {
         _money = SetMoney();
-    }
-
-    private void Start()
-    {
+        SetValueMultipler();
         RefreshMoney();
     }
-
-    public void OnSetScore(int setScore)
+    private void OnSetScore(int setScore)
     {
         _scoreCache = (setScore * _stackValueMultiplier) + _atmScoreValue;
         ScoreSignals.Instance.onSetTotalScore?.Invoke(_scoreCache);
@@ -94,19 +83,21 @@ public class ScoreManager : MonoBehaviour
         if (!ES3.FileExists()) return 0;
         return ES3.KeyExists("Money") ? ES3.Load<float>("Money") : 0;
     }
-
     private float OnGetMoney()
     {
         return _money;
     }
-
     private void RefreshMoney()
     {
         _money += _scoreCache * ScoreSignals.Instance.onGetMultiplier();
         ScoreSignals.Instance.onSendMoney?.Invoke(_money);
     }
+    private void FeatureSetMoney(float money)
+    {
+        _money = money;
+    }
 
-    private void OnPlay()
+    private void SetValueMultipler()
     {
         _stackValueMultiplier = CoreGameSignals.Instance.onGetIncomeLevel();
     }
@@ -115,6 +106,5 @@ public class ScoreManager : MonoBehaviour
     {
         _scoreCache = 0;
         _atmScoreValue = 0;
-        _atmScore = 0;
     }
 }

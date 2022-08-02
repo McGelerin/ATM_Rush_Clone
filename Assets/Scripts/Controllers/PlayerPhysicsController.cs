@@ -1,6 +1,4 @@
 using DG.Tweening;
-using Enums;
-using Managers;
 using Signals;
 using UnityEngine;
 namespace Controllers

@@ -1,6 +1,4 @@
-﻿using System;
-using Keys;
-using Signals;
+﻿using Signals;
 using UnityEngine;
 
 namespace Managers
@@ -73,7 +71,7 @@ namespace Managers
 
         private void OnClickIncome()
         {
-            _newmoney = (SaveSignals.Instance.onGetMoney()-(250+(_incomeLevel*100)));
+            _newmoney = (SaveSignals.Instance.onGetMoney()-((Mathf.Pow(2,_incomeLevel)*100)));
             _incomeLevel+=1;
             ScoreSignals.Instance.onSendMoney?.Invoke(_newmoney);
             SaveFeatureData();
@@ -81,7 +79,7 @@ namespace Managers
 
         private void OnClickStack()
         {
-            _newmoney = (SaveSignals.Instance.onGetMoney()-(250+(_stackLevel*100)));
+            _newmoney = (SaveSignals.Instance.onGetMoney()-((Mathf.Pow(2,_stackLevel) * 100)));
             _stackLevel+=1;
             ScoreSignals.Instance.onSendMoney?.Invoke(_newmoney);
             SaveFeatureData();
