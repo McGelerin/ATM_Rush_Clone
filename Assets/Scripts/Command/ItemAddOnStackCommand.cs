@@ -10,13 +10,11 @@ namespace Command
 
         #region Private Variables
 
-   
         private List<GameObject> _collectableStack;
         private Transform _transform;
         private StackData _stackData;
 
         #endregion
-
         #endregion
         
         public ItemAddOnStackCommand(ref List<GameObject> CollectableStack,Transform transform,StackData stackData)

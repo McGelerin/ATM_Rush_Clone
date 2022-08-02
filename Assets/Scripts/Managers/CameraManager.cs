@@ -1,5 +1,4 @@
-﻿
-using Cinemachine;
+﻿using Cinemachine;
 using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;

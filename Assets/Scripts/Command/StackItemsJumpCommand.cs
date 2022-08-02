@@ -2,7 +2,6 @@
 using Data.ValueObject;
 using UnityEngine;
 using DG.Tweening;
-using Command;
 
 namespace Controllers
 {

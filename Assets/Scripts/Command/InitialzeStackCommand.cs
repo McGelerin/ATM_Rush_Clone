@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 using Managers;
 using Signals;
 
@@ -12,19 +11,15 @@ namespace Command
 
         #region Private Variables
 
-        private List<GameObject> _collectableStack;
         private StackManager _manager;
         private GameObject _money;
-
+        #endregion
         #endregion
 
-        #endregion
-        public InitialzeStackCommand(ref List<GameObject> collectableStack,GameObject money,StackManager Manager)
+        public InitialzeStackCommand(GameObject money,StackManager Manager)
         {
-            _collectableStack = collectableStack;
             _money = money;
             _manager = Manager;
-
         }
         public void InitialzeStack()
         {
@@ -33,9 +28,7 @@ namespace Command
                 GameObject obj = Object.Instantiate(_money);
                 _manager.ItemAddOnStackCommand.AddStackList(obj);
             }
-
             _manager.StackValueUpdateCommand.StackValuesUpdate();
         }
-    
     }
 }

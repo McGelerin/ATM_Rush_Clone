@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Controllers;
 using UnityEngine;
 using Signals;
-using Sirenix.OdinInspector;
 using Data.UnityObject;
 using Data.ValueObject;
 using Command;
@@ -27,7 +26,6 @@ namespace Managers
 
         #region Private Variables
 
-        [ShowInInspector] private int _totalListScore;
         private StackMoveController _stackMoveController;
         private ItemRemoveOnStackCommand _itemRemoveOnStackCommand;
         private StackShackAnimCommand _stackShackAnimCommand;
@@ -40,12 +38,9 @@ namespace Managers
 
         [SerializeField] private GameObject levelHolder;
         [SerializeField] private GameObject money;
-
+        #endregion
         #endregion
 
-        #endregion
-
-       
         #region Event Subscription
         private void OnEnable()
         {
@@ -81,6 +76,7 @@ namespace Managers
             UnSubscribeEvent();
         }
         #endregion
+
         private void Awake()
         {
             StackData = GetStackData();
@@ -93,10 +89,11 @@ namespace Managers
             _stackInteractionWithConveyorCommand =
                 new StackInteractionWithConveyorCommand(ref CollectableStack, levelHolder, this);
             StackValueUpdateCommand = new StackValueUpdateCommand(ref CollectableStack);
-            _initialzeStackCommand = new InitialzeStackCommand(ref CollectableStack, money, this);
+            _initialzeStackCommand = new InitialzeStackCommand(money, this);
         }
 
         private StackData GetStackData() => Resources.Load<CD_Stack>("Data/CD_StackData").StackData;
+
         private void OnInteractionWithATM(GameObject collectableGameObject)
         {
             ScoreSignals.Instance.onSetAtmScore?.Invoke((int)collectableGameObject.GetComponent<CollectableManager>()
@@ -110,12 +107,14 @@ namespace Managers
                 collectableGameObject.SetActive(false);
             }
         }
+
         private void OnInteractionWithCollectable(GameObject collectableGameObject)
         {
             ItemAddOnStackCommand.AddStackList(collectableGameObject);
             StartCoroutine(_stackShackAnimCommand.StackItemsShackAnim());
             StackValueUpdateCommand.StackValuesUpdate();
         }
+
         private void OnStackMove(Vector2 direction)
         {
             transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 2f);
@@ -129,6 +128,7 @@ namespace Managers
             LastCheck = false;
             _initialzeStackCommand.InitialzeStack();
         }
+
         private void OnReset()
         {
             foreach (Transform childs in transform)

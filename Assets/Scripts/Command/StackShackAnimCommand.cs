@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Data.ValueObject;
 using DG.Tweening;
-using Managers;
 using UnityEngine;
 
 namespace Command
@@ -22,9 +21,7 @@ namespace Command
         {
             _collectableStack = collectableStack;
             _stackData = stackdata;
-
         }
-        
         
         public  IEnumerator StackItemsShackAnim()
         {

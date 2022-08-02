@@ -40,6 +40,7 @@ namespace Controllers
                 _incomeLvlButton.interactable=true;
             }
         }
+
         public void ChangesStackIntaractable()
         {
             if (int.Parse(_money.text) < int.Parse(_stackValue.text) || CoreGameSignals.Instance.onGetStackLevel() >= 15)
@@ -51,16 +52,17 @@ namespace Controllers
                 _stackLvlButton.interactable = true;
             }
         }
+
         public void SetIncomeLvlText()
         {
             _incomeLvlText.text = "Income lvl\n"+CoreGameSignals.Instance.onGetIncomeLevel();
             _incomeValue.text = (Mathf.Pow(2,CoreGameSignals.Instance.onGetIncomeLevel()) * 100).ToString();
         }
+
         public void SetStackLvlText()
         {
             _stackLvlText.text ="Stack lvl\n"+CoreGameSignals.Instance.onGetStackLevel();
             _stackValue.text = (Mathf.Pow(2,CoreGameSignals.Instance.onGetStackLevel()) * 100).ToString();
         }
-
     }
 }

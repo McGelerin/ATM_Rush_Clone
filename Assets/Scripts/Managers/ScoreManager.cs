@@ -1,4 +1,3 @@
-using System;
 using Signals;
 using UnityEngine;
 
@@ -6,10 +5,6 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     #region Self Variables
-
-    #region Public Variables
-
-    #endregion
 
     #region Private Variables
 
@@ -59,13 +54,14 @@ public class ScoreManager : MonoBehaviour
     }
 
     #endregion
+
     private void Awake()
     {
         _money = SetMoney();
         SetValueMultipler();
         RefreshMoney();
     }
-    public void OnSetScore(int setScore)
+    private void OnSetScore(int setScore)
     {
         _scoreCache = (setScore * _stackValueMultiplier) + _atmScoreValue;
         ScoreSignals.Instance.onSetTotalScore?.Invoke(_scoreCache);
@@ -105,6 +101,7 @@ public class ScoreManager : MonoBehaviour
     {
         _stackValueMultiplier = CoreGameSignals.Instance.onGetIncomeLevel();
     }
+
     private void OnReset()
     {
         _scoreCache = 0;

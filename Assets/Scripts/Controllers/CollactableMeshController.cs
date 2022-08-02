@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Data.ValueObject;
 using Enums;
@@ -9,7 +7,6 @@ namespace Controllers {
     {
         #region Self Variables
         #region Serializefield Variables
-
         [SerializeField] private MeshFilter collectableMeshFilter;
         #endregion
         #region Private Variables

@@ -106,7 +106,7 @@ namespace Managers
             }
             else
             {
-                transform.GetChild(0).DOLocalMoveY(Mathf.Clamp(_score,0,900), 2.5f).SetEase(Ease.Flash).SetDelay(1f);
+                transform.GetChild(0).DOLocalMoveY(Mathf.Clamp(_score,0,900), 3f).SetEase(Ease.Flash).SetDelay(1f);
                 yield return new WaitForSeconds(4.5f);
                 LevelSignals.Instance.onLevelSuccessful?.Invoke();
             }
