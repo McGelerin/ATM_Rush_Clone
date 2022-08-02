@@ -40,8 +40,6 @@ namespace Managers
         private void SendPlayerDataToControllers()
         {
             movementController.SetMovementData(Data.MovementData);
-           
-          
         }
 
         #region Event Subscription
