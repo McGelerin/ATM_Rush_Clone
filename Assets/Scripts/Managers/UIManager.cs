@@ -183,7 +183,7 @@ namespace Managers
         
         private void ChangesIncomeIntaractable()
         {
-            if (int.Parse(money.text)<int.Parse(incomeValue.text) && CoreGameSignals.Instance.onGetIncomeLevel()<=99)
+            if (int.Parse(money.text)<int.Parse(incomeValue.text) || CoreGameSignals.Instance.onGetIncomeLevel() >= 30)
             {
                 incomeLvlButton.interactable=false;
             }
@@ -196,7 +196,7 @@ namespace Managers
 
         private void ChangesStackIntaractable()
         {
-            if (int.Parse(money.text) < int.Parse(stackValue.text) && CoreGameSignals.Instance.onGetStackLevel()<=15)
+            if (int.Parse(money.text) < int.Parse(stackValue.text) || CoreGameSignals.Instance.onGetStackLevel() >= 15)
             {
                 stackLvlButton.interactable = false;
             }
