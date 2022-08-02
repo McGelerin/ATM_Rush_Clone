@@ -35,6 +35,7 @@ namespace Managers
         #region Private Variables
 
         private UIPanelController uiPanelController;
+        private ShopControllerController _shopControllerController;
 
         #endregion
 
@@ -79,6 +80,8 @@ namespace Managers
         private void Awake()
         {
             uiPanelController = new UIPanelController();
+            _shopControllerController =
+                new ShopControllerController(money, incomeLvlText, incomeValue, incomeLvlButton,stackLvlText,stackValue,stackLvlButton);
         }
 
         private void Start()
@@ -107,17 +110,17 @@ namespace Managers
             levelText.text = "Level " + (value + 1);
         }
 
-        private void SetIncomeLvlText()
-        {
-            incomeLvlText.text = "Income lvl\n"+CoreGameSignals.Instance.onGetIncomeLevel();
-            incomeValue.text = (Mathf.Pow(2,CoreGameSignals.Instance.onGetIncomeLevel()) * 100).ToString();
-        }
-
-        private void SetStackLvlText()
-        {
-            stackLvlText.text ="Stack lvl\n"+CoreGameSignals.Instance.onGetStackLevel();
-            stackValue.text = (Mathf.Pow(2,CoreGameSignals.Instance.onGetStackLevel()) * 100).ToString();
-        }
+        // private void SetIncomeLvlText()
+        // {
+        //     incomeLvlText.text = "Income lvl\n"+CoreGameSignals.Instance.onGetIncomeLevel();
+        //     incomeValue.text = (Mathf.Pow(2,CoreGameSignals.Instance.onGetIncomeLevel()) * 100).ToString();
+        // }
+        //
+        // private void SetStackLvlText()
+        // {
+        //     stackLvlText.text ="Stack lvl\n"+CoreGameSignals.Instance.onGetStackLevel();
+        //     stackValue.text = (Mathf.Pow(2,CoreGameSignals.Instance.onGetStackLevel()) * 100).ToString();
+        // }
 
         private void OnPlay()
         {
@@ -163,47 +166,47 @@ namespace Managers
 
         private void SyncShopUi()
         {
-            SetIncomeLvlText();
-            SetStackLvlText();
-            ChangesIncomeIntaractable();
-            ChangesStackIntaractable();
+            _shopControllerController.SetIncomeLvlText();
+            _shopControllerController.SetStackLvlText();
+            _shopControllerController.ChangesIncomeIntaractable();
+            _shopControllerController.ChangesStackIntaractable();
         }
 
-        public void IncomeUpdate()
+        private void IncomeUpdate()
         {
             CoreGameSignals.Instance.onClickIncome?.Invoke();
-            SetIncomeLvlText();
+            _shopControllerController.SetIncomeLvlText();
         }
 
-        public void StackUpdate()
+        private void StackUpdate()
         {
             CoreGameSignals.Instance.onClickStack?.Invoke();
-            SetStackLvlText();
+            _shopControllerController.SetStackLvlText();
         }
-        
-        private void ChangesIncomeIntaractable()
-        {
-            if (int.Parse(money.text)<int.Parse(incomeValue.text) || CoreGameSignals.Instance.onGetIncomeLevel() >= 30)
-            {
-                incomeLvlButton.interactable=false;
-            }
-
-            else
-            {
-                incomeLvlButton.interactable=true;
-            }
-        }
-
-        private void ChangesStackIntaractable()
-        {
-            if (int.Parse(money.text) < int.Parse(stackValue.text) || CoreGameSignals.Instance.onGetStackLevel() >= 15)
-            {
-                stackLvlButton.interactable = false;
-            }
-            else
-            {
-                stackLvlButton.interactable = true;
-            }
-        }
+        //
+        // private void ChangesIncomeIntaractable()
+        // {
+        //     if (int.Parse(money.text)<int.Parse(incomeValue.text) || CoreGameSignals.Instance.onGetIncomeLevel() >= 30)
+        //     {
+        //         incomeLvlButton.interactable=false;
+        //     }
+        //
+        //     else
+        //     {
+        //         incomeLvlButton.interactable=true;
+        //     }
+        // }
+        //
+        // private void ChangesStackIntaractable()
+        // {
+        //     if (int.Parse(money.text) < int.Parse(stackValue.text) || CoreGameSignals.Instance.onGetStackLevel() >= 15)
+        //     {
+        //         stackLvlButton.interactable = false;
+        //     }
+        //     else
+        //     {
+        //         stackLvlButton.interactable = true;
+        //     }
+        // }
     }
 }

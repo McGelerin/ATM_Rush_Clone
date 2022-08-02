@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Controllers
+namespace Command
 {
     public class ClearActiveLevelCommand
     {
