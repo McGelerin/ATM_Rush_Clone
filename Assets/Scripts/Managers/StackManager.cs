@@ -111,7 +111,7 @@ namespace Managers
 
         private void OnInteractionWithCollectable(GameObject collectableGameObject)
         {
-            DOTween.Kill(StackItemsJumpCommand);
+            DOTween.Complete(StackItemsJumpCommand);
             ItemAddOnStackCommand.AddStackList(collectableGameObject);
             StartCoroutine(_stackShackAnimCommand.StackItemsShackAnim());
             StackValueUpdateCommand.StackValuesUpdate();
