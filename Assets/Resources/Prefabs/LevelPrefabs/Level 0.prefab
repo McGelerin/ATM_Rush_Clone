@@ -256,18 +256,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4379111206714599118}
     m_Modifications:
-    - target: {fileID: 304959963014692221, guid: 6c8d522b5a2e39e4d999b3de955c08a4, type: 3}
-      propertyPath: m_fontSize
-      value: 10.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 304959963014692221, guid: 6c8d522b5a2e39e4d999b3de955c08a4, type: 3}
-      propertyPath: m_margin.w
-      value: -0.18255451
-      objectReference: {fileID: 0}
-    - target: {fileID: 869464903192760335, guid: 6c8d522b5a2e39e4d999b3de955c08a4, type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4328435950445389299, guid: 6c8d522b5a2e39e4d999b3de955c08a4, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -315,10 +303,6 @@ PrefabInstance:
     - target: {fileID: 4328435950445389309, guid: 6c8d522b5a2e39e4d999b3de955c08a4, type: 3}
       propertyPath: m_Name
       value: PlayerManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4920222493048728722, guid: 6c8d522b5a2e39e4d999b3de955c08a4, type: 3}
-      propertyPath: m_Material
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c8d522b5a2e39e4d999b3de955c08a4, type: 3}
