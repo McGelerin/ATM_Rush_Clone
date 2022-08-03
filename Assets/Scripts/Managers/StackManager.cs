@@ -4,6 +4,7 @@ using UnityEngine;
 using Signals;
 using Data.UnityObject;
 using Data.ValueObject;
+using DG.Tweening;
 using Command;
 
 
@@ -110,6 +111,7 @@ namespace Managers
 
         private void OnInteractionWithCollectable(GameObject collectableGameObject)
         {
+            DOTween.Complete(StackItemsJumpCommand);
             ItemAddOnStackCommand.AddStackList(collectableGameObject);
             StartCoroutine(_stackShackAnimCommand.StackItemsShackAnim());
             StackValueUpdateCommand.StackValuesUpdate();

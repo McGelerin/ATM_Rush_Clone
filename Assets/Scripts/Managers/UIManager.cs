@@ -78,7 +78,7 @@ namespace Managers
         {
             _uiPanelController = new UIPanelController();
             _shopControllerController =
-                new ShopControllerController(money, incomeLvlText, incomeValue, incomeLvlButton,stackLvlText,stackValue,stackLvlButton);
+                new ShopControllerController(ref money, ref incomeLvlText, ref incomeValue,ref incomeLvlButton,ref stackLvlText,ref stackValue,ref stackLvlButton);
         }
 
         private void Start()

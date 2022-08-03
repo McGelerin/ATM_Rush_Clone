@@ -15,8 +15,8 @@ namespace Controllers
          private TextMeshProUGUI _stackLvlText;
          private TextMeshProUGUI _stackValue;
          
-        public ShopControllerController(TextMeshProUGUI money,TextMeshProUGUI incomeLvlText,TextMeshProUGUI incomeValue,Button incomeLvlButton,
-            TextMeshProUGUI stackLvlText,TextMeshProUGUI stackValue,Button stackLvlButton)
+        public ShopControllerController(ref TextMeshProUGUI money,ref TextMeshProUGUI incomeLvlText,ref TextMeshProUGUI incomeValue,ref Button incomeLvlButton,
+            ref TextMeshProUGUI stackLvlText,ref TextMeshProUGUI stackValue,ref Button stackLvlButton)
         {
             _money = money;
             _incomeValue = incomeValue;
@@ -56,13 +56,13 @@ namespace Controllers
         public void SetIncomeLvlText()
         {
             _incomeLvlText.text = "Income lvl\n"+CoreGameSignals.Instance.onGetIncomeLevel();
-            _incomeValue.text = (Mathf.Pow(2,CoreGameSignals.Instance.onGetIncomeLevel()) * 100).ToString();
+            _incomeValue.text = (Mathf.Pow(2, Mathf.Clamp(CoreGameSignals.Instance.onGetIncomeLevel(),0,10)) * 100).ToString();
         }
 
         public void SetStackLvlText()
         {
             _stackLvlText.text ="Stack lvl\n"+CoreGameSignals.Instance.onGetStackLevel();
-            _stackValue.text = (Mathf.Pow(2,CoreGameSignals.Instance.onGetStackLevel()) * 100).ToString();
+            _stackValue.text = (Mathf.Pow(2, Mathf.Clamp(CoreGameSignals.Instance.onGetStackLevel(),0,10)) * 100).ToString();
         }
     }
 }

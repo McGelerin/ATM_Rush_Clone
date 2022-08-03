@@ -32,11 +32,11 @@ namespace Controllers
                 _collectableStack[i].transform.SetParent(_levelHolder.transform.GetChild(0));
                 _collectableStack[i].transform.DOJump(
                     new Vector3(
-                        Random.Range(-_stackData.JumpItemsClampX, _stackData.JumpItemsClampX + 1), //Ust Sinir Dahil Degil
-                        _collectableStack[i].transform.position.y,
+                        Random.Range(-_stackData.JumpItemsClampX, _stackData.JumpItemsClampX + 1),
+                        /*_collectableStack[i].transform.position.y*/1.12f,
                         _collectableStack[i].transform.position.z + Random.Range(10, 15)),
                     _stackData.JumpForce,
-                    Random.Range(1, 3), 0.7f
+                    Random.Range(1, 3), 0.5f
                 );
                 _collectableStack[i].transform.DOScale(Vector3.one, 0);
                 _collectableStack.RemoveAt(i);

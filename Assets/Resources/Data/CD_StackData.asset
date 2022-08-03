@@ -18,4 +18,4 @@ MonoBehaviour:
     ShackAnimDuraction: 0.1
     ShackScaleValue: 1.65
     JumpForce: 7
-    JumpItemsClampX: 5
+    JumpItemsClampX: 4.5
