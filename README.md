@@ -31,7 +31,7 @@ https://user-images.githubusercontent.com/36696145/182642968-7b620af5-2974-472f-
 ## Projenin Özellikleri
 
 ### Unity
-> Unity 2020.1.17f1 sürümü kullanarak yazıldı.
+> Unity 2020.3.17f1 sürümü kullanarak yazıldı.
 
 ------------
 ### Universal Render Pipline
